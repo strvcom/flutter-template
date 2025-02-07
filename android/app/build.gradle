@@ -1,0 +1,169 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+
+    // For Firebase App Distribution
+    id "com.google.firebase.appdistribution"
+    id "com.google.firebase.crashlytics"
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+def minAndroidSdkVersion = 24
+def compileAndroidSdkVersion = 35
+def targetAndroidSdkVersion = 35
+
+// Initialize a new Properties() object called keystoreProperties.
+def debugKeystoreProperties = new Properties()
+debugKeystoreProperties.load(new FileInputStream(rootProject.file("extras/keystore/debug.properties")))
+
+def releaseKeystoreProperties = new Properties()
+releaseKeystoreProperties.load(new FileInputStream(rootProject.file("extras/keystore/release.properties")))
+
+android {
+    compileSdkVersion compileAndroidSdkVersion
+    ndkVersion flutter.ndkVersion
+    flavorDimensions "env"
+    namespace "com.strv.flutter.template"
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+
+        coreLibraryDesugaringEnabled true
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    signingConfigs {
+        debug {
+            keyAlias debugKeystoreProperties['keyAlias']
+            keyPassword debugKeystoreProperties['keyPassword']
+            storeFile file(debugKeystoreProperties['storeFile'])
+            storePassword debugKeystoreProperties['storePassword']
+        }
+        release {
+            keyAlias releaseKeystoreProperties['keyAlias']
+            keyPassword releaseKeystoreProperties['keyPassword']
+            storeFile file(releaseKeystoreProperties['storeFile'])
+            storePassword releaseKeystoreProperties['storePassword']
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.strv.flutter.template"
+        // You can update the following values to match your application needs.
+        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
+        minSdkVersion minAndroidSdkVersion
+        targetSdkVersion targetAndroidSdkVersion
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        multiDexEnabled true
+        testInstrumentationRunner "pl.leancode.patrol.PatrolJUnitRunner"
+        testInstrumentationRunnerArguments clearPackageData: "true"
+    }
+
+    productFlavors {
+        develop {
+            dimension "env"
+            applicationIdSuffix ".develop"
+            versionNameSuffix "-develop"
+        }
+        staging {
+            dimension "env"
+            applicationIdSuffix ".staging"
+            versionNameSuffix "-staging"
+        }
+        production {
+            dimension "env"
+        }
+    }
+
+    buildTypes {
+        // We are using the same bundle ID for debug and profile, so that they
+        // can point to same firebase project.
+        debug {
+            signingConfig signingConfigs.debug
+
+            // Comment this when testing dynamic links.
+            applicationIdSuffix = ".debug"
+        }
+        profile {
+            signingConfig signingConfigs.debug
+
+            minifyEnabled true
+            shrinkResources true
+
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            // Comment this when testing dynamic links.
+            applicationIdSuffix = ".debug"
+        }
+        release {
+            signingConfig signingConfigs.release
+
+            minifyEnabled true
+            shrinkResources true
+
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+           
+            // TODO: Remove or change to true, once Firebase is set-up correctly
+            firebaseCrashlytics {
+                mappingFileUploadEnabled = false
+                unstrippedNativeLibsDir file("build/app/intermediates/merged_native_libs/productionRelease/out/lib")
+            }
+
+            ndk {
+                debugSymbolLevel 'FULL'
+            }
+
+            firebaseAppDistribution {
+                artifactType="APK"
+                releaseNotesFile="../release_notes.txt"
+                serviceCredentialsFile="firebase_app_distribution_service_account.json"
+                groups="developers"
+            }
+        }
+    }
+
+    testOptions {
+        execution "ANDROIDX_TEST_ORCHESTRATOR"
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation 'com.google.android.material:material:1.13.0-alpha05'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.0.0"
+    androidTestUtil "androidx.test:orchestrator:1.4.2"
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
+}
+
+// This section must appear at the bottom of the file
+apply plugin: 'com.google.gms.google-services'

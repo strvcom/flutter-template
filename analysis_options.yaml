@@ -1,0 +1,63 @@
+# This file configures the analyzer, which statically analyzes Dart code to
+# check for errors, warnings, and lints.
+#
+# The issues identified by the analyzer are surfaced in the UI of Dart-enabled
+# IDEs (https://dart.dev/tools#ides-and-editors). The analyzer can also be
+# invoked from the command line by running `flutter analyze`.
+
+# The following line activates a set of recommended lints for Flutter apps,
+# packages, and plugins designed to encourage good coding practices.
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude: 
+    - 'project_setup/**'
+    - '**.g.dart'
+    - '**.gen.dart'
+
+linter:
+  # The lint rules applied to this project can be customized in the
+  # section below to disable rules from the `package:flutter_lints/flutter.yaml`
+  # included above or to enable additional rules. A list of all available lints
+  # and their documentation is published at
+  # https://dart-lang.github.io/linter/lints/index.html.
+  #
+  # Instead of disabling a lint rule for the entire project in the
+  # section below, it can also be suppressed for a single line of code
+  # or a specific dart file by using the `// ignore: name_of_lint` and
+  # `// ignore_for_file: name_of_lint` syntax on the line or in the file
+  # producing the lint.
+  rules:
+    # avoid_redundant_argument_values: true
+    always_declare_return_types: true
+    always_use_package_imports: true
+    avoid_catches_without_on_clauses: true
+    avoid_catching_errors: true
+    avoid_empty_else: true
+    avoid_field_initializers_in_const_classes: true
+    avoid_final_parameters: true
+    avoid_multiple_declarations_per_line: true
+    avoid_types_as_parameter_names: true
+    avoid_types_on_closure_parameters: true
+    avoid_unnecessary_containers: true
+    avoid_void_async: true
+    await_only_futures: true
+    camel_case_extensions: true
+    camel_case_types: true
+    curly_braces_in_flow_control_structures: true
+    empty_statements: true
+    eol_at_end_of_file: true
+    file_names: true
+    leading_newlines_in_multiline_strings: true
+    library_names: true
+    no_duplicate_case_values: true
+    no_logic_in_create_state: true
+    no_self_assignments: true
+    no_wildcard_variable_uses: true
+    prefer_single_quotes: true
+    prefer_void_to_null: true
+    slash_for_doc_comments: true
+    unnecessary_brace_in_string_interps: true
+
+# Additional information about this file can be found at
+# https://dart.dev/guides/language/analysis-options
