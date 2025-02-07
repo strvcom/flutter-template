@@ -1,0 +1,11 @@
+*.g.dart            linguist-generated=true
+*.gen.dart          linguist-generated=true
+*.gr.dart           linguist-generated=true
+*.freezed.dart      linguist-generated=true
+*.graphql.dart      linguist-generated=true
+
+*.g.dart            -diff -merge
+*.gen.dart          -diff -merge
+*.gr.dart           -diff -merge
+*.freezed.dart      -diff -merge
+*.graphql.dart      -diff -merge

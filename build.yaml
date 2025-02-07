@@ -1,0 +1,89 @@
+targets:
+  $default:
+    builders:
+      # Title: Freezed
+      freezed|freezed:
+        enabled: true
+        generate_for:
+          - lib/common/data/dto/*_dto.dart
+          - lib/common/data/dto/**/*_dto.dart
+          - lib/common/data/dto/**/**/*_dto.dart
+
+          - lib/common/data/enum/*.dart
+          - lib/common/data/enum/**/*.dart
+          - lib/common/data/enum/**/**/*.dart
+
+          - lib/common/data/model/*.dart
+          - lib/common/data/model/**/*.dart
+          - lib/common/data/model/**/**/*.dart
+
+          - lib/common/validator/*.dart
+
+          - lib/core/analytics/analytics_event.dart
+          - lib/core/analytics/analytics_screen_view.dart
+          
+          - lib/features/*_event.dart
+          - lib/features/**/*_event.dart
+          - lib/features/**/**/*_event.dart
+          
+          - lib/features/*_state.dart
+          - lib/features/**/*_state.dart
+          - lib/features/**/**/*_state.dart
+
+
+      # Title: Riverpod
+      riverpod_generator|riverpod_generator:
+        enabled: true
+        generate_for:
+          - lib/app/navigation/app_router.dart
+
+          - lib/common/provider/*.dart
+          - lib/common/provider/**/*.dart
+          - lib/common/provider/**/**/*.dart
+
+          - lib/common/usecase/*.dart
+          - lib/common/usecase/**/*.dart
+          - lib/common/usecase/**/**/*.dart
+
+          - lib/core/analytics/analytics_manager.dart
+          - lib/core/analytics/analytics_route_observer.dart
+          - lib/core/analytics/analytics_route_observer.dart
+          - lib/core/database/shared_preferences.dart
+          - lib/core/network/dio_provider.dart
+          
+          - lib/features/*_state.dart
+          - lib/features/**/*_state.dart
+          - lib/features/**/**/*_state.dart
+
+
+      # Title: Json Serializable
+      json_serializable|json_serializable:
+        enabled: true
+        generate_for:
+          - lib/common/data/dto/*_dto.dart
+          - lib/common/data/dto/**/*_dto.dart
+          - lib/common/data/dto/**/**/*_dto.dart
+
+          - lib/common/data/enum/*.dart
+          - lib/common/data/enum/**/*.dart
+          - lib/common/data/enum/**/**/*.dart
+
+          - lib/common/data/model/*.dart
+          - lib/common/data/model/**/*.dart
+          - lib/common/data/model/**/**/*.dart
+
+
+      # Title: Auto Route
+      auto_route_generator|auto_route_generator:
+        enabled: true
+        generate_for:
+          - lib/app/navigation/app_router.dart
+          - lib/features/**/*_page.dart
+
+      auto_route_generator|auto_router_generator:
+        enabled: true
+        generate_for:
+          - lib/app/navigation/app_router.dart
+
+      auto_route_generator|auto_router_module_generator:
+        enabled: false
