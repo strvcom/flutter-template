@@ -1,0 +1,22 @@
+import 'dart:convert';
+
+import 'package:flutter_app/common/data/model/user_model.dart';
+import 'package:flutter_app/core/database/shared_preferences.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'set_database_user_use_case.g.dart';
+
+@riverpod
+Future<void> setDatabaseUserUseCase(
+  Ref ref, {
+  required UserModel? user,
+}) async {
+  final preferences = await ref.read(sharedPreferencesProvider.future);
+
+  if (user == null) {
+    await preferences.remove(PreferencesKeys.currentUserData.value);
+  } else {
+    await preferences.setString(PreferencesKeys.currentUserData.value, jsonEncode(user));
+  }
+}

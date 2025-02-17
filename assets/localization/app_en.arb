@@ -1,0 +1,38 @@
+{
+  "@_Custom_Exception": {},
+  "customExceptionGeneralMessage": "Sorry! Something went wrong",
+  "customExceptionGeneralDetails": "Please, try again later.",
+  "customExceptionUnauthenticatedMessage": "You are not authorized to view this page",
+  "customExceptionNotFoundMessage": "Page you are looking for does not exist",
+  "customExceptionInternetConnectionMessage": "Sorry! No internet connection",
+  "customExceptionInternetConnectionDetails": "Please, try again later.",
+  "customExceptionPageNotFoundMessage": "404 Page not found",
+  "customExceptionPageNotFoundDetails": "Please, check if provided url is correct.",
+  
+  "@_Validator_Exception": {},
+  "validatorExceptionFullNameIsEmpty": "Full name is required",
+  "validatorExceptionFullNameTooShort": "Name must have at least 3 characters",
+  "validatorExceptionFullNameTooLong": "Max. number of 28 characters reached",
+  "validatorExceptionFullNameIsInvalid": "Invalid name",
+  
+  "@_Force_Update": {},
+  "forceUpdateTitle": "We are better than ever!",
+  "forceUpdateDescription": "There is an really important update for you! Please update the app to continue.",
+  "forceUpdateButton": "Update",
+
+  "@_General": {},
+  "appName": "Flutter Template",
+  "generalEmptyStateTitle": "Sorry, nothing is here right now",
+  "generalEmptyStateBody": "Please, try to come back later...",
+  "generalEmptyStateRetryButton": "Retry",
+  "generalErrorStateRetryButton": "Retry",
+  "generalDateToday": "Today",
+  "generalDateTomorrow": "Tomorrow",
+  
+  "@_Home": {},
+  "featureHomepageTitle": "Flutter Template",
+  "featureHomepageOpenDebugTools": "Open debug tools",
+  
+  "@_Debug_Tools": {},
+  "featureDebugToolsUserDetailPageTitle": "Detail page"
+}
