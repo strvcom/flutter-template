@@ -1,13 +1,10 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/app/navigation/app_router.dart';
 import 'package:flutter_app/common/animation/shimmer_loading_animation.dart';
 import 'package:flutter_app/common/component/custom_button/custom_button_primary.dart';
 import 'package:flutter_app/common/component/custom_profile_avatar.dart';
 import 'package:flutter_app/common/component/custom_text/custom_text.dart';
 import 'package:flutter_app/common/extension/async_value.dart';
 import 'package:flutter_app/common/extension/build_context.dart';
-import 'package:flutter_app/features/profile/profile_event.dart';
 import 'package:flutter_app/features/profile/profile_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,15 +14,6 @@ class ProfilePageContent extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(profileStateNotifierProvider);
-
-    ref.listen(
-      profileEventNotifierProvider,
-      (_, next) {
-        next?.whenOrNull(
-          signedOut: () => context.router.replaceAll([const LandingRoute()]),
-        );
-      },
-    );
 
     return state.mapContentState(
       provider: profileStateNotifierProvider,

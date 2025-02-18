@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_app/common/extension/async_value.dart';
 import 'package:flutter_app/features/___feature_name___/___feature_name____state.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ___FeatureName___PageContent extends ConsumerWidget {
   const ___FeatureName___PageContent({super.key});
