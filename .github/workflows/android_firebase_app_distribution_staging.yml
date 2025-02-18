@@ -1,9 +1,9 @@
-name: "[Release] Android - FirebaseAppDistribution - Production"
+name: "[Release] Android - FirebaseAppDistribution - Staging"
 
 on:
   push:
     tags:
-      - "v*-production"
+      - "v*-staging"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -43,13 +43,13 @@ jobs:
         run: make runner_gen
 
       - name: "[Flutter - Build APK]"
-        run: flutter build apk -t lib/main_production.dart --flavor production --obfuscate --split-debug-info=build/app/outputs/symbols
+        run: flutter build apk -t lib/main_staging.dart --flavor staging --obfuscate --split-debug-info=build/app/outputs/symbols
 
       - name: "[Create Firebase App Distribution service account file]"
-        run: echo "${{ secrets.FIREBASE_PROD_CREDENTIAL_FILE_CONTENT }}" | base64 -d > ./android/firebase_app_distribution_service_account.json
+        run: echo "${{ secrets.FIREBASE_DEV_CREDENTIAL_FILE_CONTENT }}" | base64 -d > ./android/firebase_app_distribution_service_account.json
 
       - name: "[Flutter - Upload to Firebase App Distribution]"
-        run: cd android; ./gradlew appDistributionUploadProductionRelease; cd ..
+        run: cd android; ./gradlew appDistributionUplodaStagingRelease; cd ..
 
       # TODO: Add correct AppId from the Firebase Project
       - name: "[Flutter - Upload Crashlytics Mapping Files]"

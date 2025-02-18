@@ -1,18 +1,11 @@
 name: "[Cache] Cache Environment"
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-
-# You need to uncomment [Setup - Flutter Actions with Cache] when you want to use
-# different runner then our internal M1 flutter-builds runner.
-env:
-  java_version: "17"
 
 jobs:
   cache-environment:
@@ -30,19 +23,21 @@ jobs:
         uses: actions/setup-java@v4.7.0
         with:
           distribution: "zulu"
-          java-version: ${{ env.java_version }}
+          java-version: "17"
           cache: gradle
 
       - name: "[Setup - Flutter Actions with Cache]"
         uses: subosito/flutter-action@v2.18.0
         with:
           channel: "stable"
-          flutter-version: 3.27.1
+          flutter-version-file: pubspec.yaml
           cache: true
           architecture: x64
           cache-key: "flutter-:os:-:channel:-:version:-:arch:"
           cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:"
 
       - name: "[Flutter - Generate code]"
-        run: |
-          flutter pub get
+        run: make runner_gen
+
+      - name: "[Flutter - Build APK]"
+        run: flutter build apk -t lib/main_develop.dart --flavor develop --target-platform android-arm64 --debug

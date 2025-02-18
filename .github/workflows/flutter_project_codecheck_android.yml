@@ -2,17 +2,11 @@ name: "[CodeCheck] Flutter - Android"
 
 on:
   pull_request:
-      types: [opened, edited, reopened, synchronize]
+    types: [opened, edited, reopened, synchronize]
 
-concurrency: 
+concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-
-# You need to uncomment [Setup - Flutter Actions with Cache] when you want to use 
-# different runner then our internal M1 flutter-builds runner.
-env:
-  flutter_version: "3.27.1"
-  java_version: "17"
 
 jobs:
   codestyle-check-android:
@@ -23,44 +17,37 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - name: '[Setup - Checkout]'
-        uses: actions/checkout@v4.2.1
+      - name: "[Setup - Checkout]"
+        uses: actions/checkout@v4.2.2
 
-      - name: '[Setup - Java]'
-        uses: actions/setup-java@v4.4.0
+      - name: "[Setup - Java]"
+        uses: actions/setup-java@v4.7.0
         with:
-          distribution: 'zulu'
-          java-version: ${{ env.java_version }}
+          distribution: "zulu"
+          java-version: "17"
+          cache: gradle
 
-      - name: '[Setup - Flutter Actions with Cache]'
-        uses: subosito/flutter-action@v2
+      - name: "[Setup - Flutter Actions with Cache]"
+        uses: subosito/flutter-action@v2.18.0
         with:
-          channel: 'stable'
-          flutter-version: ${{ env.flutter_version }}
+          channel: "stable"
+          flutter-version-file: pubspec.yaml
           cache: true
           architecture: x64
-          cache-key: 'flutter-:os:-:channel:-:version:-:arch:'
-          cache-path: '${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:'
-
-      # Make sure we have latest FVM
-      - name: '[FVM - Install]'
-        run: dart pub global activate fvm
-
-      # Install correct fvm version
-      - name: '[FVM - Install version]'
-        run: fvm install ${{ env.flutter_version }}
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:"
+          cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:"
 
       # Make gen
-      - name: '[Flutter - Generate code]'
-        run: make gen
+      - name: "[Flutter - Generate code]"
+        run: make runner_gen
 
       # Run linter
-      - name: '[Flutter - Run Linter]'
-        run: fvm flutter analyze
+      - name: "[Flutter - Run Linter]"
+        run: flutter analyze
 
       # Build is slightly faster when targeting single platform, debug version and only apk instead of appbundle
-      - name: '[Flutter - Build APK]'
-        run: fvm flutter build apk -t lib/main_develop.dart --flavor develop --target-platform android-arm64 --debug
+      - name: "[Flutter - Build APK]"
+        run: flutter build apk -t lib/main_develop.dart --flavor develop --target-platform android-arm64 --debug
 
       # Only on self hosted. Cleanup the files after the build
       # - name: '[Finish - Cleanup]'

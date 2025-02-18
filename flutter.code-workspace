@@ -159,12 +159,13 @@
       "wayou.vscode-todo-highlight",
       "hzgood.dart-data-class-generator",
       "pkief.material-icon-theme",
-      "yuanhjty.code-template-tool"
+      "yuanhjty.code-template-tool",
+      "orestesgaolin.go-to-pub-dev"
     ]
   },
   "settings": {
     "codeTemplateTool.templatesPath": "{workspace}/.templates",
-    // DART formatting settings
+    // DART formatting
     "[dart]": {
       "editor.formatOnSave": true,
       "editor.formatOnType": true,
@@ -181,7 +182,20 @@
         "source.organizeImports": "explicit"
       },
     },
-    "editor.formatOnSave": true,
+    // GRAPHQL formatting
+    "[graphql]": {
+      "editor.insertSpaces": true,
+      "editor.indentSize": 4,
+      "editor.tabSize": 4,
+      "editor.detectIndentation": false,
+      "editor.autoIndent": "advanced",
+      "editor.formatOnSave": true,
+      "editor.formatOnType": true,
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "prettier.useTabs": false,
+      "prettier.tabWidth": 4,
+    },
+    "editor.formatOnSave": false,
     "editor.wordWrapColumn": 140,
     "explorer.fileNesting.enabled": true,
     "explorer.fileNesting.expand": false,

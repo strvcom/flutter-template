@@ -1,9 +1,10 @@
-
 # This file defines code owners
 # Code owners are automatically requested for review when someone opens a pull request that modifies code that they own.
 # You can set specific user as code owner by @user or whole team by @organization/team
-# Line bellow would automatically set all members of Android department as reviewers for each PR
-#* @strvcom/Android
 # More info here - https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
 
-* @HE-LU @michalurbanek @robha141 @Lonchi78 @HsiaoAi
+# Line bellow would automatically set all members of Flutter department as reviewers for each PR
+#* @company/Flutter
+
+# Line bellow add specific people as reviewers for each PR
+- @HE-LU

@@ -3,17 +3,11 @@ name: "[Release] Android - Google Play Store"
 on:
   push:
     tags:
-      - 'v*-release'
+      - "v*-release"
 
-concurrency: 
+concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-
-# You need to uncomment [Setup - Flutter Actions with Cache] when you want to use 
-# different runner then our internal M1 flutter-builds runner.
-env:
-  flutter_version: "3.27.1"
-  java_version: "17"
 
 jobs:
   play-store-alpha-distribution:
@@ -24,44 +18,37 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - name: '[Setup - Checkout]'
-        uses: actions/checkout@v4.2.1
+      - name: "[Setup - Checkout]"
+        uses: actions/checkout@v4.2.2
 
-      - name: '[Setup - Java]'
-        uses: actions/setup-java@v4.4.0
+      - name: "[Setup - Java]"
+        uses: actions/setup-java@v4.7.0
         with:
-          distribution: 'zulu'
-          java-version: ${{ env.java_version }}
+          distribution: "zulu"
+          java-version: "17"
+          cache: gradle
 
-      - name: '[Setup - Flutter Actions with Cache]'
-        uses: subosito/flutter-action@v2
+      - name: "[Setup - Flutter Actions with Cache]"
+        uses: subosito/flutter-action@v2.18.0
         with:
-          channel: 'stable'
-          flutter-version: ${{ env.flutter_version }}
+          channel: "stable"
+          flutter-version-file: pubspec.yaml
           cache: true
           architecture: x64
-          cache-key: 'flutter-:os:-:channel:-:version:-:arch:'
-          cache-path: '${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:'
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:"
+          cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:"
 
-      # Make sure we have latest FVM
-      - name: '[FVM - Install]'
-        run: dart pub global activate fvm
-
-      # Install correct fvm version
-      - name: '[FVM - Install version]'
-        run: fvm install ${{ env.flutter_version }}
-        
       # Make gen
-      - name: '[Flutter - Generate code]'
-        run: make gen
+      - name: "[Flutter - Generate code]"
+        run: make runner_gen
 
-      - name: '[Flutter - Build AppBundle]'
-        run: fvm flutter build appbundle -t lib/main_production.dart --flavor production --obfuscate --split-debug-info=build/app/outputs/symbols
+      - name: "[Flutter - Build AppBundle]"
+        run: flutter build appbundle -t lib/main_production.dart --flavor production --obfuscate --split-debug-info=build/app/outputs/symbols
 
       # Build and upload to Play Store
       # The deployment implementation is inspired by this blog post:
       # https://medium.com/@josealfonsomora/publishing-android-apps-with-github-actions-3cb9a90396ca
-      - name: '[Flutter - Upload to Play Store Alpha channel]'
+      - name: "[Flutter - Upload to Play Store Alpha channel]"
         uses: r0adkll/upload-google-play@v1.1.1
         with:
           serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_DISTRIBUTION_SERVICE_ACCOUNT_JSON }}
@@ -75,9 +62,9 @@ jobs:
           #userFraction: 0.1 # Rollout of the release <0;1>
 
       # TODO: Add correct AppId from the Firebase Project
-      - name: '[Flutter - Upload Crashlytics Mapping Files]'
+      - name: "[Flutter - Upload Crashlytics Mapping Files]"
         run: firebase crashlytics:symbols:upload --app=XXX build/app/outputs/symbols
-      
+
       # Only on self hosted. Cleanup the files after the build
       # - name: '[Finish - Cleanup]'
       #   run: |

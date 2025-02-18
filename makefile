@@ -1,5 +1,5 @@
 # https://medium.com/flutter-community/automating-flutter-workflows-with-the-makefile-423b8e023c9a
-.PHONY: setup build_runner clean gen gen_locale install integration_test test generateAndroidProductionAppBundle generateIosStagingIpa generateIosProductionIpa generateWebProduction deployWeb
+.PHONY: setup build_runner clean gen gen_locale install integration_test test generateAndroidProductionAppBundle generateIosStagingIpa generateIosProductionIpa generateWebProduction deployWeb runner_gen
 
 setup: # Setup the project
 	@fvm dart ./project_setup/lib/main.dart
@@ -53,3 +53,8 @@ generateWebProduction: # Clean everything and build Web
 # TODO: Update project name or remove in case there is no web or when web is not hosted on Firebase.
 deployWeb: # Deploy already builded Web
 	@firebase deploy --project strv-flutter-template
+
+runner_gen: # For github actions
+	@flutter pub get
+	@flutter gen-l10n --arb-dir "assets/localization" --template-arb-file "app_en.arb" --output-localization-file "app_localizations.gen.dart" --output-dir "lib/assets" --no-synthetic-package
+	@dart run build_runner build --delete-conflicting-outputs
