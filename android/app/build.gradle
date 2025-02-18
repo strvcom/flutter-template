@@ -39,7 +39,7 @@ releaseKeystoreProperties.load(new FileInputStream(rootProject.file("extras/keys
 
 android {
     compileSdkVersion compileAndroidSdkVersion
-    ndkVersion flutter.ndkVersion
+    ndkVersion "27.0.12077973"
     flavorDimensions "env"
     namespace "com.strv.flutter.template"
 

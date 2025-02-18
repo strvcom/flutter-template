@@ -1,0 +1,48 @@
+name: "[Cache] Cache Environment"
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# You need to uncomment [Setup - Flutter Actions with Cache] when you want to use
+# different runner then our internal M1 flutter-builds runner.
+env:
+  java_version: "17"
+
+jobs:
+  cache-environment:
+    name: Cache Environment
+
+    runs-on: ubuntu-latest
+    # runs-on: [self-hosted, macOS, flutter-builds]  # use this for self-hosted runners
+    timeout-minutes: 10
+
+    steps:
+      - name: "[Setup - Checkout]"
+        uses: actions/checkout@v4.2.1
+
+      - name: "[Setup - Java]"
+        uses: actions/setup-java@v4.7.0
+        with:
+          distribution: "zulu"
+          java-version: ${{ env.java_version }}
+          cache: gradle
+
+      - name: "[Setup - Flutter Actions with Cache]"
+        uses: subosito/flutter-action@v2.18.0
+        with:
+          channel: "stable"
+          flutter-version: 3.27.1
+          cache: true
+          architecture: x64
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:"
+          cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:"
+
+      - name: "[Flutter - Generate code]"
+        run: |
+          flutter pub get
