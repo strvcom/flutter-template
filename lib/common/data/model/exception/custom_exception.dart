@@ -7,6 +7,7 @@ import 'package:flutter_app/common/extension/build_context.dart';
 import 'package:flutter_app/core/analytics/crashlytics_manager.dart';
 import 'package:flutter_app/core/flogger.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 part 'custom_exception.freezed.dart';
 
@@ -48,12 +49,19 @@ class CustomException with _$CustomException implements Exception {
 
           return CustomException.withMessage(message: error.message);
       }
+    } else if (error is SignInWithAppleAuthorizationException) {
+      switch (error.code) {
+        case AuthorizationErrorCode.canceled:
+          return CustomException.signInCancelled();
+        default:
+          return CustomException.withMessage(message: error.message);
+      }
     } else if (error is FirebaseAuthException) {
       switch (error.code) {
         case 'credential-already-in-use':
           return CustomException.credentialAlreadyInUse(credential: error.credential);
         default:
-          return const CustomException.general();
+          return CustomException.withMessage(message: error.message);
       }
     } else {
       return const CustomException.general();
