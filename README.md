@@ -356,10 +356,10 @@ To be able to use the firebase provider for Apple login, we need to do some conf
 
 - Create a Service ID - this is the service that would provide sign in with apple. `Developer -> Certificates, Identifiers & Profiles -> Identifiers -> Create new -> Services IDs`
     (note: to get into services there is a filter on Identifiers screen on right top where you can switch from identifiers to services.)
-    - Description will be visible to our users - e.g. WearTechClub
-    - Identifier - can be app/bundle ID `com.wearthech.club.develop` or simply `weartechclub-develop`
+    - Description will be visible to our users - e.g. Template
+    - Identifier - can be app/bundle ID `com.strv.flutter.template.develop` or simply `flutter-template-develop`
     - Enable Sign in with Apple for the service 
-        - Domains is url of your page e.g. `weartechclub.com`
+        - Domains is url of your page e.g. `template.com`
         - Return URL is crucial part - this will be taken from Firebase: Authentication -> Sign-in method -> Apple -> callback URL
 
 - Create a key: `Developer -> Certificates, Identifiers & Profiles -> Keys -> Create new`
@@ -370,9 +370,9 @@ To be able to use the firebase provider for Apple login, we need to do some conf
     - Save -> Continue -> Register -> download the key
 
 - Firebase setup that will be done under `Authentication -> Sign-in method -> Apple`
-    - Services ID - this is the Identifier of a Service ID created in Apple Developer - `weartechclub-develop`
-    - Apple team Id from Developer (e.g. `965Y62DKGTU`)
-    - Key Id - generated when the key was created in previous step  (e.g. `798BRVKFKO`)
+    - Services ID - this is the Identifier of a Service ID created in Apple Developer - `flutter-template-develop`
+    - Apple team Id from Developer (e.g. `965Y6XXXXXX`)
+    - Key Id - generated when the key was created in previous step  (e.g. `798BXXXXXX`)
     - Private key - when you created the key you downloaded the Private key as .p8 file
     - Save it and check the `callback URL` - if it changed from what you have in your `Service ID` as `Return URL`, update it in Apple Developer
 <!-- ################################################## -->

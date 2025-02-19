@@ -50,9 +50,17 @@ generateWebProduction: # Clean everything and build Web
 	@make clean
 	@fvm flutter build web -t lib/main_production.dart --web-renderer canvaskit
 
+# This requires to have firebase-tools installed globally on the system.
+# npm install -g firebase-tools
+#
+# It also requires to be logged in to firebase with the correct account.
+# firebase login
+#
+# To get the project ID, run the following command:
+# firebase projects:list
 # TODO: Update project name or remove in case there is no web or when web is not hosted on Firebase.
-deployWeb: # Deploy already builded Web
-	@firebase deploy --project strv-flutter-template
+deployWeb:
+	@firebase deploy --project XXX
 
 runner_gen: # For github actions
 	@flutter pub get

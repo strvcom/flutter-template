@@ -25,7 +25,7 @@ class DebugToolsListDialog {
         context: builderContext,
         title: title,
         content: SizedBox(
-          width: ResponsiveWidget.mediumSizeTreshold,
+          width: ResponsiveWidget.mediumSizeThreshold,
           child: ListView.separated(
             shrinkWrap: true,
             itemCount: list.length,

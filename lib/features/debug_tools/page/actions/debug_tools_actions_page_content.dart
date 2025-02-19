@@ -74,7 +74,7 @@ class _DebugToolsActionsPageContentState extends ConsumerState<DebugToolsActions
         onChanged: (value) => setState(() => debugRepaintRainbowEnabled = !debugRepaintRainbowEnabled),
       ),
       CustomSwitch(
-        title: 'Time Dilataion',
+        title: 'Time Dilation',
         value: timeDilation != 1,
         dense: true,
         onChanged: (value) => setState(() => timeDilation = (timeDilation == 6) ? 1 : 6),

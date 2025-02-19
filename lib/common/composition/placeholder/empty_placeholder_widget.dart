@@ -20,7 +20,7 @@ class EmptyPlaceholderWidget extends StatelessWidget {
       child: Align(
         alignment: Alignment.center,
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: ResponsiveWidget.mediumSizeTreshold),
+          constraints: const BoxConstraints(maxWidth: ResponsiveWidget.mediumSizeThreshold),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

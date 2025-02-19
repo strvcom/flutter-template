@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/// This widget is a helper to build responsive UIs.
+/// Feel free to polish this Widget by app needs. Some projects may require just small and large sizes.
 class ResponsiveWidget extends StatelessWidget {
   const ResponsiveWidget({
     super.key,
@@ -8,8 +10,8 @@ class ResponsiveWidget extends StatelessWidget {
     this.large,
   });
 
-  static const double mediumSizeTreshold = 800;
-  static const double largeSizeTreshold = 1600;
+  static const double mediumSizeThreshold = 800;
+  static const double largeSizeThreshold = 1600;
 
   final Widget Function() small;
   final Widget Function()? medium;
@@ -32,11 +34,25 @@ class ResponsiveWidget extends StatelessWidget {
     T Function()? large,
   }) {
     final maxWidth = MediaQuery.sizeOf(context).width;
-    if (maxWidth >= largeSizeTreshold && large != null) {
-      return large();
-    } else if (maxWidth >= mediumSizeTreshold && medium != null) {
-      return medium();
-    } else {
+    return resolveValueByWidth(maxWidth, small: small, medium: medium, large: large);
+  }
+
+  static T resolveValueByWidth<T>(
+    double maxWidth, {
+    required T Function() small,
+    T Function()? medium,
+    T Function()? large,
+  }) {
+    try {
+      if (maxWidth >= largeSizeThreshold && large != null) {
+        return large();
+      } else if (maxWidth >= mediumSizeThreshold && medium != null) {
+        return medium();
+      } else {
+        return small();
+      }
+      // ignore: avoid_catching_errors
+    } on FlutterError catch (_) {
       return small();
     }
   }
@@ -46,21 +62,21 @@ class ResponsiveWidget extends StatelessWidget {
       maxWidth: ResponsiveWidget.resolveValue(
         context,
         small: () => double.infinity,
-        medium: () => ResponsiveWidget.mediumSizeTreshold,
-        large: () => ResponsiveWidget.largeSizeTreshold,
+        medium: () => ResponsiveWidget.mediumSizeThreshold,
+        large: () => ResponsiveWidget.largeSizeThreshold,
       ),
     );
   }
 
   static bool isSmallScreen(BuildContext context) {
-    return MediaQuery.sizeOf(context).width < mediumSizeTreshold;
+    return MediaQuery.sizeOf(context).width < mediumSizeThreshold;
   }
 
   static bool isMediumScreen(BuildContext context) {
-    return MediaQuery.sizeOf(context).width >= mediumSizeTreshold && MediaQuery.sizeOf(context).width < largeSizeTreshold;
+    return MediaQuery.sizeOf(context).width >= mediumSizeThreshold && MediaQuery.sizeOf(context).width < largeSizeThreshold;
   }
 
   static bool isLargeScreen(BuildContext context) {
-    return MediaQuery.sizeOf(context).width >= largeSizeTreshold;
+    return MediaQuery.sizeOf(context).width >= largeSizeThreshold;
   }
 }

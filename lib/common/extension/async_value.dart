@@ -46,7 +46,7 @@ extension AsyncValueExtension<T> on AsyncValue<T> {
               Scaffold(
                 appBar: const CustomAppBar(),
                 body: SafeArea(
-                  child: _EmptyPlacholderWidget(provider),
+                  child: _EmptyPlaceholderWidget(provider),
                 ),
               ))
           // Title: Data State
@@ -73,7 +73,7 @@ extension AsyncValueExtension<T> on AsyncValue<T> {
 
       data: (dataParam) => (isEmpty?.let((it) => it(dataParam.value)) ?? false)
           // Title: Empty State
-          ? (empty?.call(dataParam.value) ?? _EmptyPlacholderWidget(provider))
+          ? (empty?.call(dataParam.value) ?? _EmptyPlaceholderWidget(provider))
           // Title: Data State
           : data(dataParam.value),
     );
@@ -91,8 +91,8 @@ class _ProgressIndicatorWidget extends StatelessWidget {
   }
 }
 
-class _EmptyPlacholderWidget extends StatelessWidget {
-  const _EmptyPlacholderWidget(
+class _EmptyPlaceholderWidget extends StatelessWidget {
+  const _EmptyPlaceholderWidget(
     this.provider,
   );
 

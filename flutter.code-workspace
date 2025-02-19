@@ -204,6 +204,7 @@
       "pubspec.yaml": "analysis_options.yaml, build.yaml, devtools_options.yaml",
       ".gitignore": ".gitattributes",
       "firebase.json": ".firebaserc",
+      "*.graphql": "${capture}.graphql.dart",
       "README.md": "LICENSE",
     },
     "dart.lineLength": 140,

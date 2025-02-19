@@ -36,7 +36,7 @@ class CustomSnackbarSuccess {
     final isSmallScreen = ResponsiveWidget.isSmallScreen(context);
 
     return SnackBar(
-      width: isSmallScreen ? null : ResponsiveWidget.mediumSizeTreshold,
+      width: isSmallScreen ? null : ResponsiveWidget.mediumSizeThreshold,
       margin: isSmallScreen ? EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20 + optionalBottomSpacing) : null,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
       backgroundColor: context.colorScheme.snackbarBackground.withValues(alpha: 0.94),
