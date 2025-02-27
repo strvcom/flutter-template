@@ -1,0 +1,137 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Develop - Debug",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_develop.dart",
+      "args": [
+        "--web-browser-flag",
+        "--user-data-dir=./.chrome_data_dir",
+        "--web-port",
+        "5000",
+        "--flavor",
+        "develop"
+      ]
+    },
+    {
+      "name": "Develop - Profile",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_develop.dart",
+      "flutterMode": "profile",
+      "args": [
+        "--web-browser-flag",
+        "--user-data-dir=./.chrome_data_dir",
+        "--web-port",
+        "5000",
+        "--flavor",
+        "develop"
+      ]
+    },
+    {
+      "name": "Develop - Release",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_develop.dart",
+      "flutterMode": "release",
+      "args": [
+        "--web-browser-flag",
+        "--user-data-dir=./.chrome_data_dir",
+        "--web-port",
+        "5000",
+        "--flavor",
+        "develop"
+      ]
+    },
+    {
+      "name": "Staging - Debug",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_staging.dart",
+      "args": [
+        "--web-browser-flag",
+        "--user-data-dir=./.chrome_data_dir",
+        "--web-port",
+        "5000",
+        "--flavor",
+        "staging"
+      ]
+    },
+    {
+      "name": "Staging - Profile",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_staging.dart",
+      "flutterMode": "profile",
+      "args": [
+        "--web-browser-flag",
+        "--user-data-dir=./.chrome_data_dir",
+        "--web-port",
+        "5000",
+        "--flavor",
+        "staging"
+      ]
+    },
+    {
+      "name": "Staging - Release",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_staging.dart",
+      "flutterMode": "release",
+      "args": [
+        "--web-browser-flag",
+        "--user-data-dir=./.chrome_data_dir",
+        "--web-port",
+        "5000",
+        "--flavor",
+        "staging"
+      ]
+    },
+    {
+      "name": "Production - Debug",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_production.dart",
+      "args": [
+        "--web-browser-flag",
+        "--user-data-dir=./.chrome_data_dir",
+        "--web-port",
+        "5000",
+        "--flavor",
+        "production"
+      ]
+    },
+    {
+      "name": "Production - Profile",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_production.dart",
+      "flutterMode": "profile",
+      "args": [
+        "--web-browser-flag",
+        "--user-data-dir=./.chrome_data_dir",
+        "--web-port",
+        "5000",
+        "--flavor",
+        "production"
+      ]
+    },
+    {
+      "name": "Production - Release",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_production.dart",
+      "flutterMode": "release",
+      "args": [
+        "--web-browser-flag",
+        "--user-data-dir=./.chrome_data_dir",
+        "--web-port",
+        "5000",
+        "--flavor",
+        "production"
+      ]
+    }
+  ]
+}

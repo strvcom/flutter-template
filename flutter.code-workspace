@@ -11,145 +11,8 @@
     {
       "name": "Flutter",
       "path": "./lib"
-    },
+    }
   ],
-  "launch": {
-    "version": "0.2.0",
-    "configurations": [
-      {
-        "name": "Develop - Debug",
-        "request": "launch",
-        "type": "dart",
-        "program": "lib/main_develop.dart",
-        "args": [
-          "--web-browser-flag",
-          "--user-data-dir=./.chrome_data_dir",
-          "--web-port",
-          "5000",
-          "--flavor",
-          "develop",
-        ]
-      },
-      {
-        "name": "Develop - Profile",
-        "request": "launch",
-        "type": "dart",
-        "program": "lib/main_develop.dart",
-        "flutterMode": "profile",
-        "args": [
-          "--web-browser-flag",
-          "--user-data-dir=./.chrome_data_dir",
-          "--web-port",
-          "5000",
-          "--flavor",
-          "develop",
-        ]
-      },
-      {
-        "name": "Develop - Release",
-        "request": "launch",
-        "type": "dart",
-        "program": "lib/main_develop.dart",
-        "flutterMode": "release",
-        "args": [
-          "--web-browser-flag",
-          "--user-data-dir=./.chrome_data_dir",
-          "--web-port",
-          "5000",
-          "--flavor",
-          "develop",
-        ]
-      },
-      {
-        "name": "Staging - Debug",
-        "request": "launch",
-        "type": "dart",
-        "program": "lib/main_staging.dart",
-        "args": [
-          "--web-browser-flag",
-          "--user-data-dir=./.chrome_data_dir",
-          "--web-port",
-          "5000",
-          "--flavor",
-          "staging",
-        ]
-      },
-      {
-        "name": "Staging - Profile",
-        "request": "launch",
-        "type": "dart",
-        "program": "lib/main_staging.dart",
-        "flutterMode": "profile",
-        "args": [
-          "--web-browser-flag",
-          "--user-data-dir=./.chrome_data_dir",
-          "--web-port",
-          "5000",
-          "--flavor",
-          "staging",
-        ]
-      },
-      {
-        "name": "Staging - Release",
-        "request": "launch",
-        "type": "dart",
-        "program": "lib/main_staging.dart",
-        "flutterMode": "release",
-        "args": [
-          "--web-browser-flag",
-          "--user-data-dir=./.chrome_data_dir",
-          "--web-port",
-          "5000",
-          "--flavor",
-          "staging",
-        ]
-      },
-      {
-        "name": "Production - Debug",
-        "request": "launch",
-        "type": "dart",
-        "program": "lib/main_production.dart",
-        "args": [
-          "--web-browser-flag",
-          "--user-data-dir=./.chrome_data_dir",
-          "--web-port",
-          "5000",
-          "--flavor",
-          "production",
-        ]
-      },
-      {
-        "name": "Production - Profile",
-        "request": "launch",
-        "type": "dart",
-        "program": "lib/main_production.dart",
-        "flutterMode": "profile",
-        "args": [
-          "--web-browser-flag",
-          "--user-data-dir=./.chrome_data_dir",
-          "--web-port",
-          "5000",
-          "--flavor",
-          "production",
-        ]
-      },
-      {
-        "name": "Production - Release",
-        "request": "launch",
-        "type": "dart",
-        "program": "lib/main_production.dart",
-        "flutterMode": "release",
-        "args": [
-          "--web-browser-flag",
-          "--user-data-dir=./.chrome_data_dir",
-          "--web-port",
-          "5000",
-          "--flavor",
-          "production",
-        ]
-      },
-    ]
-  },
   "extensions": {
     "recommendations": [
       "Dart-Code.dart-code",
@@ -164,14 +27,30 @@
     ]
   },
   "settings": {
-    "codeTemplateTool.templatesPath": "{workspace}/.templates",
+    "editor.formatOnSave": false,
+    "editor.wordWrapColumn": 140,
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.expand": false,
+    "explorer.fileNesting.patterns": {
+      "*.dart": "$(capture).graphql.dart",
+      "pubspec.yaml": "analysis_options.yaml, build.yaml, devtools_options.yaml",
+      ".gitignore": ".gitattributes",
+      "firebase.json": ".firebaserc",
+      "*.graphql": "${capture}.graphql.dart",
+      "README.md": "LICENSE"
+    },
+    "dart.lineLength": 140,
+    "dart.debugSdkLibraries": false,
+    "dart.showInspectorNotificationsForWidgetErrors": false,
+    "dart.debugExternalPackageLibraries": false,
+    "dart.previewFlutterUiGuidesCustomTracking": true,
+    "dart.previewFlutterUiGuides": true,
+    "dart.flutterSdkPath": ".fvm/flutter_sdk",
     // DART formatting
     "[dart]": {
       "editor.formatOnSave": true,
       "editor.formatOnType": true,
-      "editor.rulers": [
-        140
-      ],
+      "editor.rulers": [140],
       "editor.selectionHighlight": false,
       "editor.suggest.snippetsPreventQuickSuggestions": false,
       "editor.suggestSelection": "first",
@@ -180,7 +59,7 @@
       "editor.codeActionsOnSave": {
         "source.fixAll": "explicit",
         "source.organizeImports": "explicit"
-      },
+      }
     },
     // GRAPHQL formatting
     "[graphql]": {
@@ -193,27 +72,8 @@
       "editor.formatOnType": true,
       "editor.defaultFormatter": "esbenp.prettier-vscode",
       "prettier.useTabs": false,
-      "prettier.tabWidth": 4,
+      "prettier.tabWidth": 4
     },
-    "editor.formatOnSave": false,
-    "editor.wordWrapColumn": 140,
-    "explorer.fileNesting.enabled": true,
-    "explorer.fileNesting.expand": false,
-    "explorer.fileNesting.patterns": {
-      "*.dart": "$(capture).graphql.dart",
-      "pubspec.yaml": "analysis_options.yaml, build.yaml, devtools_options.yaml",
-      ".gitignore": ".gitattributes",
-      "firebase.json": ".firebaserc",
-      "*.graphql": "${capture}.graphql.dart",
-      "README.md": "LICENSE",
-    },
-    "dart.lineLength": 140,
-    "dart.debugSdkLibraries": false,
-    "dart.showInspectorNotificationsForWidgetErrors": false,
-    "dart.debugExternalPackageLibraries": false,
-    "dart.previewFlutterUiGuidesCustomTracking": true,
-    "dart.previewFlutterUiGuides": true,
-    "dart.flutterSdkPath": ".fvm/flutter_sdk",
     // Other settings
     "files.exclude": {
       "**/*.lock": true,
@@ -294,7 +154,7 @@
       "android/**/*.keystore": false,
       "android/**/*.jks": true
     },
-    // Material Icons theme
+    // [material-icon-theme] Material Icons theme
     "material-icon-theme.folders.associations": {
       ".templates": "template",
       "integration_test": "test",
@@ -323,9 +183,11 @@
       "analytics": "tasks",
       "network": "connection",
       "riverpod": "stack",
-      "debug_tools": "debug",
+      "debug_tools": "debug"
     },
-    // ToDo Highlight color settings
+    // [codeTemplateTool] Settings
+    "codeTemplateTool.templatesPath": "{workspace}/.templates",
+    // [todohighlight] color settings
     "todohighlight.isEnable": true,
     "todohighlight.isCaseSensitive": true,
     "todohighlight.keywords": [
@@ -333,38 +195,38 @@
         "text": " TODO: ",
         "color": "#a8c023",
         "isWholeLine": true,
-        "backgroundColor": "rgba(0,0,0,0)",
+        "backgroundColor": "rgba(0,0,0,0)"
       },
       {
         "text": " FIXME: ",
         "color": "#f06292",
         "isWholeLine": true,
-        "backgroundColor": "rgba(0,0,0,0)",
+        "backgroundColor": "rgba(0,0,0,0)"
       },
       {
         "text": " Note: ",
         "color": "#05AAAE",
         "isWholeLine": true,
-        "backgroundColor": "rgba(0,0,0,0)",
+        "backgroundColor": "rgba(0,0,0,0)"
       },
       {
         "text": " Warning: ",
         "color": "#F27200",
         "isWholeLine": true,
-        "backgroundColor": "rgba(0,0,0,0)",
+        "backgroundColor": "rgba(0,0,0,0)"
       },
       {
         "text": " Title: ",
         "color": "#FF1200",
         "isWholeLine": true,
-        "backgroundColor": "rgba(0,0,0,0)",
+        "backgroundColor": "rgba(0,0,0,0)"
       },
       {
         "text": " Subtitle: ",
         "color": "#BE0011",
         "isWholeLine": true,
-        "backgroundColor": "rgba(0,0,0,0)",
+        "backgroundColor": "rgba(0,0,0,0)"
       }
-    ],
-  },
+    ]
+  }
 }

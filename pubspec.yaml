@@ -5,7 +5,8 @@ version: 1.0.0+10000000 #1 00 00 000
 
 
 environment:
-  sdk: ">=3.7.0 <4.0.0"
+  # TODO: Hold the version back to 3.6.0, until the formatting is fixed(https://github.com/dart-lang/dart_style/issues/1253)
+  sdk: ">=3.6.0 <4.0.0"
   flutter: 3.29.0
 
 
