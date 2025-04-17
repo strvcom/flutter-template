@@ -1,10 +1,10 @@
 # https://medium.com/flutter-community/automating-flutter-workflows-with-the-makefile-423b8e023c9a
-.PHONY: setup build_runner clean gen gen_locale install integration_test test generateAndroidProductionAppBundle generateIosStagingIpa generateIosProductionIpa generateWebProduction deployWeb runner_gen
+.PHONY: setup watch clean gen gen_locale install integration_test test generateAndroidProductionAppBundle generateIosStagingIpa generateIosProductionIpa generateWebProduction deployWeb runner_gen
 
 setup: # Setup the project
 	@fvm dart ./project_setup/lib/main.dart
 
-build_runner: # Run build_runner
+watch: # Run build_runner
 	@fvm dart run build_runner watch --delete-conflicting-outputs
 
 clean: # Clean everything in the project, download dependencies, generate code

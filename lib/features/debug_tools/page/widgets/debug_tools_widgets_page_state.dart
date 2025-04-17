@@ -8,7 +8,7 @@ part 'debug_tools_widgets_page_state.freezed.dart';
 part 'debug_tools_widgets_page_state.g.dart';
 
 @freezed
-class DebugToolsWidgetsPageState with _$DebugToolsWidgetsPageState {
+abstract class DebugToolsWidgetsPageState with _$DebugToolsWidgetsPageState {
   const DebugToolsWidgetsPageState._();
 
   const factory DebugToolsWidgetsPageState({

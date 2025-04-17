@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'analytics_event.freezed.dart';
 
 @freezed
-class AnalyticsEvent with _$AnalyticsEvent {
+abstract class AnalyticsEvent with _$AnalyticsEvent {
   factory AnalyticsEvent._({
     required String firebaseEventId,
     Map<String, String>? firebaseEventParams,

@@ -27,7 +27,10 @@ FutureOr<UserModel> signInWithAuthCredentialUseCase(
       Flogger.d('[Authentication] Anonymous user was linked with google credential');
     } on Exception catch (error) {
       final customException = CustomException.fromErrorObject(error: error);
-      final credentialIsAlreadyInUse = customException.mapOrNull(credentialAlreadyInUse: (value) => value.credential);
+      final credentialIsAlreadyInUse = switch (customException) {
+        CustomExceptionCredentialAlreadyInUse(credential: final credential) => credential,
+        _ => null,
+      };
 
       if (credentialIsAlreadyInUse != null) {
         await FirebaseAuth.instance.signInWithCredential(credentialIsAlreadyInUse);

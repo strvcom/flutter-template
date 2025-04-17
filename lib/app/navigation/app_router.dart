@@ -29,7 +29,7 @@ class AppRouter extends RootStackRouter {
           initial: true,
           // We don't really need to animate landing page, because
           // it doesn't have UI, it's covered by splash screen.
-          durationInMilliseconds: 0,
+          duration: Duration.zero,
         ),
 
         // Subtitle: Authentication Route

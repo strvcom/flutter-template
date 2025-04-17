@@ -5,8 +5,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'debug_tools_widgets_page_event.freezed.dart';
 
 @freezed
-class DebugToolsWidgetsPageEvent with _$DebugToolsWidgetsPageEvent {
-  const factory DebugToolsWidgetsPageEvent.fieldValidated({required String message}) = _DebugToolsSomeEvent;
+sealed class DebugToolsWidgetsPageEvent with _$DebugToolsWidgetsPageEvent {
+  const factory DebugToolsWidgetsPageEvent.fieldValidated({required String message}) = DebugToolsWidgetsPageEventFieldValidated;
 }
 
 final debugToolsWidgetsPageEventNotifierProvider =

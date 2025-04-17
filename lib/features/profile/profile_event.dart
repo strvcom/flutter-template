@@ -5,8 +5,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'profile_event.freezed.dart';
 
 @freezed
-class ProfileEvent with _$ProfileEvent {
-  const factory ProfileEvent.signedOut() = _SignedOut;
+sealed class ProfileEvent with _$ProfileEvent {
+  const factory ProfileEvent.signedOut() = ProfileEventSignedOut;
 }
 
 final profileEventNotifierProvider =

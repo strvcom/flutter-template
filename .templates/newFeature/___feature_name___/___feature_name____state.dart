@@ -6,7 +6,7 @@ part '___feature_name____state.freezed.dart';
 part '___feature_name____state.g.dart';
 
 @freezed
-class ___FeatureName___State with _$___FeatureName___State {
+abstract class ___FeatureName___State with _$___FeatureName___State {
   const factory ___FeatureName___State({
     required bool sample,
   }) = ____FeatureName___State;

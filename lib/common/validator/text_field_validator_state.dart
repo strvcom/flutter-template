@@ -5,22 +5,31 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'text_field_validator_state.freezed.dart';
 
 @freezed
-class TextFieldValidatorState with _$TextFieldValidatorState {
+sealed class TextFieldValidatorState with _$TextFieldValidatorState {
   const TextFieldValidatorState._();
 
-  const factory TextFieldValidatorState.initial() = _Initial;
-  const factory TextFieldValidatorState.valid() = _Valid;
-  const factory TextFieldValidatorState.invalid({required ValidatorException exception}) = _Invalid;
+  const factory TextFieldValidatorState.initial() = TextFieldValidatorStateInitial;
+  const factory TextFieldValidatorState.valid() = TextFieldValidatorStateValid;
+  const factory TextFieldValidatorState.invalid({required ValidatorException exception}) = TextFieldValidatorStateInvalid;
 
   bool get isValid {
-    return mapOrNull(valid: (_) => true) ?? false;
+    return switch (this) {
+      TextFieldValidatorStateValid() => true,
+      _ => false,
+    };
   }
 
   bool get hasError {
-    return mapOrNull(invalid: (_) => true) ?? false;
+    return switch (this) {
+      TextFieldValidatorStateInvalid() => true,
+      _ => false,
+    };
   }
 
   String? getErrorMessage(BuildContext context) {
-    return mapOrNull(invalid: (value) => value.exception.getMessage(context: context));
+    return switch (this) {
+      TextFieldValidatorStateInvalid(exception: final exception) => exception.getMessage(context: context),
+      _ => null,
+    };
   }
 }

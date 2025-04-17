@@ -5,7 +5,7 @@ part 'user_response_dto.freezed.dart';
 part 'user_response_dto.g.dart';
 
 @freezed
-class UserResponseDTO with _$UserResponseDTO {
+abstract class UserResponseDTO with _$UserResponseDTO {
   const factory UserResponseDTO({
     required String id,
     required UserRole role,

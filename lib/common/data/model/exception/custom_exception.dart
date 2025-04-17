@@ -12,18 +12,18 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 part 'custom_exception.freezed.dart';
 
 @freezed
-class CustomException with _$CustomException implements Exception {
+sealed class CustomException with _$CustomException implements Exception {
   const CustomException._();
 
-  const factory CustomException.general() = _General;
-  const factory CustomException.withMessage({String? message}) = _CustomExceptionWithMessage;
-  const factory CustomException.unauthenticated() = _Unauthenticated;
-  const factory CustomException.notConnectedToTheInternet() = _NotConnectedToTheInternet;
-  const factory CustomException.decodingFailed() = _DecodingFailed;
+  const factory CustomException.general() = CustomExceptionGeneral;
+  const factory CustomException.withMessage({String? message}) = CustomExceptionWithMessage;
+  const factory CustomException.unauthenticated() = CustomExceptionUnauthenticated;
+  const factory CustomException.notConnectedToTheInternet() = CustomExceptionNotConnectedToTheInternet;
+  const factory CustomException.decodingFailed() = CustomExceptionDecodingFailed;
 
-  // Title: Mapped Firebase exception with error code `credential-already-in-use`.
-  const factory CustomException.signInCancelled() = _SignInCancelled;
-  const factory CustomException.credentialAlreadyInUse({required AuthCredential? credential}) = _CredentialAlreadyInUse;
+  // Note: Mapped Firebase exception with error code `credential-already-in-use`.
+  const factory CustomException.signInCancelled() = CustomExceptionSignInCancelled;
+  const factory CustomException.credentialAlreadyInUse({required AuthCredential? credential}) = CustomExceptionCredentialAlreadyInUse;
 
   factory CustomException.fromErrorObject({required Object? error}) {
     Flogger.e('[CustomException] Received error $error, ');
@@ -41,7 +41,7 @@ class CustomException with _$CustomException implements Exception {
             Flogger.e("[CustomException] error.response: ${error.response?.data["errorCode"]}");
           }
 
-          // Title: This is the place to handle your own error codes, response, or states, and map them to you own CustomException.
+          // Note: This is the place to handle your own error codes, response, or states, and map them to you own CustomException.
 
           if (error.response?.statusCode == 401) {
             return const CustomException.unauthenticated();
@@ -69,19 +69,19 @@ class CustomException with _$CustomException implements Exception {
   }
 
   String getMessage({required BuildContext context}) {
-    return mapOrNull(
-          withMessage: (exception) => exception.message,
-          unauthenticated: (_) => context.locale.customExceptionUnauthenticatedMessage,
-          notConnectedToTheInternet: (_) => context.locale.customExceptionInternetConnectionMessage,
-        ) ??
-        context.locale.customExceptionGeneralMessage;
+    return switch (this) {
+      CustomExceptionWithMessage(message: final message) => message ?? context.locale.customExceptionGeneralMessage,
+      CustomExceptionUnauthenticated() => context.locale.customExceptionUnauthenticatedMessage,
+      CustomExceptionNotConnectedToTheInternet() => context.locale.customExceptionInternetConnectionMessage,
+      _ => context.locale.customExceptionGeneralMessage,
+    };
   }
 
   String getDetails({required BuildContext context}) {
-    return mapOrNull(
-          notConnectedToTheInternet: (_) => context.locale.customExceptionInternetConnectionDetails,
-        ) ??
-        context.locale.customExceptionGeneralDetails;
+    return switch (this) {
+      CustomExceptionNotConnectedToTheInternet() => context.locale.customExceptionInternetConnectionDetails,
+      _ => context.locale.customExceptionGeneralDetails,
+    };
   }
 
   Future<void> showErrorSnackbar({

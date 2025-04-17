@@ -524,7 +524,7 @@ For the purpose of Fraud prevention, user safety, and compliance the dedicated A
 <!-- ##########           Authors            ########## -->
 <!-- ################################################## -->
 # Authors
-- [Lukáš Hermann](mailto:lukas.hermann@strv.com)
+- [Lukáš Hermann](mailto:hermann@helu.cz)
 - [Robert Oravec](mailto:robert.oravec@strv.com)
 - [Michal Urbánek](mailto:michal.urbanek@strv.com)
 <!-- ################################################## -->

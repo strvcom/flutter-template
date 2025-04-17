@@ -14,10 +14,9 @@ class AuthenticationPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(
       authenticationEventNotifierProvider,
-      (_, next) {
-        next?.whenOrNull(
-          signedIn: () => context.router.replaceAll([const LandingRoute()]),
-        );
+      (_, next) => switch (next) {
+        AuthenticationEventSignedIn() => context.router.replaceAll([const LandingRoute()]),
+        _ => () {},
       },
     );
 

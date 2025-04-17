@@ -13,7 +13,7 @@ part 'authentication_state.freezed.dart';
 part 'authentication_state.g.dart';
 
 @freezed
-class AuthenticationState with _$AuthenticationState {
+abstract class AuthenticationState with _$AuthenticationState {
   const factory AuthenticationState({
     required bool isSigningIn,
   }) = _AuthenticationState;
@@ -50,14 +50,11 @@ class AuthenticationStateNotifier extends _$AuthenticationStateNotifier with Aut
       ref.read(authenticationEventNotifierProvider.notifier).send(const AuthenticationEvent.signedIn());
     } on Exception catch (error) {
       final customException = CustomException.fromErrorObject(error: error);
-      customException.maybeWhen(
-        signInCancelled: () {
-          Flogger.d('User cancelled the sign in process');
-        },
-        orElse: () {
-          Flogger.e('Error while signing in: $customException');
-        },
-      );
+      if (customException case CustomExceptionSignInCancelled()) {
+        Flogger.d('User cancelled the sign in process');
+      } else {
+        Flogger.e('Error while signing in: $customException');
+      }
     }
 
     setStateData(currentData?.copyWith(isSigningIn: false));

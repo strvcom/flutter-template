@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part '___model_name____model.freezed.dart';
 
 @freezed
-class ___ModelName___Model with _$___ModelName___Model {
+abstract class ___ModelName___Model with _$___ModelName___Model {
   const ___ModelName___Model._();
 
   const factory ___ModelName___Model({

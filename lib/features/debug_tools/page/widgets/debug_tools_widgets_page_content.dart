@@ -21,13 +21,12 @@ class DebugToolsWidgetsPageContent extends ConsumerWidget {
 
     ref.listen(
       debugToolsWidgetsPageEventNotifierProvider,
-      (_, next) {
-        next?.whenOrNull(
-          fieldValidated: (message) => CustomSnackbarMessage(
+      (_, next) => switch (next) {
+        DebugToolsWidgetsPageEventFieldValidated(message: final message) => CustomSnackbarMessage(
             context: context,
             message: message,
           ).show(),
-        );
+        _ => () {},
       },
     );
 

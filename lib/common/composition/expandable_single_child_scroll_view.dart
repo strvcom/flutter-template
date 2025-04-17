@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 /// but when child doesn't fit, it will automatically become scrollable widget.
 class ExpandableSingleChildScrollView extends StatelessWidget {
   const ExpandableSingleChildScrollView({
-    super.key,
     required this.child,
     this.padding = EdgeInsets.zero,
     this.alwaysScrollablePhysics = false,
+    super.key,
   });
 
   final Widget child;

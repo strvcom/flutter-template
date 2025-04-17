@@ -6,7 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part '___feature_name____event.freezed.dart';
 
 @freezed
-class ___FeatureName___Event with _$___FeatureName___Event {
+sealed class ___FeatureName___Event with _$___FeatureName___Event {
   const factory ___FeatureName___Event.error(CustomException error) = _Error;
 }
 

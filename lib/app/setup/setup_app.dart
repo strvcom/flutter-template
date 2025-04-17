@@ -62,7 +62,7 @@ Future<void> setupApp({required Flavor flavor}) async {
   // Load Theme Mode from DB before starting app
   await providerContainer.read(themeModeNotifierProvider.future);
 
-  // Setup reactive Edge-to-Edge support accross all platforms
+  // Setup reactive Edge-to-Edge support across all platforms
   await CustomSystemBarsTheme.setupSystemBarsTheme(providerContainer: providerContainer);
 }
 

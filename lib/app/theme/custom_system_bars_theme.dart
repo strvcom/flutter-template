@@ -26,7 +26,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class CustomSystemBarsTheme {
   static Future<void> setupSystemBarsTheme({required ProviderContainer providerContainer}) async {
     final brightness = providerContainer.read(themeModeNotifierProvider.notifier).brightness;
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     await _setupSystemBarsUpdateCallback(providerContainer: providerContainer);
     await setSystemBarsTheme(brightness: brightness);
   }
