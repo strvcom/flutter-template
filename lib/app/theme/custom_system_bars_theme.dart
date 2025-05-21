@@ -26,14 +26,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class CustomSystemBarsTheme {
   static Future<void> setupSystemBarsTheme({required ProviderContainer providerContainer}) async {
     final brightness = providerContainer.read(themeModeNotifierProvider.notifier).brightness;
-    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-    await _setupSystemBarsUpdateCallback(providerContainer: providerContainer);
-    await setSystemBarsTheme(brightness: brightness);
-  }
 
-  static Future<void> setSystemBarsTheme({required Brightness brightness}) async {
-    final brightness = PlatformDispatcher.instance.platformBrightness;
-    SystemChrome.setSystemUIOverlayStyle((getSystemBarsTheme(brightness: brightness)));
+    await _setupSystemBarsUpdateCallback(providerContainer: providerContainer);
+    _setSystemBarsTheme(brightness: brightness);
   }
 
   static SystemUiOverlayStyle getSystemBarsTheme({required Brightness brightness}) {
@@ -46,6 +41,10 @@ class CustomSystemBarsTheme {
     }
   }
 
+  static void _setSystemBarsTheme({required Brightness brightness}) {
+    SystemChrome.setSystemUIOverlayStyle(getSystemBarsTheme(brightness: brightness));
+  }
+
   static SystemUiOverlayStyle _getAndroidSystemBarsTheme({required Brightness brightness}) {
     final AndroidDeviceInfo androidInfo = Configuration.instance.androidDeviceInfo!;
     final bool canUseTransparentNavigation = androidInfo.version.sdkInt >= 29; // Enabled by default for iOS
@@ -54,7 +53,7 @@ class CustomSystemBarsTheme {
       // StatusBar
       systemStatusBarContrastEnforced: false,
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: brightness.inverse, // For Android
+      statusBarIconBrightness: brightness.inverse,
 
       // NavigationBar
       systemNavigationBarContrastEnforced: false,
@@ -72,14 +71,10 @@ class CustomSystemBarsTheme {
     return SystemUiOverlayStyle(
       // StatusBar
       systemStatusBarContrastEnforced: false,
-      statusBarColor: Colors.transparent,
       statusBarBrightness: brightness, // For iOS
 
       // NavigationBar
       systemNavigationBarContrastEnforced: false,
-      systemNavigationBarColor: Colors.transparent,
-      systemNavigationBarDividerColor: Colors.transparent,
-      systemNavigationBarIconBrightness: brightness,
     );
   }
 
@@ -89,19 +84,19 @@ class CustomSystemBarsTheme {
       originalCallback?.call();
       final themeMode = await providerContainer.read(themeModeNotifierProvider.future);
       if (themeMode == ThemeMode.system) {
-        setSystemBarsTheme(brightness: PlatformDispatcher.instance.platformBrightness);
+        _setSystemBarsTheme(brightness: PlatformDispatcher.instance.platformBrightness);
       }
     };
 
     // HotFix for API 28, that need SystemBarsTheme applied on each app resume!
     if (AppPlatform.isAndroid) {
-      final AndroidDeviceInfo androidInfo = await DeviceInfoPlugin().androidInfo;
+      final AndroidDeviceInfo androidInfo = Configuration.instance.androidDeviceInfo!;
       if (androidInfo.version.sdkInt == 28) {
         SystemChannels.lifecycle.setMessageHandler((msg) async {
           if (msg == AppLifecycleState.resumed.toString()) {
             final themeMode = await providerContainer.read(themeModeNotifierProvider.future);
             if (themeMode == ThemeMode.system) {
-              setSystemBarsTheme(brightness: PlatformDispatcher.instance.platformBrightness);
+              _setSystemBarsTheme(brightness: PlatformDispatcher.instance.platformBrightness);
             }
           }
           return Future.value(msg);

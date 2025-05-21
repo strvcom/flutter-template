@@ -18,16 +18,19 @@ abstract class TextValidatorController extends ChangeNotifier {
     });
   }
 
-  /// Indicates, if form is validated immediatelly. It's due to postponing validation until some action button is selected.
-  bool canValidate;
+  /// Text field controller.
   final controller = TextEditingController();
+
+  /// Indicates, if form is validated immediately. It's due to postponing validation until some action button is selected.
+  bool canValidate;
+
+  /// State of the validator.
   TextFieldValidatorState get state;
+
+  /// Debounce timer to postpone validation.
   Timer? _debounceTimer;
 
-  String get text {
-    return controller.text;
-  }
-
+  String get text => controller.text;
   set text(String text) {
     controller.text = text;
   }
@@ -49,10 +52,10 @@ abstract class TextValidatorController extends ChangeNotifier {
   }
 
   /// Sets `canValidate` to `true` and calls `validate()` function.
-  void forceValidate() {
+  Future<void> forceValidate() async {
     canValidate = true;
-    validate();
+    await validate();
   }
 
-  void validate();
+  Future<void> validate();
 }
