@@ -40,7 +40,7 @@ FutureOr<UserModel> signInWithAuthCredentialUseCase(
     }
   } else {
     // Title: Sign in with credentials
-    Flogger.d('[Authentication] Going to sign in user with received credential ${credential.asMap().toString()}');
+    Flogger.d('[Authentication] Going to sign in user with received credential ${credential.asMap()}');
 
     await FirebaseAuth.instance.signInWithCredential(credential);
   }

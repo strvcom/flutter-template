@@ -9,7 +9,7 @@ enum DebugToolsSampleType {
   widgets,
   popups,
   colors,
-  textStyles;
+  textStyles,
 }
 
 @freezed

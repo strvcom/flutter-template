@@ -100,8 +100,8 @@ icons_launcher:
 ///   - tmp_app_icon_android.png
 ///   - tmp_app_icon_android_foreground.png
 ///
-/// Input Icon should be 750x750 which will be generated into 1500x1500 icon for Andorid usage
-/// Generated Cropped icon shoud be 1024x1024 which is used for iOS
+/// Input Icon should be 900x900 which will be generated into 1500x1500 icon for Android usage
+/// Generated Cropped icon should be 1024x1024 which is used for iOS
 Future<List<File>> _generateIcons({
   required String? labelColorHex,
   required String? labelText,
@@ -143,7 +143,8 @@ Future<List<File>> _generateIcons({
   }
 
   void _drawOverlayImage() {
-    final offset = 1500 ~/ 2 - 750 ~/ 2;
+    final widthOffset = 1500 ~/ 2 - inputImage.width ~/ 2;
+    final heightOffset = 1500 ~/ 2 - inputImage.height ~/ 2;
     // Manually overlay the overlayImage onto the baseImage
     for (int y = 0; y < inputImage.height; y++) {
       for (int x = 0; x < inputImage.width; x++) {
@@ -153,7 +154,7 @@ Future<List<File>> _generateIcons({
 
         // If the pixel is fully transparent, fill it with the specified color
         if (alpha != 0) {
-          outputImage.setPixel(x + offset, y + offset, pixel);
+          outputImage.setPixel(x + widthOffset, y + heightOffset, pixel);
         }
       }
     }
@@ -165,7 +166,7 @@ Future<List<File>> _generateIcons({
     return outputImageFile;
   }
 
-  // Title: Step 1 - Generate Android Foregorund image (1500x1500 - transparent background)
+  // Title: Step 1 - Generate Android Foreground image (1500x1500 - transparent background)
   if (!iconShouldOverlayLabel) _drawOverlayImage();
   if (labelColorHex != null && labelText != null) _drawLabel();
   if (iconShouldOverlayLabel) _drawOverlayImage();

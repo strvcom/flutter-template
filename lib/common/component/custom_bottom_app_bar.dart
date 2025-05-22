@@ -5,9 +5,9 @@ import 'package:flutter_app/common/extension/build_context.dart';
 
 class CustomBottomAppBar extends StatelessWidget {
   const CustomBottomAppBar({
-    super.key,
     required this.selectedIndex,
     required this.items,
+    super.key,
   });
 
   final int selectedIndex;
@@ -21,9 +21,8 @@ class CustomBottomAppBar extends StatelessWidget {
       elevation: 8,
       height: 64,
       shadowColor: Colors.black,
-      padding: const EdgeInsets.all(0),
+      padding: EdgeInsets.zero,
       child: Row(
-        mainAxisSize: MainAxisSize.max,
         children: items.mapIndexed((index, item) => _BottomAppBarButton(item: item, isSelected: index == selectedIndex)).toList(),
       ),
     );
@@ -32,7 +31,6 @@ class CustomBottomAppBar extends StatelessWidget {
 
 class CustomBottomAppBarItem {
   CustomBottomAppBarItem({
-    Key? key,
     required this.label,
     required this.icon,
     required this.onSelectListener,

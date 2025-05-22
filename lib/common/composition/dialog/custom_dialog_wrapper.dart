@@ -6,9 +6,9 @@ import 'package:flutter_app/common/extension/build_context.dart';
 
 class CustomDialogWrapper extends StatelessWidget {
   const CustomDialogWrapper.alert({
-    super.key,
     required this.context,
     required this.title,
+    super.key,
     this.message,
     this.positiveActionTitle,
     this.positiveAction,
@@ -21,9 +21,9 @@ class CustomDialogWrapper extends StatelessWidget {
   }) : content = null;
 
   const CustomDialogWrapper.custom({
-    super.key,
     required this.context,
     required this.title,
+    super.key,
     this.content,
     this.positiveActionTitle,
     this.positiveAction,
@@ -80,7 +80,8 @@ class CustomDialogWrapper extends StatelessWidget {
     } else {
       return AlertDialog(
         title: CustomText(text: title, style: context.textTheme.titleLarge),
-        content: content ??
+        content:
+            content ??
             (message != null
                 ? SingleChildScrollView(
                     child: CustomText(text: message!, style: context.textTheme.bodyMedium),

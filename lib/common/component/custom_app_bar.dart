@@ -44,7 +44,7 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
       titleTextStyle: context.textTheme.titleLarge,
       shadowColor: context.colorScheme.shadow,
       scrolledUnderElevation: 4,
-      elevation: (forceElevated == true) ? 4 : 0,
+      elevation: (forceElevated ?? false) ? 4 : 0,
       actions: actions,
       bottom: bottom,
     );

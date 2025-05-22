@@ -4,9 +4,9 @@ import 'package:flutter_app/common/extension/build_context.dart';
 
 class CustomText extends StatelessWidget {
   const CustomText({
-    super.key,
     required this.text,
     required this.style,
+    super.key,
     this.color,
     this.padding = EdgeInsets.zero,
     this.textAlign = TextAlign.start,

@@ -11,4 +11,5 @@ sealed class DebugToolsWidgetsPageEvent with _$DebugToolsWidgetsPageEvent {
 
 final debugToolsWidgetsPageEventNotifierProvider =
     StateNotifierProvider.autoDispose<EventNotifier<DebugToolsWidgetsPageEvent?>, DebugToolsWidgetsPageEvent?>(
-        (ref) => EventNotifier(null));
+      (ref) => EventNotifier(null),
+    );

@@ -41,7 +41,7 @@ class _LandingPageState extends ConsumerState<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: (_forceUpdate == true) ? const ForceUpdatePageContent() : const SizedBox(),
+      body: _forceUpdate ? const ForceUpdatePageContent() : const SizedBox(),
     );
   }
 
@@ -56,10 +56,10 @@ class _LandingPageState extends ConsumerState<LandingPage> {
 
       if (currentUser == null) {
         Flogger.d('[LandingPage] Redirecting to Authentication page');
-        context.replaceRoute(const AuthenticationRoute());
+        await context.replaceRoute(const AuthenticationRoute());
       } else {
         Flogger.d('[LandingPage] Redirecting to Home page');
-        context.replaceRoute(const RootRoute());
+        await context.replaceRoute(const RootRoute());
       }
     }
   }

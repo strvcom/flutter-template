@@ -9,9 +9,8 @@ part 'analytics_manager.g.dart';
 
 @riverpod
 Future<void> analyticsManagerUpdateUserInfo(Ref ref, {required UserModel? user}) async {
-  FirebaseAnalytics.instance
-    ..setUserId(id: user?.id)
-    ..setUserProperty(name: 'display_name', value: user?.displayName);
+  await FirebaseAnalytics.instance.setUserId(id: user?.id);
+  await FirebaseAnalytics.instance.setUserProperty(name: 'display_name', value: user?.displayName);
 }
 
 @riverpod

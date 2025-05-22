@@ -7,17 +7,17 @@
 	<key>REVERSED_CLIENT_ID</key>
 	<string>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</string>
 	<key>API_KEY</key>
-	<string>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</string>
+	<string>AIzaSyAzlj4APqi5S58nFtE52Da0fYBOHA2MhaY</string>
 	<key>GCM_SENDER_ID</key>
-	<string>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</string>
+	<string>123456789000</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.strv.flutter.template.staging</string>
+	<string>cz.helu.flutter.template.staging</string>
 	<key>PROJECT_ID</key>
-	<string>strv-flutter-template</string>
+	<string>helu-flutter-template</string>
 	<key>STORAGE_BUCKET</key>
-	<string>strv-flutter-template.appspot.com</string>
+	<string>helu-flutter-template.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</string>
+	<string>1:123456789000:ios:f1bf012572b04063</string>
 </dict>
 </plist>

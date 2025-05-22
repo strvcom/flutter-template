@@ -8,13 +8,13 @@ import 'package:flutter_app/common/extension/dynamic.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 extension AsyncValueExtension<T> on AsyncValue<T> {
-  Widget mapState<R>({
-    required Refreshable provider,
+  Widget mapState({
+    required Refreshable<Object> provider,
+    required Widget Function(T data) data,
     bool Function(T data)? isEmpty,
     Widget Function(T? error)? error,
     Widget Function(T? loading)? loading,
     Widget Function(T data)? empty,
-    required Widget Function(T data) data,
   }) {
     return map(
       // Title: Loading State
@@ -43,24 +43,24 @@ extension AsyncValueExtension<T> on AsyncValue<T> {
       data: (dataParam) => (isEmpty?.let((it) => it(dataParam.value)) ?? false)
           // Title: Empty State
           ? (empty?.call(dataParam.value) ??
-              Scaffold(
-                appBar: const CustomAppBar(),
-                body: SafeArea(
-                  child: _EmptyPlaceholderWidget(provider),
-                ),
-              ))
+                Scaffold(
+                  appBar: const CustomAppBar(),
+                  body: SafeArea(
+                    child: _EmptyPlaceholderWidget(provider),
+                  ),
+                ))
           // Title: Data State
           : data(dataParam.value),
     );
   }
 
-  Widget mapContentState<R>({
-    required Refreshable provider,
+  Widget mapContentState({
+    required Refreshable<Object> provider,
+    required Widget Function(T data) data,
     bool Function(T data)? isEmpty,
     Widget Function(T? error)? error,
     Widget Function(T? loading)? loading,
     Widget Function(T data)? empty,
-    required Widget Function(T data) data,
   }) {
     return map(
       // Title: Loading State
@@ -96,7 +96,7 @@ class _EmptyPlaceholderWidget extends StatelessWidget {
     this.provider,
   );
 
-  final Refreshable provider;
+  final Refreshable<Object> provider;
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +114,7 @@ class _ErrorPlaceholderWidget extends StatelessWidget {
     this.error,
   );
 
-  final Refreshable provider;
+  final Refreshable<Object> provider;
   final Object error;
 
   @override

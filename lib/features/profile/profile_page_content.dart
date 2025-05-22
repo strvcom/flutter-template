@@ -46,7 +46,6 @@ class _LoadingStateWidget extends ConsumerWidget {
           const Spacer(),
           CustomButtonPrimary(
             text: 'Sign out',
-            isLoading: false,
             onPressed: () {},
           ),
         ],

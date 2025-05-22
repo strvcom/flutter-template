@@ -19,7 +19,7 @@ class CustomSnackbarMessage {
 
   Future<void> show() async {
     if (_shownMessages.contains(message)) {
-      Flogger.i('[CustomSnackBar] Not going to show message $message, because it\'s already in `_shownMessages`.');
+      Flogger.i("[CustomSnackBar] Not going to show message $message, because it's already in `_shownMessages`.");
       return;
     }
 

@@ -18,11 +18,11 @@ class AppTheme {
 
     return ThemeData(
       brightness: brightness,
-      colorScheme: (kDebugMode)
+      colorScheme: kDebugMode
           ? _getUndefinedColorScheme(brightness)
           : ColorScheme.fromSeed(seedColor: colorScheme.primary, brightness: brightness),
       visualDensity: VisualDensity.standard, // Needed for consistent web and app sizing
-      textTheme: (kDebugMode) ? _getUndefinedTextTheme() : null,
+      textTheme: kDebugMode ? _getUndefinedTextTheme() : null,
       scaffoldBackgroundColor: colorScheme.surface,
       // Warning: IconButtonTheme needs to be set till this is fixed: https://github.com/flutter/flutter/issues/130485
       iconButtonTheme: const IconButtonThemeData(style: ButtonStyle()),
@@ -101,20 +101,18 @@ class AppTheme {
 BottomSheetThemeData _getBottomSheetThemeData({
   required CustomColorScheme colorScheme,
   required CustomTextTheme textTheme,
-}) =>
-    BottomSheetThemeData(
-      backgroundColor: colorScheme.surface,
-      surfaceTintColor: colorScheme.surface,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
-      ),
-    );
+}) => BottomSheetThemeData(
+  backgroundColor: colorScheme.surface,
+  surfaceTintColor: colorScheme.surface,
+  shape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
+  ),
+);
 
 TextSelectionThemeData _getTextSelectionThemeData({
   required CustomColorScheme colorScheme,
-}) =>
-    TextSelectionThemeData(
-      cursorColor: colorScheme.secondary,
-      selectionColor: colorScheme.secondary.withValues(alpha: 0.3),
-      selectionHandleColor: colorScheme.secondary,
-    );
+}) => TextSelectionThemeData(
+  cursorColor: colorScheme.secondary,
+  selectionColor: colorScheme.secondary.withValues(alpha: 0.3),
+  selectionHandleColor: colorScheme.secondary,
+);

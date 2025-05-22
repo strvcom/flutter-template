@@ -15,7 +15,7 @@ Future<UserModel?> getDatabaseUserUseCase(Ref ref) async {
 
   if (currentUserData != null) {
     try {
-      return UserModel.fromJson(jsonDecode(currentUserData));
+      return UserModel.fromJson(jsonDecode(currentUserData) as Map<String, dynamic>);
       // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       Flogger.e('[CurrentUserModelState] Error while parsing user data: $e');

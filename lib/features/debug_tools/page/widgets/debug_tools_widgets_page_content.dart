@@ -23,9 +23,9 @@ class DebugToolsWidgetsPageContent extends ConsumerWidget {
       debugToolsWidgetsPageEventNotifierProvider,
       (_, next) => switch (next) {
         DebugToolsWidgetsPageEventFieldValidated(message: final message) => CustomSnackbarMessage(
-            context: context,
-            message: message,
-          ).show(),
+          context: context,
+          message: message,
+        ).show(),
         _ => () {},
       },
     );
@@ -57,7 +57,6 @@ class DebugToolsWidgetsPageContent extends ConsumerWidget {
           CustomTextFieldButton(
             label: 'Example of custom text field button',
             validatorController: ref.read(debugToolsWidgetsPageStateNotifierProvider.notifier).exampleTextController,
-            enabled: true,
             onClick: () => Flogger.d('Clicked text field button'),
           ),
           const SizedBox(height: 64),

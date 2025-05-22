@@ -1,6 +1,6 @@
-// TODO: Fill correct values
+// TODO(HELU): Fill correct values
 class ConfigProduction {
-  static const apiHostUrl = 'https://strv.com';
+  static const apiHostUrl = 'https://helu.cz';
 
   static const vapidKey = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
   static const androidClientId = '';

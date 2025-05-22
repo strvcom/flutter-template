@@ -20,13 +20,13 @@ class FirebaseMessagingService extends _$FirebaseMessagingService {
   @pragma('vm:entry-point')
   static Future<void> firebaseNotificationDisplayBgHandler(RemoteMessage message) async {
     Flogger.d('[Firebase Messaging] Display notification with payload: ${message.data}');
-    NotificationsService.showNotification(NotificationPayloadModel.fromJson(message.data));
+    await NotificationsService.showNotification(NotificationPayloadModel.fromJson(message.data));
   }
 
   @pragma('vm:entry-point')
   static Future<void> firebaseNotificationOpenBgHandler(RemoteMessage message) async {
     Flogger.d('[Firebase Messaging] Open notification with payload: ${message.data}');
-    NotificationsService.tryOpeningNotificationFromRemoteMessage(message);
+    await NotificationsService.tryOpeningNotificationFromRemoteMessage(message);
   }
 
   @override
@@ -38,7 +38,7 @@ class FirebaseMessagingService extends _$FirebaseMessagingService {
 
   /// Check whether user has at least any Notification permission allowed
   Future<bool> isPermissionsGranted() async {
-    NotificationSettings settings = await _firebaseMessaging.getNotificationSettings();
+    final settings = await _firebaseMessaging.getNotificationSettings();
     return settings.authorizationStatus == AuthorizationStatus.authorized ||
         settings.authorizationStatus == AuthorizationStatus.provisional;
   }
@@ -54,7 +54,7 @@ class FirebaseMessagingService extends _$FirebaseMessagingService {
     NotificationSettings? settings;
     if (dialogRequestCount == 0 || (dialogRequestCount == 1 && AppPlatform.isAndroid)) {
       await preferences.setInt(PreferencesKeys.notificationsPermissionRequestCount.value, dialogRequestCount + 1);
-      settings = await _firebaseMessaging.requestPermission(alert: true, badge: true, sound: true);
+      settings = await _firebaseMessaging.requestPermission();
     } else {
       await AppSettings.openAppSettings();
       settings = await _firebaseMessaging.getNotificationSettings();
@@ -95,16 +95,16 @@ class FirebaseMessagingService extends _$FirebaseMessagingService {
     /// We need to try to get APNS Token before.
     /// https://stackoverflow.com/questions/77089496/flutter-apns-token-has-not-been-set-yet-please-ensure-the-apns-token-is-avail
     if (AppPlatform.isIOS) {
-      int iosGetApnsTriesRemaining = 10;
+      var iosGetApnsTriesRemaining = 10;
 
       while ((await FirebaseMessaging.instance.getAPNSToken()) == null && iosGetApnsTriesRemaining != 0) {
         Flogger.d('[Firebase Messaging] Waiting for APNS token for 5ms!');
         iosGetApnsTriesRemaining--;
-        await Future.delayed(const Duration(milliseconds: 5));
+        await Future<void>.delayed(const Duration(milliseconds: 5));
       }
 
       if (iosGetApnsTriesRemaining == 0) {
-        CrashlyticsManager.logNonCritical('APNS Token could not be obtained even after 50ms of waiting!');
+        await CrashlyticsManager.logNonCritical('APNS Token could not be obtained even after 50ms of waiting!');
         return;
       }
     }
@@ -113,12 +113,14 @@ class FirebaseMessagingService extends _$FirebaseMessagingService {
     await registerFCMToken();
 
     // Set listener to register new FCM token
-    FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) async {
-      Flogger.d("[Firebase Messaging] User's FCM token refreshed: $fcmToken");
-      await registerFCMToken(fcmToken: fcmToken);
-    }).onError((err) {
-      Flogger.e('[Firebase Messaging] Error while refreshed FCM token: $err');
-    });
+    FirebaseMessaging.instance.onTokenRefresh
+        .listen((fcmToken) async {
+          Flogger.d("[Firebase Messaging] User's FCM token refreshed: $fcmToken");
+          await registerFCMToken(fcmToken: fcmToken);
+        })
+        .onError((Object err) {
+          Flogger.e('[Firebase Messaging] Error while refreshed FCM token: $err');
+        });
   }
 
   /// On Android - foreground, background and killed notifications are handled from the `data` payload and are manually displayed.

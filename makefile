@@ -57,7 +57,7 @@ generateWebProduction: # Clean everything and build Web
 #
 # To get the project ID, run the following command:
 # firebase projects:list
-# TODO: Update project name or remove in case there is no web or when web is not hosted on Firebase.
+# TODO(HELU): Update project name or remove in case there is no web or when web is not hosted on Firebase.
 deployWeb:
 	@firebase deploy --project XXX
 

@@ -18,7 +18,6 @@
       "Dart-Code.dart-code",
       "Dart-Code.flutter",
       "SimonSiefke.svg-preview",
-      "Nash.awesome-flutter-snippets",
       "wayou.vscode-todo-highlight",
       "hzgood.dart-data-class-generator",
       "pkief.material-icon-theme",
@@ -192,7 +191,7 @@
     "todohighlight.isCaseSensitive": true,
     "todohighlight.keywords": [
       {
-        "text": " TODO: ",
+        "text": " TODO(",
         "color": "#a8c023",
         "isWholeLine": true,
         "backgroundColor": "rgba(0,0,0,0)"
@@ -227,6 +226,11 @@
         "isWholeLine": true,
         "backgroundColor": "rgba(0,0,0,0)"
       }
+    ],
+    "cSpell.words": [
+      "Buildless",
+      "Refreshable",
+      "usecase"
     ]
   }
 }

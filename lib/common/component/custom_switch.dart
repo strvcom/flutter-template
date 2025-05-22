@@ -4,17 +4,17 @@ import 'package:flutter_app/common/extension/build_context.dart';
 
 class CustomSwitch extends StatelessWidget {
   const CustomSwitch({
-    super.key,
     required this.title,
     required this.value,
     required this.onChanged,
+    super.key,
     this.subtitle,
     this.dense = false,
   });
 
   final String title;
   final bool value;
-  final Function(bool value) onChanged;
+  final ValueChanged<bool> onChanged;
   final String? subtitle;
   final bool dense;
 

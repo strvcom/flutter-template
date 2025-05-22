@@ -18,7 +18,6 @@ class ForceUpdatePageContent extends ConsumerWidget {
           padding: const EdgeInsets.all(20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Assets.svg.imgRocket.svg(width: 200),
               const SizedBox(height: 48),
@@ -38,11 +37,13 @@ class ForceUpdatePageContent extends ConsumerWidget {
               if (AppPlatform.isMobile)
                 CustomButtonPrimary(
                   onPressed: () {
-                    // TODO: Fill correct Android and iOS app IDs
-                    ref.read(nativeStoreOpenUseCaseProvider(
-                      androidAppBundleId: 'com.template.app',
-                      appStoreId: '123123123',
-                    ));
+                    // TODO(HELU): Fill correct Android and iOS app IDs
+                    ref.read(
+                      nativeStoreOpenUseCaseProvider(
+                        androidAppBundleId: 'com.template.app',
+                        appStoreId: '123123123',
+                      ),
+                    );
                   },
                   text: context.locale.forceUpdateButton,
                 ),

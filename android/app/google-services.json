@@ -1,15 +1,15 @@
 {
   "project_info": {
     "project_number": "907121519909",
-    "project_id": "strv-flutter-template",
-    "storage_bucket": "strv-flutter-template.appspot.com"
+    "project_id": "helu-flutter-template",
+    "storage_bucket": "helu-flutter-template.appspot.com"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
         "android_client_info": {
-          "package_name": "com.strv.flutter.template"
+          "package_name": "cz.helu.flutter.template"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.strv.flutter.template",
+            "package_name": "cz.helu.flutter.template",
             "certificate_hash": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
           }
         },
@@ -42,7 +42,7 @@
               "client_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.strv.flutter.template.staging"
+                "bundle_id": "cz.helu.flutter.template.staging"
               }
             }
           ]
@@ -53,7 +53,7 @@
       "client_info": {
         "mobilesdk_app_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
         "android_client_info": {
-          "package_name": "com.strv.flutter.template.debug"
+          "package_name": "cz.helu.flutter.template.debug"
         }
       },
       "oauth_client": [
@@ -61,7 +61,7 @@
           "client_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.strv.flutter.template.debug",
+            "package_name": "cz.helu.flutter.template.debug",
             "certificate_hash": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
           }
         },
@@ -86,7 +86,7 @@
               "client_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.strv.flutter.template.staging"
+                "bundle_id": "cz.helu.flutter.template.staging"
               }
             }
           ]
@@ -97,7 +97,7 @@
       "client_info": {
         "mobilesdk_app_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
         "android_client_info": {
-          "package_name": "com.strv.flutter.template.develop"
+          "package_name": "cz.helu.flutter.template.develop"
         }
       },
       "oauth_client": [
@@ -105,7 +105,7 @@
           "client_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.strv.flutter.template.develop",
+            "package_name": "cz.helu.flutter.template.develop",
             "certificate_hash": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
           }
         },
@@ -130,7 +130,7 @@
               "client_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.strv.flutter.template.staging"
+                "bundle_id": "cz.helu.flutter.template.staging"
               }
             }
           ]
@@ -141,7 +141,7 @@
       "client_info": {
         "mobilesdk_app_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
         "android_client_info": {
-          "package_name": "com.strv.flutter.template.develop.debug"
+          "package_name": "cz.helu.flutter.template.develop.debug"
         }
       },
       "oauth_client": [
@@ -149,7 +149,7 @@
           "client_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.strv.flutter.template.develop.debug",
+            "package_name": "cz.helu.flutter.template.develop.debug",
             "certificate_hash": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
           }
         },
@@ -174,7 +174,7 @@
               "client_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.strv.flutter.template.staging"
+                "bundle_id": "cz.helu.flutter.template.staging"
               }
             }
           ]
@@ -185,7 +185,7 @@
       "client_info": {
         "mobilesdk_app_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
         "android_client_info": {
-          "package_name": "com.strv.flutter.template.staging"
+          "package_name": "cz.helu.flutter.template.staging"
         }
       },
       "oauth_client": [
@@ -193,7 +193,7 @@
           "client_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.strv.flutter.template.staging",
+            "package_name": "cz.helu.flutter.template.staging",
             "certificate_hash": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
           }
         },
@@ -218,7 +218,7 @@
               "client_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.strv.flutter.template.staging"
+                "bundle_id": "cz.helu.flutter.template.staging"
               }
             }
           ]
@@ -229,7 +229,7 @@
       "client_info": {
         "mobilesdk_app_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
         "android_client_info": {
-          "package_name": "com.strv.flutter.template.staging.debug"
+          "package_name": "cz.helu.flutter.template.staging.debug"
         }
       },
       "oauth_client": [
@@ -237,7 +237,7 @@
           "client_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.strv.flutter.template.staging.debug",
+            "package_name": "cz.helu.flutter.template.staging.debug",
             "certificate_hash": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
           }
         },
@@ -262,7 +262,7 @@
               "client_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.strv.flutter.template.staging"
+                "bundle_id": "cz.helu.flutter.template.staging"
               }
             }
           ]

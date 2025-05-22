@@ -29,15 +29,15 @@ class AuthenticationStateNotifier extends _$AuthenticationStateNotifier with Aut
   }
 
   Future<void> signInAnonymously() async {
-    _signInWithProvider(signInAnonymouslyUseCaseProvider);
+    await _signInWithProvider(signInAnonymouslyUseCaseProvider);
   }
 
   Future<void> signInWithGoogle() async {
-    _signInWithProvider(signInWithGoogleUseCaseProvider);
+    await _signInWithProvider(signInWithGoogleUseCaseProvider);
   }
 
   Future<void> signInWithApple() async {
-    _signInWithProvider(signInWithAppleUseCaseProvider);
+    await _signInWithProvider(signInWithAppleUseCaseProvider);
   }
 
   Future<void> _signInWithProvider(AutoDisposeFutureProvider<UserModel> provider) async {

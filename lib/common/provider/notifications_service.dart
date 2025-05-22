@@ -23,8 +23,7 @@ class NotificationsService extends _$NotificationsService {
     switch (notificationModel) {
       case NotificationPayloadModelSample():
         Flogger.d('[Notifications] Handle open of Sample notification');
-        // TODO: [Notifications] Handle Notification open action here
-        break;
+      // TODO(HELU): [Notifications] Handle Notification open action here
 
       case NotificationPayloadModelUnknown():
       // Do nothing
@@ -38,7 +37,7 @@ class NotificationsService extends _$NotificationsService {
 
     // Title: 2. Check FlutterLocalNotifications for initial Message
     final notificationAppLaunchDetails = await _flutterLocalNotifications.getNotificationAppLaunchDetails();
-    _tryOpeningNotificationFromPayload(notificationAppLaunchDetails?.notificationResponse?.payload);
+    await _tryOpeningNotificationFromPayload(notificationAppLaunchDetails?.notificationResponse?.payload);
   }
 
   static Future<void> showNotification(NotificationPayloadModel notification) async {
@@ -61,7 +60,7 @@ class NotificationsService extends _$NotificationsService {
     }
 
     try {
-      handleNotificationOpen(NotificationPayloadModel.fromJson(jsonDecode(payload)));
+      handleNotificationOpen(NotificationPayloadModel.fromJson(jsonDecode(payload) as Map<String, dynamic>));
       return Future.value(true);
     } on Exception catch (e) {
       Flogger.e('[Notifications] Could not parse payload from notification: $payload with error $e');
@@ -90,7 +89,7 @@ class NotificationsService extends _$NotificationsService {
   }
 
   Future<void> _setupLocalNotifications() async {
-    InitializationSettings initializationSettings = const InitializationSettings(
+    const initializationSettings = InitializationSettings(
       // This icon must be inside Android native resources
       android: AndroidInitializationSettings('notification_icon'),
       // This makes sure that we can manually request permission later

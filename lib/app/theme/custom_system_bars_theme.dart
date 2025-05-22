@@ -1,9 +1,9 @@
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/app/configuration/configuration.dart';
 import 'package:flutter_app/app/setup/app_platform.dart';
+import 'package:flutter_app/common/component/custom_app_bar.dart' show CustomAppBar;
 import 'package:flutter_app/common/extension/brightness.dart';
 import 'package:flutter_app/common/provider/theme_mode_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,7 +37,7 @@ class CustomSystemBarsTheme {
     } else if (AppPlatform.isIOS) {
       return _getIosSystemBarsTheme(brightness: brightness);
     } else {
-      return (((brightness).isLightMode) ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark);
+      return ((brightness.isLightMode) ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark);
     }
   }
 
@@ -46,8 +46,8 @@ class CustomSystemBarsTheme {
   }
 
   static SystemUiOverlayStyle _getAndroidSystemBarsTheme({required Brightness brightness}) {
-    final AndroidDeviceInfo androidInfo = Configuration.instance.androidDeviceInfo!;
-    final bool canUseTransparentNavigation = androidInfo.version.sdkInt >= 29; // Enabled by default for iOS
+    final androidInfo = Configuration.instance.androidDeviceInfo!;
+    final canUseTransparentNavigation = androidInfo.version.sdkInt >= 29; // Enabled by default for iOS
 
     return SystemUiOverlayStyle(
       // StatusBar
@@ -62,8 +62,8 @@ class CustomSystemBarsTheme {
       systemNavigationBarColor: canUseTransparentNavigation
           ? Colors.transparent
           : brightness.isLightMode
-              ? Colors.white
-              : Colors.black,
+          ? Colors.white
+          : Colors.black,
     );
   }
 
@@ -72,7 +72,6 @@ class CustomSystemBarsTheme {
       // StatusBar
       systemStatusBarContrastEnforced: false,
       statusBarBrightness: brightness, // For iOS
-
       // NavigationBar
       systemNavigationBarContrastEnforced: false,
     );
@@ -90,7 +89,7 @@ class CustomSystemBarsTheme {
 
     // HotFix for API 28, that need SystemBarsTheme applied on each app resume!
     if (AppPlatform.isAndroid) {
-      final AndroidDeviceInfo androidInfo = Configuration.instance.androidDeviceInfo!;
+      final androidInfo = Configuration.instance.androidDeviceInfo!;
       if (androidInfo.version.sdkInt == 28) {
         SystemChannels.lifecycle.setMessageHandler((msg) async {
           if (msg == AppLifecycleState.resumed.toString()) {
@@ -108,9 +107,9 @@ class CustomSystemBarsTheme {
 
 class CustomSystemBarsThemeWidget extends StatelessWidget {
   const CustomSystemBarsThemeWidget({
-    super.key,
     required this.brightness,
     required this.child,
+    super.key,
   });
 
   final Brightness brightness;

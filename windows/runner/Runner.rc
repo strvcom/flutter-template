@@ -89,11 +89,11 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.strv" "\0"
+            VALUE "CompanyName", "cz.helu" "\0"
             VALUE "FileDescription", "Flutter Template" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "Flutter Template" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2024 com.strv. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 cz.helu. All rights reserved." "\0"
             VALUE "OriginalFilename", "template.exe" "\0"
             VALUE "ProductName", "Flutter Template" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"

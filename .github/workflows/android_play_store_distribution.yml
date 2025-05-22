@@ -52,7 +52,7 @@ jobs:
         uses: r0adkll/upload-google-play@v1.1.1
         with:
           serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_DISTRIBUTION_SERVICE_ACCOUNT_JSON }}
-          packageName: com.strv.flutter.template
+          packageName: cz.helu.flutter.template
           releaseFiles: build/app/outputs/bundle/productionRelease/app-production-release.aab
           mappingFile: build/app/outputs/mapping/productionRelease/mapping.txt
           whatsNewDirectory: whatsnew
@@ -61,7 +61,7 @@ jobs:
           #status: draft # Upload it as draft release if you want to manually publish the release from GooglePlay console
           #userFraction: 0.1 # Rollout of the release <0;1>
 
-      # TODO: Add correct AppId from the Firebase Project
+      # TODO(HELU): Add correct AppId from the Firebase Project
       - name: "[Flutter - Upload Crashlytics Mapping Files]"
         run: firebase crashlytics:symbols:upload --app=XXX build/app/outputs/symbols
 

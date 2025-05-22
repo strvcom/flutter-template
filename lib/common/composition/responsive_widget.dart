@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 /// Feel free to polish this Widget by app needs. Some projects may require just small and large sizes.
 class ResponsiveWidget extends StatelessWidget {
   const ResponsiveWidget({
-    super.key,
     required this.small,
+    super.key,
     this.medium,
     this.large,
   });

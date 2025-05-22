@@ -13,7 +13,7 @@ part 'sign_in_with_google_use_case.g.dart';
 Future<UserModel> signInWithGoogleUseCase(Ref ref) async {
   Flogger.d('[Authentication] Sign in with Google started');
 
-  final GoogleSignIn googleSignIn = GoogleSignIn();
+  final googleSignIn = GoogleSignIn();
 
   // Step 1: Logout from Current Google account if any
   if (await googleSignIn.isSignedIn()) {

@@ -11,7 +11,7 @@ abstract class AnalyticsEvent with _$AnalyticsEvent {
 
   factory AnalyticsEvent.onSampleEvent() => AnalyticsEvent._(firebaseEventId: 'on_sample_event');
   factory AnalyticsEvent.onAnotherSampleEvent({required String sampleParamValue}) => AnalyticsEvent._(
-        firebaseEventId: 'on_another_sample_event',
-        firebaseEventParams: {'sample_parameter_id': sampleParamValue},
-      );
+    firebaseEventId: 'on_another_sample_event',
+    firebaseEventParams: {'sample_parameter_id': sampleParamValue},
+  );
 }

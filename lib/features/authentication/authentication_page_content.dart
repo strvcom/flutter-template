@@ -35,12 +35,13 @@ class _DataStateWidget extends ConsumerWidget {
           children: [
             const Spacer(),
             CustomButtonPrimary(
-                text: 'Mock Sign In',
-                isLoading: data.isSigningIn,
-                onPressed: () async {
-                  await ref.read(signInCompletionUseCaseProvider.future);
-                  if (context.mounted) context.router.replaceAll([const LandingRoute()]);
-                }),
+              text: 'Mock Sign In',
+              isLoading: data.isSigningIn,
+              onPressed: () async {
+                await ref.read(signInCompletionUseCaseProvider.future);
+                if (context.mounted) await context.router.replaceAll([const LandingRoute()]);
+              },
+            ),
             const SizedBox(height: 48),
             CustomButtonPrimary(
               text: 'Sign in Anonymously',

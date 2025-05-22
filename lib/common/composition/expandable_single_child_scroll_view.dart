@@ -19,7 +19,7 @@ class ExpandableSingleChildScrollView extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraint) {
         return SingleChildScrollView(
-          physics: (alwaysScrollablePhysics) ? const AlwaysScrollableScrollPhysics() : null,
+          physics: alwaysScrollablePhysics ? const AlwaysScrollableScrollPhysics() : null,
           child: ConstrainedBox(
             constraints: BoxConstraints(minHeight: constraint.maxHeight),
             child: Padding(

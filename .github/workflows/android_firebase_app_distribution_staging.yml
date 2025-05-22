@@ -51,7 +51,7 @@ jobs:
       - name: "[Flutter - Upload to Firebase App Distribution]"
         run: cd android; ./gradlew appDistributionUplodaStagingRelease; cd ..
 
-      # TODO: Add correct AppId from the Firebase Project
+      # TODO(HELU): Add correct AppId from the Firebase Project
       - name: "[Flutter - Upload Crashlytics Mapping Files]"
         run: firebase crashlytics:symbols:upload --app=XXX build/app/outputs/symbols
 

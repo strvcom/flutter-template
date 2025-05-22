@@ -19,9 +19,6 @@ Dio dio(Ref ref) {
     TalkerDioLogger(
       talker: Flogger.talker,
       settings: TalkerDioLoggerSettings(
-        printRequestHeaders: false,
-        printResponseHeaders: false,
-        printResponseMessage: true,
         requestPen: Flogger.colors['httpRequest'],
         responsePen: Flogger.colors['httpResponse'],
         errorPen: Flogger.colors['httpError'],

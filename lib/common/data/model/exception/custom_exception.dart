@@ -37,13 +37,15 @@ sealed class CustomException with _$CustomException implements Exception {
         case DioExceptionType.connectionError:
           return const CustomException.notConnectedToTheInternet();
         default:
-          if (error.response?.data is Map) {
-            Flogger.e("[CustomException] error.response: ${error.response?.data["errorCode"]}");
+          final data = error.response?.data;
+          final statusCode = error.response?.statusCode;
+          if (data is Map) {
+            Flogger.e("[CustomException] error.response: ${data["errorCode"]}");
           }
 
           // Note: This is the place to handle your own error codes, response, or states, and map them to you own CustomException.
 
-          if (error.response?.statusCode == 401) {
+          if (statusCode == 401) {
             return const CustomException.unauthenticated();
           }
 
@@ -52,7 +54,7 @@ sealed class CustomException with _$CustomException implements Exception {
     } else if (error is SignInWithAppleAuthorizationException) {
       switch (error.code) {
         case AuthorizationErrorCode.canceled:
-          return CustomException.signInCancelled();
+          return const CustomException.signInCancelled();
         default:
           return CustomException.withMessage(message: error.message);
       }

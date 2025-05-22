@@ -31,39 +31,39 @@ class Configuration {
   final IosDeviceInfo? iosDeviceInfo;
 
   String get apiHostUrl => switch (flavor) {
-        Flavor.develop => ConfigDevelop.apiHostUrl,
-        Flavor.staging => ConfigStaging.apiHostUrl,
-        Flavor.production => ConfigProduction.apiHostUrl,
-      };
+    Flavor.develop => ConfigDevelop.apiHostUrl,
+    Flavor.staging => ConfigStaging.apiHostUrl,
+    Flavor.production => ConfigProduction.apiHostUrl,
+  };
 
   // Used for Web notifications
   String get vapidKey => switch (flavor) {
-        Flavor.develop => ConfigDevelop.vapidKey,
-        Flavor.staging => ConfigStaging.vapidKey,
-        Flavor.production => ConfigProduction.vapidKey,
-      };
+    Flavor.develop => ConfigDevelop.vapidKey,
+    Flavor.staging => ConfigStaging.vapidKey,
+    Flavor.production => ConfigProduction.vapidKey,
+  };
 
   // Used for example for Google SignIn init
   String? get firebaseClientID => switch (flavor) {
-        Flavor.develop => switch (currentPlatform) {
-            AppPlatform.android => ConfigDevelop.androidClientId,
-            AppPlatform.iOS => ConfigDevelop.iosClientId,
-            AppPlatform.web => ConfigDevelop.webClientId,
-            _ => null,
-          },
-        Flavor.staging => switch (currentPlatform) {
-            AppPlatform.android => ConfigStaging.androidClientId,
-            AppPlatform.iOS => ConfigStaging.iosClientId,
-            AppPlatform.web => ConfigStaging.webClientId,
-            _ => null,
-          },
-        Flavor.production => switch (currentPlatform) {
-            AppPlatform.android => ConfigProduction.androidClientId,
-            AppPlatform.iOS => ConfigProduction.iosClientId,
-            AppPlatform.web => ConfigProduction.webClientId,
-            _ => null,
-          },
-      };
+    Flavor.develop => switch (currentPlatform) {
+      AppPlatform.android => ConfigDevelop.androidClientId,
+      AppPlatform.iOS => ConfigDevelop.iosClientId,
+      AppPlatform.web => ConfigDevelop.webClientId,
+      _ => null,
+    },
+    Flavor.staging => switch (currentPlatform) {
+      AppPlatform.android => ConfigStaging.androidClientId,
+      AppPlatform.iOS => ConfigStaging.iosClientId,
+      AppPlatform.web => ConfigStaging.webClientId,
+      _ => null,
+    },
+    Flavor.production => switch (currentPlatform) {
+      AppPlatform.android => ConfigProduction.androidClientId,
+      AppPlatform.iOS => ConfigProduction.iosClientId,
+      AppPlatform.web => ConfigProduction.webClientId,
+      _ => null,
+    },
+  };
 
   // Function which setups base configuration.
   static Future<void> setup({required Flavor flavor}) async {

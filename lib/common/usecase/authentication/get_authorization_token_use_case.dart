@@ -8,7 +8,7 @@ part 'get_authorization_token_use_case.g.dart';
 @riverpod
 Future<String?> getAuthorizationTokenUseCase(
   Ref ref, {
-  forceRefresh = false,
+  bool forceRefresh = false,
 }) async {
   final firebaseUser = FirebaseAuth.instance.currentUser;
   final token = await firebaseUser?.getIdToken(forceRefresh);

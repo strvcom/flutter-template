@@ -9,7 +9,7 @@ part 'get_current_user_use_case.g.dart';
 @riverpod
 Future<UserModel> getCurrentUserUseCase(Ref ref) async {
   final dio = ref.read(dioProvider);
-  final response = await dio.get('/v1/users/me');
+  final response = await dio.get<Map<String, dynamic>>('/v1/users/me');
 
-  return UserModel.fromAPI(user: UserResponseDTO.fromJson(response.data));
+  return UserModel.fromAPI(user: UserResponseDTO.fromJson(response.data!));
 }

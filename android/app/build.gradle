@@ -41,7 +41,7 @@ android {
     compileSdkVersion compileAndroidSdkVersion
     ndkVersion flutter.ndkVersion
     flavorDimensions "env"
-    namespace "com.strv.flutter.template"
+    namespace "cz.helu.flutter.template"
 
     compileOptions {
         coreLibraryDesugaringEnabled true
@@ -73,7 +73,6 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.strv.flutter.template"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion minAndroidSdkVersion
@@ -117,9 +116,6 @@ android {
             shrinkResources true
 
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-
-            // Comment this when testing dynamic links.
-            applicationIdSuffix = ".debug"
         }
         release {
             signingConfig signingConfigs.release
@@ -129,7 +125,7 @@ android {
 
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
            
-            // TODO: Remove or change to true, once Firebase is set-up correctly
+            // TODO(HELU): Remove or change to true, once Firebase is set-up correctly
             firebaseCrashlytics {
                 mappingFileUploadEnabled = false
                 unstrippedNativeLibsDir file("build/app/intermediates/merged_native_libs/productionRelease/out/lib")

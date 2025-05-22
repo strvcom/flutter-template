@@ -6,10 +6,10 @@ import 'package:flutter_app/common/component/custom_progress_indicator.dart';
 
 class CustomClickableProfileAvatar extends StatelessWidget {
   const CustomClickableProfileAvatar({
-    super.key,
     required this.imageUrl,
     required this.size,
     required this.onClick,
+    super.key,
     this.onLongClick,
   });
 
@@ -37,9 +37,9 @@ class CustomClickableProfileAvatar extends StatelessWidget {
 
 class CustomProfileAvatar extends StatelessWidget {
   const CustomProfileAvatar({
-    super.key,
     required this.imageUrl,
     required this.size,
+    super.key,
   });
 
   final String imageUrl;
@@ -55,7 +55,6 @@ class CustomProfileAvatar extends StatelessWidget {
           width: size,
           height: size,
           fit: BoxFit.cover,
-          cache: true,
           loadStateChanged: (state) {
             switch (state.extendedImageLoadState) {
               case LoadState.loading:

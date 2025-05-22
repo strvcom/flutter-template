@@ -17,7 +17,7 @@ Future<UserModel> signInCompletionUseCase(Ref ref) async {
   final userResponse = UserResponseDTO.fromJson(response.data);
   final user = UserModel.fromAPI(user: userResponse);
   */
-  // TODO: Remove this line and uncomment the above lines
+  // TODO(HELU): Remove this line and uncomment the above lines
   const user = UserModel(
     id: '1',
     email: 'john.doe@example.com',

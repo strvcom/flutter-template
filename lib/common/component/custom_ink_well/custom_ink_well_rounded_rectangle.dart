@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 class CustomInkWellRoundedRectangle extends StatelessWidget {
   const CustomInkWellRoundedRectangle({
-    super.key,
     required this.onClick,
-    this.onLongClick,
     required this.cornerRadius,
-    this.padding,
     required this.child,
+    super.key,
+    this.onLongClick,
+    this.padding,
   });
 
-  final Function()? onClick;
-  final Function()? onLongClick;
+  final VoidCallback? onClick;
+  final VoidCallback? onLongClick;
   final double cornerRadius;
   final EdgeInsets? padding;
   final Widget child;
@@ -21,7 +21,7 @@ class CustomInkWellRoundedRectangle extends StatelessWidget {
     return Stack(
       children: [
         Padding(
-          padding: padding ?? const EdgeInsets.all(0),
+          padding: padding ?? EdgeInsets.zero,
           child: child,
         ),
         Positioned.fill(

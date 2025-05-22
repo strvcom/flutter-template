@@ -37,11 +37,11 @@ sealed class NotificationPayloadModel with _$NotificationPayloadModel {
   }) = NotificationPayloadModelUnknown;
 
   factory NotificationPayloadModel.fromJson(Map<String, dynamic> json) {
-    switch (NotificationType.fromString(json['type'])) {
+    switch (NotificationType.fromString(json['type'] as String?)) {
       case NotificationType.sample:
         return NotificationPayloadModelSample.fromJson(json);
 
-      default:
+      case NotificationType.unknown:
         return const NotificationPayloadModelUnknown();
     }
   }

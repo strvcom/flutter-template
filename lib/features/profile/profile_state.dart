@@ -27,7 +27,7 @@ class ProfileStateNotifier extends _$ProfileStateNotifier with AutoDisposeStateH
     final currentUser = await ref.read(currentUserModelStateProvider.future);
     final imageUrl = ref.read(getRandomImageUrlUseCaseProvider(width: 120, height: 120));
 
-    await Future.delayed(const Duration(seconds: 2));
+    await Future<void>.delayed(const Duration(seconds: 2));
 
     return ProfileState(
       displayName: currentUser?.displayName ?? '',

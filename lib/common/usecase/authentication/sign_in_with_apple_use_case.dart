@@ -21,7 +21,7 @@ Future<UserModel> signInWithAppleUseCase(Ref ref) async {
   final sha256Nonce = sha256.convert(utf8.encode(rawNonce)).toString();
 
   // webAuthenticationOptions is required on Android and on the Web.
-  // TODO: Configure for Android and web after the domain is registered.
+  // TODO(HELU): Configure for Android and web after the domain is registered.
   final appleCredential = await SignInWithApple.getAppleIDCredential(
     nonce: sha256Nonce,
     webAuthenticationOptions: WebAuthenticationOptions(

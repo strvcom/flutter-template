@@ -28,12 +28,12 @@ class _DebugToolsActionsPageContentState extends ConsumerState<DebugToolsActions
         CustomButtonPrimary(
           onPressed: () {
             Navigator.of(context).push(
-              MaterialPageRoute(
+              MaterialPageRoute<void>(
                 builder: (context) => Theme(
-                  data: ThemeData(colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)),
+                  data: ThemeData(colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey)),
                   child: TalkerScreen(
                     talker: Flogger.talker,
-                    theme: TalkerScreenTheme(
+                    theme: const TalkerScreenTheme(
                       logColors: {TalkerLogType.debug: Colors.green},
                     ),
                   ),

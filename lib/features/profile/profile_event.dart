@@ -9,5 +9,6 @@ sealed class ProfileEvent with _$ProfileEvent {
   const factory ProfileEvent.signedOut() = ProfileEventSignedOut;
 }
 
-final profileEventNotifierProvider =
-    StateNotifierProvider.autoDispose<EventNotifier<ProfileEvent?>, ProfileEvent?>((ref) => EventNotifier(null));
+final profileEventNotifierProvider = StateNotifierProvider.autoDispose<EventNotifier<ProfileEvent?>, ProfileEvent?>(
+  (ref) => EventNotifier(null),
+);

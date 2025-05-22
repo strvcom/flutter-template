@@ -3,7 +3,7 @@ import 'package:project_setup/core/model/setup_platform.dart';
 
 class Configuration {
   // Title: App Icon
-  static final appIconBackgroundColor = '#121618';
+  static final appIconBackgroundColor = '#F2F2F2';
   static final appIconVariants = [
     AppIconVariantModel(name: 'developDebug', labelColorHex: '#37B73B', labelText: 'DEV', debugIndicator: true),
     AppIconVariantModel(name: 'developRelease', labelColorHex: '#37B73B', labelText: 'DEV'),
@@ -14,15 +14,15 @@ class Configuration {
   ];
 
   // Title: Splash Screen
-  static final splashScreenBackgroundColor = '#FFFFFF';
+  static final splashScreenBackgroundColor = '#F2F2F2';
   static final splashScreenDarkModeBackgroundColor = '#121618';
   static final splashScreenPlatforms = [SetupPlatform.android, SetupPlatform.ios, SetupPlatform.web];
 
   // Title: Rename
   static final renameOldAppName = 'Flutter Template';
   static final renameNewAppName = 'Flutter Template';
-  static final renameOldPackageName = 'com.strv.flutter.template';
-  static final renameNewPackageName = 'com.strv.flutter.template';
+  static final renameOldPackageName = 'cz.helu.flutter.template';
+  static final renameNewPackageName = 'cz.helu.flutter.template';
   static final renameAppNameIncludedFiles = [
     'README.md',
     'AndroidManifest.xml',

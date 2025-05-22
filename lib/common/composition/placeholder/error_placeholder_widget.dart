@@ -8,8 +8,8 @@ import 'package:flutter_app/common/extension/build_context.dart';
 
 class ErrorPlaceholderWidget extends StatelessWidget {
   const ErrorPlaceholderWidget({
-    super.key,
     required this.onRetry,
+    super.key,
     this.exception = const CustomException.general(),
   });
 
@@ -21,18 +21,27 @@ class ErrorPlaceholderWidget extends StatelessWidget {
     return ExpandableSingleChildScrollView(
       padding: const EdgeInsets.all(20),
       child: Align(
-        alignment: Alignment.center,
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: ResponsiveWidget.mediumSizeThreshold),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CustomText(text: exception.getMessage(context: context), style: context.textTheme.titleMedium),
+              CustomText(
+                text: exception.getMessage(context: context),
+                style: context.textTheme.titleMedium,
+              ),
               const SizedBox(height: 8),
-              CustomText(text: exception.getDetails(context: context), style: context.textTheme.bodyMedium),
+
+              CustomText(
+                text: exception.getDetails(context: context),
+                style: context.textTheme.bodyMedium,
+              ),
               const SizedBox(height: 32),
-              CustomButtonPrimary(onPressed: onRetry, text: context.locale.generalErrorStateRetryButton),
+
+              CustomButtonPrimary(
+                onPressed: onRetry,
+                text: context.locale.generalErrorStateRetryButton,
+              ),
             ],
           ),
         ),

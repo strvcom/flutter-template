@@ -47,7 +47,7 @@ class DebugToolsPopupsPageContent extends ConsumerWidget {
         ),
         const SizedBox(height: 16),
         CustomButtonPrimary(
-          onPressed: () => showCustomModalBottomSheet(
+          onPressed: () => showCustomModalBottomSheet<void>(
             context: context,
             containerWidget: (context, animation, child) => BottomSheetContainerWidget(child: child),
             builder: (context) => Padding(

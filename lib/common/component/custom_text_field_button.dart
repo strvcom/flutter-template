@@ -5,8 +5,8 @@ import 'package:flutter_app/common/validator/text_validator_controller.dart';
 
 class CustomTextFieldButton extends StatelessWidget {
   const CustomTextFieldButton({
-    super.key,
     required this.onClick,
+    super.key,
     this.label,
     this.controller,
     this.validatorController,
