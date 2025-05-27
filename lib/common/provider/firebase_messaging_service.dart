@@ -1,4 +1,3 @@
-import 'package:app_settings/app_settings.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_app/app/configuration/configuration.dart';
 import 'package:flutter_app/app/setup/app_platform.dart';
@@ -7,7 +6,6 @@ import 'package:flutter_app/common/provider/current_user_model_state.dart';
 import 'package:flutter_app/common/provider/notifications_service.dart';
 import 'package:flutter_app/common/usecase/create_device_token_use_case.dart';
 import 'package:flutter_app/core/analytics/crashlytics_manager.dart';
-import 'package:flutter_app/core/database/shared_preferences.dart';
 import 'package:flutter_app/core/flogger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -15,8 +13,6 @@ part 'firebase_messaging_service.g.dart';
 
 @Riverpod(keepAlive: true)
 class FirebaseMessagingService extends _$FirebaseMessagingService {
-  final _firebaseMessaging = FirebaseMessaging.instance;
-
   @pragma('vm:entry-point')
   static Future<void> firebaseNotificationDisplayBgHandler(RemoteMessage message) async {
     Flogger.d('[Firebase Messaging] Display notification with payload: ${message.data}');
@@ -34,39 +30,6 @@ class FirebaseMessagingService extends _$FirebaseMessagingService {
     await _setupFirebaseToken();
     await _setupFirebaseMessaging();
     return this;
-  }
-
-  /// Check whether user has at least any Notification permission allowed
-  Future<bool> isPermissionsGranted() async {
-    final settings = await _firebaseMessaging.getNotificationSettings();
-    return settings.authorizationStatus == AuthorizationStatus.authorized ||
-        settings.authorizationStatus == AuthorizationStatus.provisional;
-  }
-
-  /// Sadly it is little bit tricky to realize if we already checked for Permission. We cannot use [AuthorizationStatus.notDetermined],
-  /// As it is always denied on Android, even through we can display the system dialog.
-  /// Another issue is that the count for displaying the native dialog is different on Android and iOS.
-  /// The best approach here is to manually check and track the count of how many times we displayed the dialog.
-  Future<bool> requestPermissions() async {
-    final preferences = await ref.read(sharedPreferencesProvider.future);
-    final dialogRequestCount = preferences.getInt(PreferencesKeys.notificationsPermissionRequestCount.value) ?? 0;
-
-    NotificationSettings? settings;
-    if (dialogRequestCount == 0 || (dialogRequestCount == 1 && AppPlatform.isAndroid)) {
-      await preferences.setInt(PreferencesKeys.notificationsPermissionRequestCount.value, dialogRequestCount + 1);
-      settings = await _firebaseMessaging.requestPermission();
-    } else {
-      await AppSettings.openAppSettings();
-      settings = await _firebaseMessaging.getNotificationSettings();
-    }
-
-    if (settings.authorizationStatus == AuthorizationStatus.authorized || settings.authorizationStatus == AuthorizationStatus.provisional) {
-      Flogger.d('[Firebase Messaging] User granted permission');
-      return true;
-    } else {
-      Flogger.d('[Firebase Messaging] User declined or has not accepted permission');
-      return false;
-    }
   }
 
   /// Do not forget to call this after user sign in!

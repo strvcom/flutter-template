@@ -172,7 +172,7 @@ flutter pub run build_runner watch --delete-conflicting-outputs
 
 as an alternative you can just use:
 ```
-make build_runner
+make watch
 ```
 
 ### Linux

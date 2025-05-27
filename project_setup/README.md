@@ -28,7 +28,7 @@ All you need to do now is to set correct configuration in `/project_setup/lib/co
 ### Step 3
 run `make setup` in root folder of the project, and select generation of new splash screen.
 
-## Aplication Rebranding
+## Application Rebranding
 
 ### Step 1
 All you need to do is to set correct application name and package name configuration in `/project_setup/lib/configuration.dart`.

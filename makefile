@@ -1,5 +1,5 @@
 # https://medium.com/flutter-community/automating-flutter-workflows-with-the-makefile-423b8e023c9a
-.PHONY: setup watch clean gen gen_locale install integration_test test generateAndroidProductionAppBundle generateIosStagingIpa generateIosProductionIpa generateWebProduction deployWeb runner_gen
+.PHONY: setup watch clean gen locale install integration_test test generateAndroidProductionAppBundle generateIosStagingIpa generateIosProductionIpa generateWebProduction deployWeb runner_gen
 
 setup: # Setup the project
 	@fvm dart ./project_setup/lib/main.dart
@@ -13,10 +13,10 @@ clean: # Clean everything in the project, download dependencies, generate code
 	@make gen
 
 gen: # Generates localization and freezed files in project
-	@make gen_locale
+	@make locale
 	@fvm dart run build_runner build --delete-conflicting-outputs
 
-gen_locale: # Generates localization and freezed files in project
+locale: # Generates localization and freezed files in project
 	@fvm flutter gen-l10n --arb-dir "assets/localization" --template-arb-file "app_en.arb" --output-localization-file "app_localizations.gen.dart" --output-dir "lib/assets" --no-synthetic-package
 
 install: # Install any required packages

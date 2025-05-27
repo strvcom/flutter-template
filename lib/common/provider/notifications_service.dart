@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_app/common/data/model/notification_payload_model.dart';
 import 'package:flutter_app/core/flogger.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'notifications_service.g.dart';
@@ -11,6 +12,38 @@ part 'notifications_service.g.dart';
 @Riverpod(keepAlive: true)
 class NotificationsService extends _$NotificationsService {
   static final _flutterLocalNotifications = FlutterLocalNotificationsPlugin();
+
+  /// Check whether user has at least any Notification permission allowed
+  static Future<bool> isPermissionGranted() async {
+    final permissionStatus = await Permission.notification.status;
+    return !permissionStatus.isDenied && !permissionStatus.isPermanentlyDenied;
+  }
+
+  /// Check whether user has at least any Notification permission denied
+  static Future<bool> isPermissionPermanentlyDenied() async => Permission.notification.isPermanentlyDenied;
+
+  /// Request Notification permission from the user
+  /// Returns true if the permission was granted, false if it was denied or permanently denied.
+  /// Warning: If the permission is permanently denied, this method will automatically
+  /// open the app settings. Consider showing a dialog to the user first.
+  static Future<bool> requestPermission() async {
+    var permissionStatus = await Permission.notification.status;
+
+    // If the status is denied, we request it.
+    // This means that the request has not been displayed yet, or displayed only once on Android.
+    if (permissionStatus == PermissionStatus.denied) {
+      permissionStatus = await Permission.notification.request();
+      return !permissionStatus.isDenied && !permissionStatus.isPermanentlyDenied;
+    }
+    // If the status is permanentlyDenied, we cannot request it again. We can only open the appSettings.
+    else if (permissionStatus == PermissionStatus.permanentlyDenied) {
+      await openAppSettings();
+      return false;
+    }
+
+    // Otherwise, we handle the status as granted.
+    return true;
+  }
 
   /// The backgroundHandler needs to be either a static function or a top level function to be accessible as a Flutter entry point
   @pragma('vm:entry-point')

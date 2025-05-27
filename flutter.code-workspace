@@ -221,6 +221,12 @@
         "backgroundColor": "rgba(0,0,0,0)"
       },
       {
+        "text": "@@x---",
+        "color": "#FF1200",
+        "isWholeLine": true,
+        "backgroundColor": "rgba(0,0,0,0)"
+      },
+      {
         "text": " Subtitle: ",
         "color": "#BE0011",
         "isWholeLine": true,

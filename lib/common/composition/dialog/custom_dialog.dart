@@ -4,12 +4,12 @@ import 'package:flutter_app/app/setup/app_platform.dart';
 import 'package:flutter_app/common/component/custom_text/custom_text.dart';
 import 'package:flutter_app/common/extension/build_context.dart';
 
-class CustomDialogWrapper extends StatelessWidget {
-  const CustomDialogWrapper.alert({
+class CustomDialog extends StatelessWidget {
+  const CustomDialog.alert({
     required this.context,
     required this.title,
+    required this.message,
     super.key,
-    this.message,
     this.positiveActionTitle,
     this.positiveAction,
     this.neutralActionTitle,
@@ -20,7 +20,7 @@ class CustomDialogWrapper extends StatelessWidget {
     this.forceMaterial = false,
   }) : content = null;
 
-  const CustomDialogWrapper.custom({
+  const CustomDialog.custom({
     required this.context,
     required this.title,
     super.key,
@@ -82,11 +82,9 @@ class CustomDialogWrapper extends StatelessWidget {
         title: CustomText(text: title, style: context.textTheme.titleLarge),
         content:
             content ??
-            (message != null
-                ? SingleChildScrollView(
-                    child: CustomText(text: message!, style: context.textTheme.bodyMedium),
-                  )
-                : null),
+            SingleChildScrollView(
+              child: CustomText(text: message!, style: context.textTheme.bodyMedium),
+            ),
         backgroundColor: context.colorScheme.surface,
         surfaceTintColor: context.colorScheme.surface, // Needs to be the same as backgroundColor
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
@@ -121,6 +119,13 @@ class CustomDialogWrapper extends StatelessWidget {
         ],
       );
     }
+  }
+
+  Future<bool?> show() {
+    return showDialog<bool>(
+      context: context,
+      builder: (builderContext) => this,
+    );
   }
 
   void _positiveButtonAction(BuildContext context) {
