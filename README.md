@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Flutter](https://img.shields.io/badge/Flutter-3.32-blue)](https://docs.flutter.dev/release/whats-new#flutter-332)
+[![Flutter](https://img.shields.io/badge/Flutter-3.32.8-blue)](https://docs.flutter.dev/release/whats-new#flutter-332)
 [![Dart](https://img.shields.io/badge/Dart-3.8.0-blue)](https://dart.dev/guides/whats-new#dart-380)
 [![License](https://img.shields.io/github/license/HE-LU/flutter-template)](LICENSE)
 
@@ -11,7 +11,6 @@
 <div align="center">
 
 [![CodeCheck](https://github.com/HE-LU/flutter-template/actions/workflows/flutter_project_codecheck_android.yml/badge.svg)](https://github.com/HE-LU/flutter-template/actions/workflows/flutter_project_codecheck_android.yml)
-[![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/HE-LU/flutter-template?utm_source=oss&utm_medium=github&utm_campaign=HE-LU%2Fflutter-template&labelColor=171717&color=FF570A)](#)
 
 </div>
 
@@ -71,6 +70,7 @@
 
 - [Authors](#authors)
 
+
 <!-- ################################################## -->
 <!-- #######           Project Notes            ####### -->
 <!-- ################################################## -->
@@ -78,6 +78,7 @@
 
 - Notes that could be beneficial to know during the development. 
 - For example list of test accounts, required credentials, steps required to get testing account, etc.
+<!-- ################################################## -->
 
 
 <!-- ################################################## -->
@@ -91,6 +92,7 @@ These are our four core values:
 - **Accountability** - We support responsibility and accountability among team members. Encourage individuals to take ownership of their tasks and deliverables, meet deadlines, and communicate effectively about progress and challenges.
 - **Innovation** - We encourage creativity and innovation within the Flutter team. Support an environment where team members feel comfortable suggesting new ideas, experimenting with different approaches, and finding new solutions to problems.
 <!-- ################################################## -->
+
 
 <!-- ################################################## -->
 <!-- ########           First steps            ######## -->
@@ -113,6 +115,7 @@ These are our four core values:
 8. - [ ] Set up Firebase or remove it completely. This process is described in the [Firebase setup](#firebase-setup) section.
 9. - [ ] Go through all the ToDo's inside the project, and react to them.
 <!-- ################################################## -->
+
 
 <!-- ################################################## -->
 <!-- ##########           Project            ########## -->
@@ -198,6 +201,7 @@ In case of using firebase with multiple flavors, you have to:
 For Google sign in:
 - for iOS, you have to copy value from `REVERSED_CLIENT_ID` from `GoogleService-Info.plist` into `GOOGLE_REVERSED_CLIENT_ID` in build settings.
 <!-- ################################################## -->
+
 
 <!-- ################################################## -->
 <!-- ##########    Build and Distribution    ########## -->
@@ -406,6 +410,7 @@ To be able to use the firebase provider for Apple login, we need to do some conf
     
     - The app will crash, and you will see the error message `[CustomException] Received error PlatformException(google_sign_in, Your app is missing support for the following URL schemes: com.googleusercontent.apps......` in the debug console if the custom URL schemes setup is incorrect after tapping the Google Auth button.
 <!-- ################################################## -->
+
 
 <!-- ################################################## -->
 <!-- ##########           Testing            ########## -->

@@ -16,11 +16,19 @@ class AppTheme {
     final colorScheme = CustomColorScheme(brightness: brightness);
     final textTheme = CustomTextTheme(colorScheme: colorScheme);
 
+    // Create a native color scheme based on the custom color scheme.
+    var nativeColorScheme = kDebugMode
+        ? _getUndefinedColorScheme(brightness)
+        : ColorScheme.fromSeed(seedColor: colorScheme.primary, brightness: brightness);
+
+    // Override colors that make sense to override, and that we can match.
+    nativeColorScheme = nativeColorScheme.copyWith(
+      surface: colorScheme.surface,
+    );
+
     return ThemeData(
       brightness: brightness,
-      colorScheme: kDebugMode
-          ? _getUndefinedColorScheme(brightness)
-          : ColorScheme.fromSeed(seedColor: colorScheme.primary, brightness: brightness),
+      colorScheme: nativeColorScheme,
       visualDensity: VisualDensity.standard, // Needed for consistent web and app sizing
       textTheme: kDebugMode ? _getUndefinedTextTheme() : null,
       scaffoldBackgroundColor: colorScheme.surface,

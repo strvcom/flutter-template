@@ -20,6 +20,7 @@ import 'package:flutter_app/core/flogger.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:freerasp/freerasp.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:window_manager/window_manager.dart';
 
 Future<void> setupApp({required Flavor flavor}) async {
@@ -46,6 +47,9 @@ Future<void> setupApp({required Flavor flavor}) async {
   await _setupFirebaseRemoteConfig();
   await _setupFirebaseMessaging();
   await _setupLocalNotificationsService();
+
+  // Setup Google Sign In
+  await GoogleSignIn.instance.initialize();
 
   // Setup FreeRASP Security
   await _setupRASP(flavor: flavor);

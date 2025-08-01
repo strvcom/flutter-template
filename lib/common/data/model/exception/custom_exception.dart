@@ -7,6 +7,7 @@ import 'package:flutter_app/common/extension/build_context.dart';
 import 'package:flutter_app/core/analytics/crashlytics_manager.dart';
 import 'package:flutter_app/core/flogger.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 part 'custom_exception.freezed.dart';
@@ -50,6 +51,13 @@ sealed class CustomException with _$CustomException implements Exception {
           }
 
           return CustomException.withMessage(message: error.message);
+      }
+    } else if (error is GoogleSignInException) {
+      switch (error.code) {
+        case GoogleSignInExceptionCode.canceled:
+          return const CustomException.signInCancelled();
+        default:
+          return CustomException.withMessage(message: error.description);
       }
     } else if (error is SignInWithAppleAuthorizationException) {
       switch (error.code) {
