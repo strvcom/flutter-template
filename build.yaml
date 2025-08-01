@@ -7,15 +7,12 @@ targets:
         generate_for:
           - lib/common/data/dto/*_dto.dart
           - lib/common/data/dto/**/*_dto.dart
-          - lib/common/data/dto/**/**/*_dto.dart
 
           - lib/common/data/enum/*.dart
           - lib/common/data/enum/**/*.dart
-          - lib/common/data/enum/**/**/*.dart
 
           - lib/common/data/model/*.dart
           - lib/common/data/model/**/*.dart
-          - lib/common/data/model/**/**/*.dart
 
           - lib/common/validator/*.dart
 
@@ -24,11 +21,9 @@ targets:
           
           - lib/features/*_event.dart
           - lib/features/**/*_event.dart
-          - lib/features/**/**/*_event.dart
           
           - lib/features/*_state.dart
           - lib/features/**/*_state.dart
-          - lib/features/**/**/*_state.dart
 
 
       # Title: Riverpod
@@ -39,11 +34,9 @@ targets:
 
           - lib/common/provider/*.dart
           - lib/common/provider/**/*.dart
-          - lib/common/provider/**/**/*.dart
 
           - lib/common/usecase/*.dart
           - lib/common/usecase/**/*.dart
-          - lib/common/usecase/**/**/*.dart
 
           - lib/core/analytics/analytics_manager.dart
           - lib/core/analytics/analytics_route_observer.dart
@@ -53,7 +46,6 @@ targets:
           
           - lib/features/*_state.dart
           - lib/features/**/*_state.dart
-          - lib/features/**/**/*_state.dart
 
 
       # Title: Json Serializable
@@ -62,15 +54,12 @@ targets:
         generate_for:
           - lib/common/data/dto/*_dto.dart
           - lib/common/data/dto/**/*_dto.dart
-          - lib/common/data/dto/**/**/*_dto.dart
 
           - lib/common/data/enum/*.dart
           - lib/common/data/enum/**/*.dart
-          - lib/common/data/enum/**/**/*.dart
 
           - lib/common/data/model/*.dart
           - lib/common/data/model/**/*.dart
-          - lib/common/data/model/**/**/*.dart
 
 
       # Title: Auto Route

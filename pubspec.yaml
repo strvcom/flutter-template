@@ -1,5 +1,5 @@
 name: flutter_app
-description: Template project for flutter apps.
+description: Template project for Flutter apps.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+10000000 #1 00 00 000
 
@@ -86,7 +86,7 @@ dev_dependencies:
     sdk: flutter
 
   # Build Runner
-  build_runner: 2.4.15
+  build_runner: 2.5.4
 
   # State management
   riverpod_generator: 2.6.5
