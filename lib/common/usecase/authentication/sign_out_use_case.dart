@@ -14,7 +14,7 @@ Future<void> signOutUseCase(Ref ref) async {
 
   // Title: Try to sign out from Google - if any
   try {
-    await GoogleSignIn().disconnect();
+    await GoogleSignIn.instance.disconnect();
   } on MissingPluginException catch (error) {
     Flogger.d('[Authentication] MissingPluginException $error');
   } on PlatformException catch (error) {

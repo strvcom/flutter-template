@@ -43,7 +43,7 @@ dependencies:
   firebase_remote_config: 6.0.0
 
   # Authentication
-  google_sign_in: 6.3.0
+  google_sign_in: 7.1.1
   sign_in_with_apple: 7.0.1
 
   # Device
