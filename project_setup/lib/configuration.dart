@@ -1,5 +1,5 @@
-import 'package:project_setup/core/model/app_icon_variant_model.dart';
-import 'package:project_setup/core/model/setup_platform.dart';
+import 'package:project_setup/core/entity/app_icon_variant_model.dart';
+import 'package:project_setup/core/entity/setup_platform.dart';
 
 class Configuration {
   // Title: App Icon

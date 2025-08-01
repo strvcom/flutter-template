@@ -1,8 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'notification_payload_model.freezed.dart';
-part 'notification_payload_model.g.dart';
+part 'notification_payload_entity.freezed.dart';
+part 'notification_payload_entity.g.dart';
 
 @JsonEnum(valueField: 'value', alwaysCreate: true)
 enum NotificationType {
@@ -17,32 +17,32 @@ enum NotificationType {
 }
 
 @Freezed(fromJson: true, toJson: true)
-sealed class NotificationPayloadModel with _$NotificationPayloadModel {
-  const NotificationPayloadModel._();
+sealed class NotificationPayloadEntity with _$NotificationPayloadEntity {
+  const NotificationPayloadEntity._();
 
   // Title: Sample
-  const factory NotificationPayloadModel.sample({
+  const factory NotificationPayloadEntity.sample({
     required int id,
     required String title,
     required String body,
     @Default(NotificationType.sample) NotificationType type,
-  }) = NotificationPayloadModelSample;
+  }) = NotificationPayloadEntitySample;
 
   // Subtitle: unknown
-  const factory NotificationPayloadModel.unknown({
+  const factory NotificationPayloadEntity.unknown({
     @Default(-1) int id,
     @Default('') String title,
     @Default('') String body,
     @Default(NotificationType.unknown) NotificationType type,
-  }) = NotificationPayloadModelUnknown;
+  }) = NotificationPayloadEntityUnknown;
 
-  factory NotificationPayloadModel.fromJson(Map<String, dynamic> json) {
+  factory NotificationPayloadEntity.fromJson(Map<String, dynamic> json) {
     switch (NotificationType.fromString(json['type'] as String?)) {
       case NotificationType.sample:
-        return NotificationPayloadModelSample.fromJson(json);
+        return NotificationPayloadEntitySample.fromJson(json);
 
       case NotificationType.unknown:
-        return const NotificationPayloadModelUnknown();
+        return const NotificationPayloadEntityUnknown();
     }
   }
 }

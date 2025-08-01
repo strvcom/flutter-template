@@ -1,5 +1,5 @@
-import 'package:flutter_app/common/data/model/exception/custom_exception.dart';
-import 'package:flutter_app/common/data/model/user_model.dart';
+import 'package:flutter_app/common/data/entity/exception/custom_exception.dart';
+import 'package:flutter_app/common/data/entity/user_entity.dart';
 import 'package:flutter_app/common/usecase/authentication/sign_in_anonymously_use_case.dart';
 import 'package:flutter_app/common/usecase/authentication/sign_in_with_apple_use_case.dart';
 import 'package:flutter_app/common/usecase/authentication/sign_in_with_google_use_case.dart';
@@ -40,7 +40,7 @@ class AuthenticationStateNotifier extends _$AuthenticationStateNotifier with Aut
     await _signInWithProvider(signInWithAppleUseCaseProvider);
   }
 
-  Future<void> _signInWithProvider(AutoDisposeFutureProvider<UserModel> provider) async {
+  Future<void> _signInWithProvider(AutoDisposeFutureProvider<UserEntity> provider) async {
     setStateData(currentData?.copyWith(isSigningIn: true));
 
     try {

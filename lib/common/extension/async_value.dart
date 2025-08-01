@@ -3,7 +3,7 @@ import 'package:flutter_app/common/component/custom_app_bar.dart';
 import 'package:flutter_app/common/component/custom_progress_indicator.dart';
 import 'package:flutter_app/common/composition/placeholder/empty_placeholder_widget.dart';
 import 'package:flutter_app/common/composition/placeholder/error_placeholder_widget.dart';
-import 'package:flutter_app/common/data/model/exception/custom_exception.dart';
+import 'package:flutter_app/common/data/entity/exception/custom_exception.dart';
 import 'package:flutter_app/common/extension/dynamic.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

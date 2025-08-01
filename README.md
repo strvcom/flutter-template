@@ -140,7 +140,7 @@ These are our four core values:
       ‣ dbo -> Classes to transfer data over to the database 
       ‣ dto -> Classes to transfer data over the network
       ‣ enum -> Enum classes used across the App
-      ‣ model -> Model classes used across the App
+      ‣ entity -> Entity classes used across the App
     ‣ extensions -> Extension classes/methods over existing data types
     ‣ provider -> Global Services and manager providers, like Notification Service
     ‣ usecase -> Methods used to get/post data. Usually from/to network or local database
@@ -324,7 +324,7 @@ On the iOS side, on the other hand, the notification will be always displayed by
 
 ![Push Notifications Payload](docs/push_notifications_payload.jpg)
 
-As for the handling of notifications of different types, we introduced `NotificationPayloadModel`, and `NotificationType`. These both define all the notifications types expected from BE, which the app will be able to handle. All the rest of the logic is handled inside `FirebaseMessagingService` and `NotificationsService` files.
+As for the handling of notifications of different types, we introduced `NotificationPayloadEntity`, and `NotificationType`. These both define all the notifications types expected from BE, which the app will be able to handle. All the rest of the logic is handled inside `FirebaseMessagingService` and `NotificationsService` files.
 
 ![Displaying Push Notifications](docs/displaying_push_notifications.jpg)
 

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_app/common/data/model/exception/custom_exception.dart';
+import 'package:flutter_app/common/data/entity/exception/custom_exception.dart';
 
 extension ResponseExtension on Response<Map<String, dynamic>> {
   /// Tries to downcast `data` as `List<dynamic>`. If decoding fails,

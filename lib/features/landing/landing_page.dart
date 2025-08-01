@@ -5,7 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/app/navigation/app_router.dart';
 import 'package:flutter_app/app/setup/app_platform.dart';
-import 'package:flutter_app/common/provider/current_user_model_state.dart';
+import 'package:flutter_app/common/provider/current_user_state.dart';
 import 'package:flutter_app/common/provider/firebase_remote_config_service.dart';
 import 'package:flutter_app/core/flogger.dart';
 import 'package:flutter_app/features/landing/force_update_page_content.dart';
@@ -49,7 +49,7 @@ class _LandingPageState extends ConsumerState<LandingPage> {
     final forceUpdateRequired = await _handleForceUpdate();
     if (forceUpdateRequired) return;
 
-    final currentUser = await ref.read(currentUserModelStateProvider.future);
+    final currentUser = await ref.read(currentUserStateProvider.future);
 
     if (mounted) {
       FlutterNativeSplash.remove();

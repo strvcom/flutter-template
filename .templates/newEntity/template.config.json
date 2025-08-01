@@ -1,0 +1,6 @@
+{
+    "name": "New Data Entity",
+    "variables": [
+        "entityName"
+    ]
+}

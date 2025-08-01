@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:image/image.dart';
 import 'package:interact/interact.dart';
 import 'package:project_setup/configuration.dart';
-import 'package:project_setup/core/model/setup_platform.dart';
+import 'package:project_setup/core/entity/setup_platform.dart';
 import 'package:project_setup/core/util/print.dart';
 import 'package:project_setup/core/util/util.dart';
 

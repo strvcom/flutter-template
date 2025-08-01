@@ -1,3 +1,4 @@
+import 'package:flutter_app/common/data/entity/user_entity.dart';
 import 'package:flutter_app/common/data/enum/user_role.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -15,4 +16,15 @@ abstract class UserResponseDTO with _$UserResponseDTO {
   }) = _UserResponseDTO;
 
   factory UserResponseDTO.fromJson(Map<String, dynamic> json) => _$UserResponseDTOFromJson(json);
+}
+
+extension UserResponseDTOExtension on UserResponseDTO {
+  UserEntity toEntity() => UserEntity(
+    id: id,
+    role: role,
+    email: email,
+    displayName: displayName,
+    imageUrl: null,
+    referredId: referredId,
+  );
 }

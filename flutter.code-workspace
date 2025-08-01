@@ -178,6 +178,7 @@
       "section": "components",
       "dbo": "database",
       "dto": "api",
+      "entity": "enum",
       "exception": "error",
       "analytics": "tasks",
       "network": "connection",

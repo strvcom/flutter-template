@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_app/common/data/model/exception/validator_exception.dart';
+import 'package:flutter_app/common/data/entity/exception/validator_exception.dart';
 import 'package:flutter_app/common/validator/text_field_validator_state.dart';
 import 'package:flutter_app/common/validator/text_validator_controller.dart';
 

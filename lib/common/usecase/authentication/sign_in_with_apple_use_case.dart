@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_app/common/data/model/user_model.dart';
+import 'package:flutter_app/common/data/entity/user_entity.dart';
 import 'package:flutter_app/common/usecase/authentication/sign_in_with_auth_credential_use_case.dart';
 import 'package:flutter_app/core/flogger.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,7 +12,7 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 part 'sign_in_with_apple_use_case.g.dart';
 
 @riverpod
-Future<UserModel> signInWithAppleUseCase(Ref ref) async {
+Future<UserEntity> signInWithAppleUseCase(Ref ref) async {
   Flogger.d('[Authentication] Sign in with Apple started');
 
   // To prevent replay attacks with the credential returned from Apple, we include a nonce in the credential request.

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/common/data/model/exception/validator_exception.dart';
+import 'package:flutter_app/common/data/entity/exception/validator_exception.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'text_field_validator_state.freezed.dart';

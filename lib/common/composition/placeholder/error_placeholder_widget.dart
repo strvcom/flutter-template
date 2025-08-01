@@ -3,7 +3,7 @@ import 'package:flutter_app/common/component/custom_button/custom_button_primary
 import 'package:flutter_app/common/component/custom_text/custom_text.dart';
 import 'package:flutter_app/common/composition/expandable_single_child_scroll_view.dart';
 import 'package:flutter_app/common/composition/responsive_widget.dart';
-import 'package:flutter_app/common/data/model/exception/custom_exception.dart';
+import 'package:flutter_app/common/data/entity/exception/custom_exception.dart';
 import 'package:flutter_app/common/extension/build_context.dart';
 
 class ErrorPlaceholderWidget extends StatelessWidget {

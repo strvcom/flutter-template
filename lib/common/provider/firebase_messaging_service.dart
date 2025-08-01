@@ -1,8 +1,8 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_app/app/configuration/configuration.dart';
 import 'package:flutter_app/app/setup/app_platform.dart';
-import 'package:flutter_app/common/data/model/notification_payload_model.dart';
-import 'package:flutter_app/common/provider/current_user_model_state.dart';
+import 'package:flutter_app/common/data/entity/notification_payload_entity.dart';
+import 'package:flutter_app/common/provider/current_user_state.dart';
 import 'package:flutter_app/common/provider/notifications_service.dart';
 import 'package:flutter_app/common/usecase/create_device_token_use_case.dart';
 import 'package:flutter_app/core/analytics/crashlytics_manager.dart';
@@ -16,7 +16,7 @@ class FirebaseMessagingService extends _$FirebaseMessagingService {
   @pragma('vm:entry-point')
   static Future<void> firebaseNotificationDisplayBgHandler(RemoteMessage message) async {
     Flogger.d('[Firebase Messaging] Display notification with payload: ${message.data}');
-    await NotificationsService.showNotification(NotificationPayloadModel.fromJson(message.data));
+    await NotificationsService.showNotification(NotificationPayloadEntity.fromJson(message.data));
   }
 
   @pragma('vm:entry-point')
@@ -45,7 +45,7 @@ class FirebaseMessagingService extends _$FirebaseMessagingService {
     }
 
     try {
-      if (await ref.read(currentUserModelStateProvider.future) != null) {
+      if (await ref.read(currentUserStateProvider.future) != null) {
         await ref.read(createDeviceTokenUseCaseProvider(deviceToken: fcmToken.toString()).future);
       }
     } on Exception catch (e, st) {

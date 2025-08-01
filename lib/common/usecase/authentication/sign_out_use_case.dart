@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_app/common/provider/current_user_model_state.dart';
+import 'package:flutter_app/common/provider/current_user_state.dart';
 import 'package:flutter_app/core/flogger.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -25,7 +25,7 @@ Future<void> signOutUseCase(Ref ref) async {
   await FirebaseAuth.instance.signOut();
 
   // Title: Clear current user state
-  await ref.read(currentUserModelStateProvider.notifier).updateCurrentUser(null);
+  await ref.read(currentUserStateProvider.notifier).updateCurrentUser(null);
 
   Flogger.d('[Authentication] Sign out complete');
 }

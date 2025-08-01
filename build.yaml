@@ -11,8 +11,8 @@ targets:
           - lib/common/data/enum/*.dart
           - lib/common/data/enum/**/*.dart
 
-          - lib/common/data/model/*.dart
-          - lib/common/data/model/**/*.dart
+          - lib/common/data/entity/*.dart
+          - lib/common/data/entity/**/*.dart
 
           - lib/common/validator/*.dart
 
@@ -58,8 +58,8 @@ targets:
           - lib/common/data/enum/*.dart
           - lib/common/data/enum/**/*.dart
 
-          - lib/common/data/model/*.dart
-          - lib/common/data/model/**/*.dart
+          - lib/common/data/entity/*.dart
+          - lib/common/data/entity/**/*.dart
 
 
       # Title: Auto Route

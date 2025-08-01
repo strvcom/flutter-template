@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_app/common/data/model/user_model.dart';
+import 'package:flutter_app/common/data/entity/user_entity.dart';
 import 'package:flutter_app/common/usecase/authentication/sign_in_with_auth_credential_use_case.dart';
 import 'package:flutter_app/core/flogger.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,7 +13,7 @@ const List<String> _scopes = <String>[
 ];
 
 @riverpod
-Future<UserModel> signInWithGoogleUseCase(Ref ref) async {
+Future<UserEntity> signInWithGoogleUseCase(Ref ref) async {
   Flogger.d('[Authentication] Sign in with Google started');
 
   final googleSignIn = GoogleSignIn.instance;

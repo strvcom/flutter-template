@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_app/common/data/model/notification_payload_model.dart';
+import 'package:flutter_app/common/data/entity/notification_payload_entity.dart';
 import 'package:flutter_app/core/flogger.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -52,13 +52,13 @@ class NotificationsService extends _$NotificationsService {
     _tryOpeningNotificationFromPayload(notificationResponse.payload);
   }
 
-  static void handleNotificationOpen(NotificationPayloadModel notificationModel) {
-    switch (notificationModel) {
-      case NotificationPayloadModelSample():
+  static void handleNotificationOpen(NotificationPayloadEntity notification) {
+    switch (notification) {
+      case NotificationPayloadEntitySample():
         Flogger.d('[Notifications] Handle open of Sample notification');
       // TODO(HELU): [Notifications] Handle Notification open action here
 
-      case NotificationPayloadModelUnknown():
+      case NotificationPayloadEntityUnknown():
       // Do nothing
     }
   }
@@ -73,8 +73,8 @@ class NotificationsService extends _$NotificationsService {
     await _tryOpeningNotificationFromPayload(notificationAppLaunchDetails?.notificationResponse?.payload);
   }
 
-  static Future<void> showNotification(NotificationPayloadModel notification) async {
-    if (notification is NotificationPayloadModelUnknown) return;
+  static Future<void> showNotification(NotificationPayloadEntity notification) async {
+    if (notification is NotificationPayloadEntityUnknown) return;
 
     Flogger.i('[Notifications] New local notification to display: $notification');
     await _flutterLocalNotifications.cancelAll();
@@ -93,7 +93,7 @@ class NotificationsService extends _$NotificationsService {
     }
 
     try {
-      handleNotificationOpen(NotificationPayloadModel.fromJson(jsonDecode(payload) as Map<String, dynamic>));
+      handleNotificationOpen(NotificationPayloadEntity.fromJson(jsonDecode(payload) as Map<String, dynamic>));
       return Future.value(true);
     } on Exception catch (e) {
       Flogger.e('[Notifications] Could not parse payload from notification: $payload with error $e');
@@ -107,7 +107,7 @@ class NotificationsService extends _$NotificationsService {
     }
 
     try {
-      handleNotificationOpen(NotificationPayloadModel.fromJson(message.data));
+      handleNotificationOpen(NotificationPayloadEntity.fromJson(message.data));
       return Future.value(true);
     } on Exception catch (e) {
       Flogger.e('[Notifications] Could not parse payload from notification: ${message.data} with error $e');
