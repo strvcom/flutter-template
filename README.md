@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Flutter](https://img.shields.io/badge/Flutter-3.32.8-blue)](https://docs.flutter.dev/release/whats-new#flutter-332)
+[![Flutter](https://img.shields.io/badge/Flutter-3.35.1-blue)](https://docs.flutter.dev/release/whats-new#flutter-335)
 [![Dart](https://img.shields.io/badge/Dart-3.8.0-blue)](https://dart.dev/guides/whats-new#dart-380)
 [![License](https://img.shields.io/github/license/HE-LU/flutter-template)](LICENSE)
 

@@ -32,7 +32,7 @@ PODS:
     - firebase_core
     - FirebaseAnalytics (= 12.0.0)
     - Flutter
-  - firebase_auth (6.0.0):
+  - firebase_auth (6.0.1):
     - Firebase/Auth (= 12.0.0)
     - firebase_core
     - Flutter
@@ -351,7 +351,7 @@ SPEC CHECKSUMS:
   device_info_plus: bf2e3232933866d73fe290f2942f2156cdd10342
   Firebase: 800d487043c0557d9faed71477a38d9aafb08a41
   firebase_analytics: 2d63841132d444fad3d3e71682dc0072ae2aaf08
-  firebase_auth: ea2c71a75676e82165974c12b0d09a946340a1c7
+  firebase_auth: 4e5ee3c9daf2aa6feec1f3596e2f12daf4b30c09
   firebase_core: c70f903d70ec229c08c2f49aba5a8c1338546d40
   firebase_crashlytics: f5df4d26483758138b386e0db8a704e5b7ba6543
   firebase_messaging: efa3a73cad64b05131bfe138c139a65e0daebe78
@@ -371,7 +371,7 @@ SPEC CHECKSUMS:
   FirebaseRemoteConfigInterop: bfa0ea72ba3dc5af739777296424e46bd6f42613
   FirebaseSessions: 4e784acda213108aafef536535cdfc03504acc42
   FirebaseSharedSwift: 59266c22ccfcef604d725c034c568fa666ea9bda
-  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   flutter_local_notifications: ff50f8405aaa0ccdc7dcfb9022ca192e8ad9688f
   flutter_native_splash: df59bb2e1421aa0282cb2e95618af4dcb0c56c29
   freerasp: bb827d80b926abcfb8f4ca4ff4557c2fe4a5ae21
@@ -386,7 +386,7 @@ SPEC CHECKSUMS:
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   package_info_plus: c0502532a26c7662a62a356cebe2692ec5fe4ec4
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
-  patrol: cf2cd48c7f3e5171610111994f7b466cd76d1f57
+  patrol: 5a504c6012be7a84369231475ede1fce6e777268
   permission_handler_apple: 9878588469a2b0d0fc1e048d9f43605f92e6cec2
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
