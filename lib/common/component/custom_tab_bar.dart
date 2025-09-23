@@ -3,15 +3,15 @@ import 'package:flutter_app/common/extension/build_context.dart';
 
 class CustomTabBar extends StatelessWidget {
   const CustomTabBar({
+    required this.tabs,
     super.key,
     this.tabController,
-    required this.tabs,
     this.onTap,
   });
 
   final TabController? tabController;
   final List<Tab> tabs;
-  final void Function(int)? onTap;
+  final ValueChanged<int>? onTap;
 
   @override
   Widget build(BuildContext context) {

@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_app/common/component/custom_button/custom_button_primary.dart';
+import 'package:flutter_app/common/component/custom_snackbar/custom_snackbar_success.dart';
 import 'package:flutter_app/common/component/custom_switch.dart';
 import 'package:flutter_app/common/component/custom_text/custom_text.dart';
+import 'package:flutter_app/common/composition/dialog/custom_notification_permission_denied_dialog.dart';
 import 'package:flutter_app/common/extension/build_context.dart';
+import 'package:flutter_app/common/provider/notifications_service.dart';
 import 'package:flutter_app/core/flogger.dart';
 import 'package:flutter_app/features/debug_tools/debug_tools_page_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,15 +28,16 @@ class _DebugToolsActionsPageContentState extends ConsumerState<DebugToolsActions
       children: [
         CustomText(text: 'Actions', style: context.textTheme.headlineLarge),
         const SizedBox(height: 20),
+        // Title: Debug logs
         CustomButtonPrimary(
           onPressed: () {
             Navigator.of(context).push(
-              MaterialPageRoute(
+              MaterialPageRoute<void>(
                 builder: (context) => Theme(
-                  data: ThemeData(colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)),
+                  data: ThemeData(colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey)),
                   child: TalkerScreen(
                     talker: Flogger.talker,
-                    theme: TalkerScreenTheme(
+                    theme: const TalkerScreenTheme(
                       logColors: {TalkerLogType.debug: Colors.green},
                     ),
                   ),
@@ -42,6 +46,21 @@ class _DebugToolsActionsPageContentState extends ConsumerState<DebugToolsActions
             );
           },
           text: 'Console Logs',
+        ),
+        const SizedBox(height: 20),
+        // Title: Notifications sample
+        CustomButtonPrimary(
+          onPressed: () async {
+            final isPermanentlyDenied = await NotificationsService.isPermissionPermanentlyDenied();
+            final isDenied = isPermanentlyDenied || !(await NotificationsService.requestPermission());
+            if (isDenied && context.mounted) {
+              await CustomNotificationPermissionDeniedDialog.show(context);
+              return;
+            } else if (context.mounted) {
+              await CustomSnackbarSuccess(context: context, message: 'Permission granted').show();
+            }
+          },
+          text: 'Request Notification Permission',
         ),
         const SizedBox(height: 20),
         ...getToolsSectionList(context, ref),
@@ -74,7 +93,7 @@ class _DebugToolsActionsPageContentState extends ConsumerState<DebugToolsActions
         onChanged: (value) => setState(() => debugRepaintRainbowEnabled = !debugRepaintRainbowEnabled),
       ),
       CustomSwitch(
-        title: 'Time Dilataion',
+        title: 'Time Dilation',
         value: timeDilation != 1,
         dense: true,
         onChanged: (value) => setState(() => timeDilation = (timeDilation == 6) ? 1 : 6),

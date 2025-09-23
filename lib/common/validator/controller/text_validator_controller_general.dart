@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_app/common/data/model/exception/validator_exception.dart';
+import 'package:flutter_app/common/data/entity/exception/validator_exception.dart';
 import 'package:flutter_app/common/validator/text_field_validator_state.dart';
 import 'package:flutter_app/common/validator/text_validator_controller.dart';
 
@@ -15,17 +15,15 @@ class TextValidatorControllerGeneral extends TextValidatorController {
     this.condition,
     this.conditionText,
   }) {
-    if (tooShortText != null && minLength == null) throw Exception('minLength must be also set when tooShortText is set.');
-    if (minLength != null && tooShortText == null) throw Exception('tooShortText must be also set when minLength is set.');
-
-    if (tooLongText != null && maxLength == null) throw Exception('maxLength must be also set when tooLongText is set.');
-    if (maxLength != null && tooLongText == null) throw Exception('tooLongText must be also set when maxLength is set.');
-
-    if (regexText != null && regex == null) throw Exception('regex must be also set when regexText is set.');
-    if (regex != null && regexText == null) throw Exception('regexText must be also set when regex is set.');
-
-    if (conditionText != null && condition == null) throw Exception('condition must be also set when conditionText is set.');
-    if (condition != null && conditionText == null) throw Exception('conditionText must be also set when condition is set.');
+    if ((tooShortText != null && minLength == null) || (minLength != null && tooShortText == null)) {
+      throw Exception('minLength and tooShortText must be set together.');
+    } else if ((tooLongText != null && maxLength == null) || (maxLength != null && tooLongText == null)) {
+      throw Exception('maxLength and tooLongText must be set together.');
+    } else if ((regexText != null && regex == null) || (regex != null && regexText == null)) {
+      throw Exception('regex and regexText must be set together.');
+    } else if ((conditionText != null && condition == null) || (condition != null && conditionText == null)) {
+      throw Exception('condition and conditionText must be set together.');
+    }
   }
 
   final String Function(BuildContext context)? emptyText;
@@ -35,7 +33,7 @@ class TextValidatorControllerGeneral extends TextValidatorController {
   final String Function(BuildContext context)? tooLongText;
   final RegExp? regex;
   final String Function(BuildContext context)? regexText;
-  final bool Function(String text)? condition;
+  final Future<bool> Function(String text)? condition;
   final String Function(BuildContext context)? conditionText;
 
   TextFieldValidatorState _state = const TextFieldValidatorState.initial();
@@ -44,7 +42,7 @@ class TextValidatorControllerGeneral extends TextValidatorController {
   TextFieldValidatorState get state => _state;
 
   @override
-  void validate() {
+  Future<void> validate() async {
     if (!canValidate) return;
 
     final text = controller.text;
@@ -57,7 +55,7 @@ class TextValidatorControllerGeneral extends TextValidatorController {
       _state = TextFieldValidatorState.invalid(exception: ValidatorException.generalIsTooLong(tooLongText!));
     } else if (regex != null && !regex!.hasMatch(text)) {
       _state = TextFieldValidatorState.invalid(exception: ValidatorException.generalIsInvalid(regexText!));
-    } else if (condition?.call(text) ?? false) {
+    } else if (condition != null && await condition!(text)) {
       _state = TextFieldValidatorState.invalid(exception: ValidatorException.generalIsInvalid(conditionText!));
     } else {
       _state = const TextFieldValidatorState.valid();
@@ -65,4 +63,8 @@ class TextValidatorControllerGeneral extends TextValidatorController {
 
     notifyListeners();
   }
+
+  bool get isValid => _state is TextFieldValidatorStateValid;
+
+  bool get isInvalid => _state is TextFieldValidatorStateInvalid;
 }

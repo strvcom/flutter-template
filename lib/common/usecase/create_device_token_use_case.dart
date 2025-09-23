@@ -13,7 +13,7 @@ Future<void> createDeviceTokenUseCase(
   final dio = ref.read(dioProvider);
 
   // TODO: Register FCM token on API
-  await dio.post(
+  await dio.post<Map<String, dynamic>>(
     '/v1/device-tokens',
     data: CreateDeviceTokenRequestDTO(token: deviceToken).toJson(),
   );

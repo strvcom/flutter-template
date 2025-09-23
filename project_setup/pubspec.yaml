@@ -4,9 +4,13 @@ version: 1.0.0
 
 
 environment:
-  sdk: '>=3.2.0 <4.0.0'
+  sdk: '>=3.8.0 <4.0.0'
 
 
 dependencies:
-  image: 4.2.0                                # https://pub.dev/packages/image
-  interact: 2.2.0                             # https://pub.dev/packages/interact
+  image: 4.5.4
+  interact: 2.2.0
+
+
+dev_dependencies:
+  netglade_analysis: 16.1.0

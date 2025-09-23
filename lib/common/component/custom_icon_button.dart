@@ -3,9 +3,9 @@ import 'package:flutter_app/common/component/custom_progress_indicator.dart';
 
 class CustomIconButton extends StatelessWidget {
   const CustomIconButton({
-    super.key,
     required this.icon,
     required this.onPressed,
+    super.key,
     this.isLoading = false,
     this.buttonSize = 44,
     this.iconSize = 24,

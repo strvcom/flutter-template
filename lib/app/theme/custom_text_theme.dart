@@ -18,110 +18,110 @@ import 'package:flutter_app/assets/fonts.gen.dart';
 ///
 class CustomTextTheme {
   CustomTextTheme({required CustomColorScheme colorScheme})
-      : // Subtitle: Display
-        displayLarge = TextStyle(
-          fontSize: 57,
-          fontFamily: FontFamily.clashDisplay,
-          fontWeight: FontWeight.w400,
-          color: colorScheme.onSurface,
-          decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
-        ),
-        displayMedium = TextStyle(
-          fontSize: 45,
-          fontFamily: FontFamily.clashDisplay,
-          fontWeight: FontWeight.w400,
-          color: colorScheme.onSurface,
-          decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
-        ),
-        displaySmall = TextStyle(
-          fontSize: 36,
-          fontFamily: FontFamily.clashDisplay,
-          fontWeight: FontWeight.w400,
-          color: colorScheme.onSurface,
-          decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
-        ),
-        // Subtitle: Headline
-        headlineLarge = TextStyle(
-          fontSize: 32,
-          fontFamily: FontFamily.clashDisplay,
-          fontWeight: FontWeight.w400,
-          color: colorScheme.onSurface,
-          decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
-        ),
-        headlineMedium = TextStyle(
-          fontSize: 28,
-          fontFamily: FontFamily.clashDisplay,
-          fontWeight: FontWeight.w400,
-          color: colorScheme.onSurface,
-          decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
-        ),
-        headlineSmall = TextStyle(
-          fontSize: 24,
-          fontFamily: FontFamily.clashDisplay,
-          fontWeight: FontWeight.w400,
-          color: colorScheme.onSurface,
-          decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
-        ),
-        // Subtitle: Title
-        titleLarge = TextStyle(
-          fontSize: 22,
-          fontFamily: FontFamily.clashDisplay,
-          fontWeight: FontWeight.w400,
-          color: colorScheme.onSurface,
-          decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
-        ),
-        titleMedium = TextStyle(
-          fontSize: 16,
-          fontFamily: FontFamily.clashDisplay,
-          fontWeight: FontWeight.w500,
-          color: colorScheme.onSurface,
-          decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
-        ),
-        titleSmall = TextStyle(
-          fontSize: 14,
-          fontFamily: FontFamily.clashDisplay,
-          fontWeight: FontWeight.w500,
-          color: colorScheme.onSurface,
-          decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
-        ),
-        // Subtitle: Label
-        labelLarge = TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
-          color: colorScheme.onSurface,
-          decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
-        ),
-        labelMedium = TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w500,
-          color: colorScheme.onSurface,
-          decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
-        ),
-        labelSmall = TextStyle(
-          fontSize: 11,
-          fontWeight: FontWeight.w500,
-          color: colorScheme.onSurface,
-          decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
-        ),
-        // Subtitle: Body
-        bodyLarge = TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w400,
-          color: colorScheme.onSurface,
-          decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
-        ),
-        bodyMedium = TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-          color: colorScheme.onSurface,
-          decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
-        ),
-        bodySmall = TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-          color: colorScheme.onSurface,
-          decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
-        );
+    : // Subtitle: Display
+      displayLarge = TextStyle(
+        fontSize: 57,
+        fontFamily: FontFamily.clashDisplay,
+        fontWeight: FontWeight.w400,
+        color: colorScheme.onSurface,
+        decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
+      ),
+      displayMedium = TextStyle(
+        fontSize: 45,
+        fontFamily: FontFamily.clashDisplay,
+        fontWeight: FontWeight.w400,
+        color: colorScheme.onSurface,
+        decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
+      ),
+      displaySmall = TextStyle(
+        fontSize: 36,
+        fontFamily: FontFamily.clashDisplay,
+        fontWeight: FontWeight.w400,
+        color: colorScheme.onSurface,
+        decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
+      ),
+      // Subtitle: Headline
+      headlineLarge = TextStyle(
+        fontSize: 32,
+        fontFamily: FontFamily.clashDisplay,
+        fontWeight: FontWeight.w400,
+        color: colorScheme.onSurface,
+        decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
+      ),
+      headlineMedium = TextStyle(
+        fontSize: 28,
+        fontFamily: FontFamily.clashDisplay,
+        fontWeight: FontWeight.w400,
+        color: colorScheme.onSurface,
+        decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
+      ),
+      headlineSmall = TextStyle(
+        fontSize: 24,
+        fontFamily: FontFamily.clashDisplay,
+        fontWeight: FontWeight.w400,
+        color: colorScheme.onSurface,
+        decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
+      ),
+      // Subtitle: Title
+      titleLarge = TextStyle(
+        fontSize: 22,
+        fontFamily: FontFamily.clashDisplay,
+        fontWeight: FontWeight.w400,
+        color: colorScheme.onSurface,
+        decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
+      ),
+      titleMedium = TextStyle(
+        fontSize: 16,
+        fontFamily: FontFamily.clashDisplay,
+        fontWeight: FontWeight.w500,
+        color: colorScheme.onSurface,
+        decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
+      ),
+      titleSmall = TextStyle(
+        fontSize: 14,
+        fontFamily: FontFamily.clashDisplay,
+        fontWeight: FontWeight.w500,
+        color: colorScheme.onSurface,
+        decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
+      ),
+      // Subtitle: Label
+      labelLarge = TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+        color: colorScheme.onSurface,
+        decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
+      ),
+      labelMedium = TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.w500,
+        color: colorScheme.onSurface,
+        decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
+      ),
+      labelSmall = TextStyle(
+        fontSize: 11,
+        fontWeight: FontWeight.w500,
+        color: colorScheme.onSurface,
+        decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
+      ),
+      // Subtitle: Body
+      bodyLarge = TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+        color: colorScheme.onSurface,
+        decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
+      ),
+      bodyMedium = TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        color: colorScheme.onSurface,
+        decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
+      ),
+      bodySmall = TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+        color: colorScheme.onSurface,
+        decorationColor: colorScheme.onSurface, // Used for autofill, suggestion underline, etc.
+      );
 
   // Title: Theme specific TextStyles
 

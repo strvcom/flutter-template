@@ -7,8 +7,8 @@ import 'package:flutter_app/common/extension/build_context.dart';
 
 class EmptyPlaceholderWidget extends StatelessWidget {
   const EmptyPlaceholderWidget({
-    super.key,
     required this.onRetry,
+    super.key,
   });
 
   final VoidCallback onRetry;
@@ -18,12 +18,10 @@ class EmptyPlaceholderWidget extends StatelessWidget {
     return ExpandableSingleChildScrollView(
       padding: const EdgeInsets.all(20),
       child: Align(
-        alignment: Alignment.center,
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: ResponsiveWidget.mediumSizeTreshold),
+          constraints: const BoxConstraints(maxWidth: ResponsiveWidget.mediumSizeThreshold),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CustomText(text: context.locale.generalEmptyStateTitle, style: context.textTheme.titleMedium),
               const SizedBox(height: 8),

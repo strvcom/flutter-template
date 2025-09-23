@@ -7,7 +7,7 @@ import 'package:flutter_app/common/component/custom_snackbar/custom_snackbar_suc
 import 'package:flutter_app/common/component/custom_text/custom_text.dart';
 import 'package:flutter_app/common/component/custom_time_picker.dart';
 import 'package:flutter_app/common/composition/bottom_sheet/bottom_sheet_container_widget.dart';
-import 'package:flutter_app/common/composition/dialog/custom_alert_dialog.dart';
+import 'package:flutter_app/common/composition/dialog/custom_dialog.dart';
 import 'package:flutter_app/common/extension/build_context.dart';
 import 'package:flutter_app/core/flogger.dart';
 import 'package:flutter_app/features/debug_tools/page/popups/debug_tools_list_dialog.dart';
@@ -25,7 +25,7 @@ class DebugToolsPopupsPageContent extends ConsumerWidget {
         CustomText(text: 'Dialogs', style: context.textTheme.headlineLarge),
         const SizedBox(height: 20),
         CustomButtonPrimary(
-          onPressed: () => CustomAlertDialog(
+          onPressed: () => CustomDialog.alert(
             context: context,
             title: 'Delete event',
             message: "Are you sure you want to delete this event? This action will delete all data and can't be recovered.",
@@ -47,7 +47,7 @@ class DebugToolsPopupsPageContent extends ConsumerWidget {
         ),
         const SizedBox(height: 16),
         CustomButtonPrimary(
-          onPressed: () => showCustomModalBottomSheet(
+          onPressed: () => showCustomModalBottomSheet<void>(
             context: context,
             containerWidget: (context, animation, child) => BottomSheetContainerWidget(child: child),
             builder: (context) => Padding(

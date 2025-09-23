@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class ProvidersLogger extends ProviderObserver {
   @override
   void didAddProvider(
-    ProviderBase provider,
+    ProviderBase<dynamic> provider,
     Object? value,
     ProviderContainer container,
   ) {
@@ -18,7 +18,7 @@ class ProvidersLogger extends ProviderObserver {
 
   @override
   void didUpdateProvider(
-    ProviderBase provider,
+    ProviderBase<dynamic> provider,
     Object? previousValue,
     Object? newValue,
     ProviderContainer container,
@@ -34,7 +34,7 @@ class ProvidersLogger extends ProviderObserver {
 
   @override
   void didDisposeProvider(
-    ProviderBase provider,
+    ProviderBase<dynamic> provider,
     ProviderContainer container,
   ) {
     super.didDisposeProvider(provider, container);

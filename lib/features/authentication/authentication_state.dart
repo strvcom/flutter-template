@@ -1,5 +1,5 @@
-import 'package:flutter_app/common/data/model/exception/custom_exception.dart';
-import 'package:flutter_app/common/data/model/user_model.dart';
+import 'package:flutter_app/common/data/entity/exception/custom_exception.dart';
+import 'package:flutter_app/common/data/entity/user_entity.dart';
 import 'package:flutter_app/common/usecase/authentication/sign_in_anonymously_use_case.dart';
 import 'package:flutter_app/common/usecase/authentication/sign_in_with_apple_use_case.dart';
 import 'package:flutter_app/common/usecase/authentication/sign_in_with_google_use_case.dart';
@@ -13,7 +13,7 @@ part 'authentication_state.freezed.dart';
 part 'authentication_state.g.dart';
 
 @freezed
-class AuthenticationState with _$AuthenticationState {
+abstract class AuthenticationState with _$AuthenticationState {
   const factory AuthenticationState({
     required bool isSigningIn,
   }) = _AuthenticationState;
@@ -29,18 +29,18 @@ class AuthenticationStateNotifier extends _$AuthenticationStateNotifier with Aut
   }
 
   Future<void> signInAnonymously() async {
-    _signInWithProvider(signInAnonymouslyUseCaseProvider);
+    await _signInWithProvider(signInAnonymouslyUseCaseProvider);
   }
 
   Future<void> signInWithGoogle() async {
-    _signInWithProvider(signInWithGoogleUseCaseProvider);
+    await _signInWithProvider(signInWithGoogleUseCaseProvider);
   }
 
   Future<void> signInWithApple() async {
-    _signInWithProvider(signInWithAppleUseCaseProvider);
+    await _signInWithProvider(signInWithAppleUseCaseProvider);
   }
 
-  Future<void> _signInWithProvider(AutoDisposeFutureProvider<UserModel> provider) async {
+  Future<void> _signInWithProvider(AutoDisposeFutureProvider<UserEntity> provider) async {
     setStateData(currentData?.copyWith(isSigningIn: true));
 
     try {
@@ -50,14 +50,11 @@ class AuthenticationStateNotifier extends _$AuthenticationStateNotifier with Aut
       ref.read(authenticationEventNotifierProvider.notifier).send(const AuthenticationEvent.signedIn());
     } on Exception catch (error) {
       final customException = CustomException.fromErrorObject(error: error);
-      customException.maybeWhen(
-        signInCancelled: () {
-          Flogger.d('User cancelled the sign in process');
-        },
-        orElse: () {
-          Flogger.e('Error while signing in: $customException');
-        },
-      );
+      if (customException case CustomExceptionSignInCancelled()) {
+        Flogger.d('User cancelled the sign in process');
+      } else {
+        Flogger.e('Error while signing in: $customException');
+      }
     }
 
     setStateData(currentData?.copyWith(isSigningIn: false));

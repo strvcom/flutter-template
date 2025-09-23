@@ -3,9 +3,9 @@ import 'package:flutter_app/common/extension/build_context.dart';
 
 class CustomFloatingActionButton extends StatelessWidget {
   const CustomFloatingActionButton({
-    super.key,
     required this.child,
     required this.onPressed,
+    super.key,
   });
 
   final Icon child;

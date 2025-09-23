@@ -6,7 +6,7 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 /// Wrapper over the Talker package.
 class Flogger {
-  static final bool _providerLogsEnabled = false;
+  static const bool _providerLogsEnabled = false;
 
   static final talker = TalkerFlutter.init(
     logger: TalkerLogger(formatter: _LoggerFormatter()),
@@ -30,85 +30,103 @@ class Flogger {
 
   static void v(dynamic message, {Object? exception, StackTrace? stackTrace, DateTime? time}) {
     CrashlyticsManager.logMessage(message);
-    talker.logCustom(_CustomLog(
-      message.toString(),
-      exception: exception,
-      stackTrace: stackTrace,
-      pen: colors['verbose'],
-      key: TalkerLogType.verbose.key,
-    ));
+    talker.logCustom(
+      _CustomLog(
+        message.toString(),
+        exception: exception,
+        stackTrace: stackTrace,
+        pen: colors['verbose'],
+        key: TalkerLogType.verbose.key,
+      ),
+    );
   }
 
   static void d(dynamic message, {Object? exception, StackTrace? stackTrace, DateTime? time}) {
     CrashlyticsManager.logMessage(message);
-    talker.logCustom(_CustomLog(
-      message.toString(),
-      exception: exception,
-      stackTrace: stackTrace,
-      pen: colors['debug'],
-      key: TalkerLogType.debug.key,
-    ));
+    talker.logCustom(
+      _CustomLog(
+        message.toString(),
+        exception: exception,
+        stackTrace: stackTrace,
+        pen: colors['debug'],
+        key: TalkerLogType.debug.key,
+      ),
+    );
   }
 
   static void i(dynamic message, {Object? exception, StackTrace? stackTrace, DateTime? time}) {
     CrashlyticsManager.logMessage(message);
-    talker.logCustom(_CustomLog(
-      message.toString(),
-      exception: exception,
-      stackTrace: stackTrace,
-      pen: colors['info'],
-      key: TalkerLogType.info.key,
-    ));
+    talker.logCustom(
+      _CustomLog(
+        message.toString(),
+        exception: exception,
+        stackTrace: stackTrace,
+        pen: colors['info'],
+        key: TalkerLogType.info.key,
+      ),
+    );
   }
 
   static void w(dynamic message, {Object? exception, StackTrace? stackTrace, DateTime? time}) {
-    CrashlyticsManager.logNonCritical(exception, stack: stackTrace, message: message);
-    talker.logCustom(_CustomLog(
-      message.toString(),
-      exception: exception,
-      stackTrace: stackTrace,
-      pen: colors['warning'],
-      key: TalkerLogType.warning.key,
-    ));
+    CrashlyticsManager.logNonCritical(exception, stack: stackTrace, message: message.toString());
+    talker.logCustom(
+      _CustomLog(
+        message.toString(),
+        exception: exception,
+        stackTrace: stackTrace,
+        pen: colors['warning'],
+        key: TalkerLogType.warning.key,
+      ),
+    );
   }
 
   static void e(dynamic message, {Object? exception, StackTrace? stackTrace, DateTime? time}) {
-    CrashlyticsManager.logNonCritical(exception, stack: stackTrace, message: message);
-    talker.logCustom(_CustomLog(
-      message.toString(),
-      exception: exception,
-      stackTrace: stackTrace,
-      pen: colors['error'],
-      key: TalkerLogType.error.key,
-    ));
+    CrashlyticsManager.logNonCritical(exception, stack: stackTrace, message: message.toString());
+    talker.logCustom(
+      _CustomLog(
+        message.toString(),
+        exception: exception,
+        stackTrace: stackTrace,
+        pen: colors['error'],
+        key: TalkerLogType.error.key,
+      ),
+    );
   }
 
-  static void navigation(dynamic message) => talker.logCustom(_CustomLog(
-        message.toString(),
-        pen: colors['navigation'],
-        key: TalkerLogType.route.key,
-      ));
+  static void navigation(dynamic message) => talker.logCustom(
+    _CustomLog(
+      message.toString(),
+      pen: colors['navigation'],
+      key: TalkerLogType.route.key,
+    ),
+  );
 
-  static void providerAdded(dynamic message) => (_providerLogsEnabled)
-      ? talker.logCustom(_CustomLog(
-          message.toString(),
-          pen: colors['providerAdded'],
-          key: TalkerLogType.riverpodAdd.key,
-        ))
+  static void providerAdded(dynamic message) => _providerLogsEnabled
+      ? talker.logCustom(
+          _CustomLog(
+            message.toString(),
+            pen: colors['providerAdded'],
+            key: TalkerLogType.riverpodAdd.key,
+          ),
+        )
       : null;
-  static void providerUpdated(dynamic message) => (_providerLogsEnabled)
-      ? talker.logCustom(_CustomLog(
-          message.toString(),
-          pen: colors['providerUpdated'],
-          key: TalkerLogType.riverpodUpdate.key,
-        ))
+  static void providerUpdated(dynamic message) => _providerLogsEnabled
+      ? talker.logCustom(
+          _CustomLog(
+            message.toString(),
+            pen: colors['providerUpdated'],
+            key: TalkerLogType.riverpodUpdate.key,
+          ),
+        )
       : null;
-  static void providerRemoved(dynamic message) => (_providerLogsEnabled)
-      ? talker.logCustom(_CustomLog(
-          message.toString(),
-          pen: colors['providerRemoved'],
-          key: TalkerLogType.riverpodDispose.key,
-        ))
+  static void providerRemoved(dynamic message) => _providerLogsEnabled
+      ? talker.logCustom(
+          _CustomLog(
+            message.toString(),
+            pen: colors['providerRemoved'],
+            key: TalkerLogType.riverpodDispose.key,
+          ),
+        )
       : null;
 }
 
@@ -147,7 +165,7 @@ class _LoggerFormatter implements LoggerFormatter {
     final msg = details.message?.toString() ?? '';
     final msgBorderedLines = _splitLongLines(msg, _maxOutputThreshold).split('\n').map((e) => '│ $e');
     if (!settings.enableColors) {
-      return (showBorder) ? '$topline\n${msgBorderedLines.join('\n')}\n$underline' : msgBorderedLines.join('\n');
+      return showBorder ? '$topline\n${msgBorderedLines.join('\n')}\n$underline' : msgBorderedLines.join('\n');
     }
     var lines = [if (showBorder) topline, ...msgBorderedLines, if (showBorder) underline];
     lines = lines.map((e) => details.pen.write(e)).toList();
@@ -156,14 +174,14 @@ class _LoggerFormatter implements LoggerFormatter {
   }
 
   static String _splitLongLines(String input, int maxLineLength) {
-    List<String> lines = input.split('\n');
-    List<String> outputLines = [];
+    final lines = input.split('\n');
+    final outputLines = <String>[];
 
-    for (String line in lines) {
+    for (final line in lines) {
       if (line.length > maxLineLength) {
         // Split the line into chunks of maxLineLength
-        for (int i = 0; i < line.length; i += maxLineLength) {
-          int end = (i + maxLineLength < line.length) ? i + maxLineLength : line.length;
+        for (var i = 0; i < line.length; i += maxLineLength) {
+          final end = (i + maxLineLength < line.length) ? i + maxLineLength : line.length;
           outputLines.add(line.substring(i, end));
         }
       } else {

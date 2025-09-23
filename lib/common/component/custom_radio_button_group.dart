@@ -5,15 +5,15 @@ import 'package:flutter_app/common/extension/build_context.dart';
 
 class CustomRadioButtonGroup<T> extends StatelessWidget {
   const CustomRadioButtonGroup({
-    super.key,
     required this.options,
     required this.selectedOption,
     required this.onOptionSelected,
+    super.key,
   });
 
   final Map<T, String> options;
   final T? selectedOption;
-  final Function(T) onOptionSelected;
+  final ValueChanged<T> onOptionSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +30,6 @@ class CustomRadioButtonGroup<T> extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Radio(
                     value: entry.key,

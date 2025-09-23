@@ -16,7 +16,7 @@ class AnalyticsRouteObserver extends AutoRouterObserver {
   final Ref ref;
 
   @override
-  void didPush(Route route, Route? previousRoute) {
+  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
     if (route.settings.name == null) return;
 
     Flogger.d('[AnalyticsRouteObserver] New route pushed: ${route.settings.name}');

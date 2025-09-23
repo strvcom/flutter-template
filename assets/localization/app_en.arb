@@ -1,5 +1,14 @@
 {
-  "@_Custom_Exception": {},
+  "@@x---GENERAL": 0,
+  "appName": "Flutter Template",
+  "generalEmptyStateTitle": "Sorry, nothing is here right now",
+  "generalEmptyStateBody": "Please, try to come back later...",
+  "generalEmptyStateRetryButton": "Retry",
+  "generalErrorStateRetryButton": "Retry",
+  "generalDateToday": "Today",
+  "generalDateTomorrow": "Tomorrow",
+
+  "@@x---CUSTOM_EXCEPTION": 0,
   "customExceptionGeneralMessage": "Sorry! Something went wrong",
   "customExceptionGeneralDetails": "Please, try again later.",
   "customExceptionUnauthenticatedMessage": "You are not authorized to view this page",
@@ -9,30 +18,27 @@
   "customExceptionPageNotFoundMessage": "404 Page not found",
   "customExceptionPageNotFoundDetails": "Please, check if provided url is correct.",
   
-  "@_Validator_Exception": {},
+  "@@x---VALIDATOR_EXCEPTION": 0,
   "validatorExceptionFullNameIsEmpty": "Full name is required",
   "validatorExceptionFullNameTooShort": "Name must have at least 3 characters",
   "validatorExceptionFullNameTooLong": "Max. number of 28 characters reached",
   "validatorExceptionFullNameIsInvalid": "Invalid name",
-  
-  "@_Force_Update": {},
+
+  "@@x---PERMISSIONS_HANDLING": 0,
+  "notificationsPermissionDeniedDialogTitle": "Notification Permission",
+  "notificationsPermissionDeniedDialogText": "Notifications help you stay updated with important information and timely alerts from the app.",
+  "notificationsPermissionDeniedDialogPositiveAction": "Grant Access",
+  "notificationsPermissionDeniedDialogNeutralAction": "Cancel",
+
+  "@@x---FORCE_UPDATE": 0,
   "forceUpdateTitle": "We are better than ever!",
   "forceUpdateDescription": "There is an really important update for you! Please update the app to continue.",
   "forceUpdateButton": "Update",
-
-  "@_General": {},
-  "appName": "Flutter Template",
-  "generalEmptyStateTitle": "Sorry, nothing is here right now",
-  "generalEmptyStateBody": "Please, try to come back later...",
-  "generalEmptyStateRetryButton": "Retry",
-  "generalErrorStateRetryButton": "Retry",
-  "generalDateToday": "Today",
-  "generalDateTomorrow": "Tomorrow",
   
-  "@_Home": {},
+  "@@x---HOME": 0,
   "featureHomepageTitle": "Flutter Template",
   "featureHomepageOpenDebugTools": "Open debug tools",
   
-  "@_Debug_Tools": {},
+  "@@x---DEBUG_TOOLS": 0,
   "featureDebugToolsUserDetailPageTitle": "Detail page"
 }

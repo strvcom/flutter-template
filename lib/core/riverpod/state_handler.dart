@@ -42,7 +42,7 @@ mixin NullableStateHandler<T> on BuildlessAsyncNotifier<T?> {
   void setStateData(T? data) => _setStateDataNullable(data, (data) => state = AsyncData(data));
 }
 
-void _setStateLoading(Function() onStateChange) {
+void _setStateLoading(void Function() onStateChange) {
   try {
     onStateChange();
     // ignore: avoid_catching_errors
@@ -51,7 +51,7 @@ void _setStateLoading(Function() onStateChange) {
   }
 }
 
-void _setStateData<T>(T? data, Function(T data) onStateChange) {
+void _setStateData<T>(T? data, void Function(T data) onStateChange) {
   try {
     if (data != null) {
       onStateChange(data);
@@ -64,7 +64,7 @@ void _setStateData<T>(T? data, Function(T data) onStateChange) {
   }
 }
 
-void _setStateDataNullable<T>(T? data, Function(T? data) onStateChange) {
+void _setStateDataNullable<T>(T? data, void Function(T? data) onStateChange) {
   try {
     onStateChange(data);
     // ignore: avoid_catching_errors

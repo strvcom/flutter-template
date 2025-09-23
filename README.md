@@ -53,13 +53,15 @@
 
 - [Authors](#authors)
 
+
 <!-- ################################################## -->
 <!-- #######           Project Notes            ####### -->
 <!-- ################################################## -->
 # Project notes
 
-- Notes that could be benefitial to know during the development. 
+- Notes that could be beneficial to know during the development. 
 - For example list of test accounts, required credentials, steps required to get testing account, etc.
+<!-- ################################################## -->
 
 
 <!-- ################################################## -->
@@ -73,6 +75,7 @@ These are our four core values:
 - **Accountability** - We support responsibility and accountability among team members. Encourage individuals to take ownership of their tasks and deliverables, meet deadlines, and communicate effectively about progress and challenges.
 - **Innovation** - We encourage creativity and innovation within the Flutter team. Support an environment where team members feel comfortable suggesting new ideas, experimenting with different approaches, and finding new solutions to problems.
 <!-- ################################################## -->
+
 
 <!-- ################################################## -->
 <!-- ########           First steps            ######## -->
@@ -95,6 +98,7 @@ These are our four core values:
 8. - [ ] Set up Firebase or remove it completely. This process is described in the [Firebase setup](#firebase-setup) section.
 9. - [ ] Go through all the ToDo's inside the project, and react to them.
 <!-- ################################################## -->
+
 
 <!-- ################################################## -->
 <!-- ##########           Project            ########## -->
@@ -119,7 +123,7 @@ These are our four core values:
       ‣ dbo -> Classes to transfer data over to the database 
       ‣ dto -> Classes to transfer data over the network
       ‣ enum -> Enum classes used across the App
-      ‣ model -> Model classes used across the App
+      ‣ entity -> Entity classes used across the App
     ‣ extensions -> Extension classes/methods over existing data types
     ‣ provider -> Global Services and manager providers, like Notification Service
     ‣ usecase -> Methods used to get/post data. Usually from/to network or local database
@@ -154,7 +158,7 @@ flutter pub run build_runner watch --delete-conflicting-outputs
 
 as an alternative you can just use:
 ```
-make build_runner
+make watch
 ```
 
 ### Linux
@@ -175,11 +179,12 @@ You can read about flavors setup in the following tutorials:
 - 🖥️ [Linux](https://docs.flutter.dev/deployment/linux) - Flavors are not supported yet.
 
 In case of using firebase with multiple flavors, you have to:
-- for iOS add custom build run script phase and copy appropriate `GoogleService-Info.plist` file. It's already prepared, you just need to uncomment it and add appropriate plists to destinations according to the script.
+- For iOS, add the custom Build Run Script phase and copy the appropriate `GoogleService-Info.plist` file. The script is already prepared; simply uncomment it and add the necessary `plist` files to their destinations.
 
 For Google sign in:
 - for iOS, you have to copy value from `REVERSED_CLIENT_ID` from `GoogleService-Info.plist` into `GOOGLE_REVERSED_CLIENT_ID` in build settings.
 <!-- ################################################## -->
+
 
 <!-- ################################################## -->
 <!-- ##########    Build and Distribution    ########## -->
@@ -189,7 +194,7 @@ For Google sign in:
 - As we are using flavors, we have to specify which flavor to build using `--flavor` argument, and also select a correct main file using `-t` argument.
 - One of the arguments you should use is `--obfuscate`. This makes reverse engineering harder. This has to be used also with `--split-debug-info` which should make the app smaller, and also specify the directory where the mapping file to read obfuscated stack trace is stored.
 - Optional step is to include precompiled Shaders. To do that you have to first [Precompile Shaders](#precompiling-shaders) and add `--bundle-sksl-path` argument.
-- In case we would like to build a Debugable version of the app, we have to add `--debug` argument.
+- To build a debug version of the app, include the `--debug` flag.
 
 Here is an example of assembling an Android app bundle using all the commands:
 ```
@@ -292,7 +297,7 @@ We covered the UI part, now we need to focus more on the app state and business 
 The second class is `StateNotifier` class, annotated with `@riverpod` annotation. Rather than splitting the logic completely into small chunks, we believe that it is a good practice to usually have just one `StateNotifier`, providing the `State` for the feature. Naming should follow the same rules as the State class. For example: `UserDetailStateNotifier`. This class must override the `build` method. The State is built inside this method. This is a good place to for example call any necessary API calls, to get data, make some init logic for the feature, etc.. This class can also contain additional methods, to manipulate the State. For example method `updateUser` will update the state with `isUpdatingUser` to `true`, then update the user on the BE side and update the state again with progress set to `false``, and providing new user data. 
 Even through we have just a single huge StateHandler, it is possible to observe just specific fields that are needed for building the UI. This way we can optimize the redrawing of the app when the state changes.
 
-The last part is the solution, on how to communicate one-time events from `StateNotifier` back to the UI. For this, we are using a custom implementation of `EventNotifier` which extends `StateNotifier`. This part is implemented inside `*_event.dart` file. For example: `user_detail_event.dart`. Inside we can find the `Freezed` class defining the events (for example `error` event, `userUpdated` event). There is also a definition of an autodispose StateNotifierProvider, named by the feature. For example: `userDetailEventNotifierProvider`. We should then listen to all these defined events using `ref.listen()` inside our `*_page_content.dart` widget build method. 
+The last part is the solution, on how to communicate one-time events from `StateNotifier` back to the UI. For this, we are using a custom implementation of `EventNotifier` which extends `StateNotifier`. This part is implemented inside `*_event.dart` file. For example: `user_detail_event.dart`. Inside we can find the `Freezed` class defining the events (for example `error` event, `userUpdated` event). There is also a definition of an autodispose StateNotifierProvider, named by the feature. For example: `userDetailEventNotifierProvider`. We should then listen to all these defined events using `ref.listen()` inside our `*_page.dart` widget build method. 
 <!-- ################################################## -->
 
 ## Push Notifications
@@ -302,7 +307,7 @@ On the iOS side, on the other hand, the notification will be always displayed by
 
 ![Push Notifications Payload](docs/push_notifications_payload.jpg)
 
-As for the handling of notifications of different types, we introduced `NotificationPayloadModel`, and `NotificationType`. These both define all the notifications types expected from BE, which the app will be able to handle. All the rest of the logic is handled inside `FirebaseMessagingService` and `NotificationsService` files.
+As for the handling of notifications of different types, we introduced `NotificationPayloadEntity`, and `NotificationType`. These both define all the notifications types expected from BE, which the app will be able to handle. All the rest of the logic is handled inside `FirebaseMessagingService` and `NotificationsService` files.
 
 ![Displaying Push Notifications](docs/displaying_push_notifications.jpg)
 
@@ -339,7 +344,7 @@ This way we are ensuring that at least the Android version is buildable. We are 
 ## Theming
 Theming is done inside `lib/core/themes/app_theme.dart`. Currently, we suggest using Material 3. The main setup is done in file `app_theme.dart`.
 
-The main idea right now is to overwrite the whole `colorScheme` with an "undefined" pinkish color and to not use the default theme colorScheme anywhere in the app. Every widget like AppBar, EleveatedButton, TextField, etc. should have a custom implementation starting with the word `Custom` so it is easily recognizable. This Widget then should wrap the appropriate widget, and should utilize colors from `context.colorScheme`, which has an extension method, as is returning our own implementation of `CustomColorScheme`. All colors should be declared there.
+The current approach is to completely override the default `colorScheme` with a custom "undefined" pinkish palette and avoid using the default theme anywhere in the app. Every widget—such as AppBar, ElevatedButton, and TextField—should have a custom implementation prefixed with `Custom` for easy identification. Each `Custom` widget should wrap the corresponding standard widget and use colors from `context.colorScheme` and text styles from `context.textTheme`. These context extensions return our custom implementations: `CustomColorScheme` and `CustomTextTheme`, where all colors and text styles are defined.
 
 The most tricky part of theming is to make sure that the app supports Edge-to-Edge, and that it has correct navigation and StatusBar colors set. To make this possible, we had to implement our own `CustomSystemBarsTheme` class. To use it properly, make sure you are calling `setupSystemBarsTheme` during the App startup. In case of the need of overriding the Brightness for a specific screen, there are two approaches. First, the simple one is to just use `CustomAppBar`, and set brightness to it. Second, wrap the whole Scaffold inside `CustomSystemBarsThemeWidget` and set Brightness to it.
 <!-- ################################################## -->
@@ -356,10 +361,10 @@ To be able to use the firebase provider for Apple login, we need to do some conf
 
 - Create a Service ID - this is the service that would provide sign in with apple. `Developer -> Certificates, Identifiers & Profiles -> Identifiers -> Create new -> Services IDs`
     (note: to get into services there is a filter on Identifiers screen on right top where you can switch from identifiers to services.)
-    - Description will be visible to our users - e.g. WearTechClub
-    - Identifier - can be app/bundle ID `com.wearthech.club.develop` or simply `weartechclub-develop`
+    - Description will be visible to our users - e.g. Template
+    - Identifier - can be app/bundle ID `com.strv.flutter.template.develop` or simply `flutter-template-develop`
     - Enable Sign in with Apple for the service 
-        - Domains is url of your page e.g. `weartechclub.com`
+        - Domains is url of your page e.g. `template.com`
         - Return URL is crucial part - this will be taken from Firebase: Authentication -> Sign-in method -> Apple -> callback URL
 
 - Create a key: `Developer -> Certificates, Identifiers & Profiles -> Keys -> Create new`
@@ -370,9 +375,9 @@ To be able to use the firebase provider for Apple login, we need to do some conf
     - Save -> Continue -> Register -> download the key
 
 - Firebase setup that will be done under `Authentication -> Sign-in method -> Apple`
-    - Services ID - this is the Identifier of a Service ID created in Apple Developer - `weartechclub-develop`
-    - Apple team Id from Developer (e.g. `965Y62DKGTU`)
-    - Key Id - generated when the key was created in previous step  (e.g. `798BRVKFKO`)
+    - Services ID - this is the Identifier of a Service ID created in Apple Developer - `flutter-template-develop`
+    - Apple team Id from Developer (e.g. `965Y6XXXXXX`)
+    - Key Id - generated when the key was created in previous step  (e.g. `798BXXXXXX`)
     - Private key - when you created the key you downloaded the Private key as .p8 file
     - Save it and check the `callback URL` - if it changed from what you have in your `Service ID` as `Return URL`, update it in Apple Developer
 <!-- ################################################## -->
@@ -388,6 +393,7 @@ To be able to use the firebase provider for Apple login, we need to do some conf
     
     - The app will crash, and you will see the error message `[CustomException] Received error PlatformException(google_sign_in, Your app is missing support for the following URL schemes: com.googleusercontent.apps......` in the debug console if the custom URL schemes setup is incorrect after tapping the Google Auth button.
 <!-- ################################################## -->
+
 
 <!-- ################################################## -->
 <!-- ##########           Testing            ########## -->
@@ -524,7 +530,7 @@ For the purpose of Fraud prevention, user safety, and compliance the dedicated A
 <!-- ##########           Authors            ########## -->
 <!-- ################################################## -->
 # Authors
-- [Lukáš Hermann](mailto:lukas.hermann@strv.com)
+- [Lukáš Hermann](mailto:hermann@helu.cz)
 - [Robert Oravec](mailto:robert.oravec@strv.com)
 - [Michal Urbánek](mailto:michal.urbanek@strv.com)
 <!-- ################################################## -->

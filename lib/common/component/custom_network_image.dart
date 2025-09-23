@@ -5,10 +5,10 @@ import 'package:flutter_app/common/component/custom_progress_indicator.dart';
 
 class CustomNetworkImage extends StatelessWidget {
   const CustomNetworkImage({
-    super.key,
     required this.url,
     required this.width,
     required this.height,
+    super.key,
     this.fit,
     this.shape,
     this.border,
@@ -16,15 +16,15 @@ class CustomNetworkImage extends StatelessWidget {
   });
 
   const CustomNetworkImage.square({
-    super.key,
     required this.url,
     required double? size,
+    super.key,
     this.fit,
     this.shape,
     this.border,
     this.borderRadius,
-  })  : width = size,
-        height = size;
+  }) : width = size,
+       height = size;
 
   final String url;
   final double? width;
@@ -41,7 +41,6 @@ class CustomNetworkImage extends StatelessWidget {
       width: width,
       height: height,
       fit: fit ?? BoxFit.cover,
-      cache: true,
       shape: shape,
       border: border,
       borderRadius: borderRadius,

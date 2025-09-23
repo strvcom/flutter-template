@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/extension/build_context.dart';
-import 'package:flutter_app/features/debug_tools/page/text_styles/model/debug_tools_text_style.dart';
+import 'package:flutter_app/features/debug_tools/page/text_styles/entity/debug_tools_text_style.dart';
 
 class DebugToolsTextStylesPageContent extends StatelessWidget {
   const DebugToolsTextStylesPageContent({super.key});

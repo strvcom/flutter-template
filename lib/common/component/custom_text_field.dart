@@ -25,8 +25,8 @@ class CustomTextField extends StatefulWidget {
     this.withCounterText = false,
     this.note,
     this.prefix,
-  })  : assert(!(controller != null && validatorController != null), 'You can only provide controller or validationController!'),
-        assert(!(withCounterText == true && maxLength == null), 'maxLength must be set when the withCounterText is used!');
+  }) : assert(!(controller != null && validatorController != null), 'You can only provide controller or validationController!'),
+       assert(!(withCounterText && maxLength == null), 'maxLength must be set when the withCounterText is used!');
 
   final String? label;
   final TextEditingController? controller;
@@ -51,7 +51,7 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-  var textLength = 0;
+  int textLength = 0;
   final _focusNode = FocusNode();
   bool hasFocus = false;
   String lastErrorMessage = '';
@@ -61,8 +61,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   void initState() {
     super.initState();
-    widget.validatorController?.addListener(() => _onValidatorChange());
-    _focusNode.addListener(() => _onFocusChange());
+    widget.validatorController?.addListener(_onValidatorChange);
+    _focusNode.addListener(_onFocusChange);
 
     textLength = widget.validatorController?.text.length ?? widget.controller?.text.length ?? 0;
   }
@@ -75,14 +75,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    final double contentTopPadding = (widget.label == null) ? 17 : 9;
-    final double contentBottomPadding = (widget.label == null) ? 20 : 12;
+    final contentTopPadding = (widget.label == null) ? 17.0 : 9.0;
+    final contentBottomPadding = (widget.label == null) ? 20.0 : 12.0;
 
     // Subtitle: Enabled State colors
-    Color inputBgColor = context.colorScheme.surfaceVariant;
-    Color inputTextColor = context.colorScheme.onSurface;
-    Color labelTextColor = context.colorScheme.onSurface;
-    Color floatingLabelTextColor = context.colorScheme.onSurface;
+    var inputBgColor = context.colorScheme.surfaceVariant;
+    var inputTextColor = context.colorScheme.onSurface;
+    var labelTextColor = context.colorScheme.onSurface;
+    var floatingLabelTextColor = context.colorScheme.onSurface;
     final errorTextColor = context.colorScheme.error;
     final counterTextColor = context.colorScheme.onSurface;
     final noteTextColor = context.colorScheme.onSurface;
@@ -93,7 +93,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       inputTextColor = context.colorScheme.onSurface;
       labelTextColor = context.colorScheme.onSurface;
       floatingLabelTextColor = context.colorScheme.onSurface;
-    } else if (widget.enabled == false) {
+    } else if (!widget.enabled) {
       // Subtitle: Disabled State colors
       inputBgColor = context.colorScheme.surfaceVariant;
       inputTextColor = context.colorScheme.onSurface.withValues(alpha: 0.5);
@@ -191,7 +191,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 errorTextColor: errorTextColor,
               ),
             ),
-            crossFadeState: widget.validatorController?.state.hasError == true ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+            crossFadeState: (widget.validatorController?.state.hasError ?? false) ? CrossFadeState.showFirst : CrossFadeState.showSecond,
           ),
 
           // Title: Bottom note text

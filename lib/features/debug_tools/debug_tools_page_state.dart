@@ -9,11 +9,11 @@ enum DebugToolsSampleType {
   widgets,
   popups,
   colors,
-  textStyles;
+  textStyles,
 }
 
 @freezed
-class DebugToolsPageState with _$DebugToolsPageState {
+abstract class DebugToolsPageState with _$DebugToolsPageState {
   const factory DebugToolsPageState({
     @Default(null) DebugToolsSampleType? selectedAction,
   }) = _DebugToolsPageState;

@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_app/common/data/model/exception/custom_exception.dart';
-import 'package:flutter_app/common/data/model/user_model.dart';
-import 'package:flutter_app/common/usecase/authentication/sign_in_with_oauth_credential_use_case.dart';
+import 'package:flutter_app/common/data/entity/user_entity.dart';
+import 'package:flutter_app/common/usecase/authentication/sign_in_with_auth_credential_use_case.dart';
 import 'package:flutter_app/core/flogger.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -9,32 +8,36 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'sign_in_with_google_use_case.g.dart';
 
+const List<String> _scopes = <String>[
+  'email',
+];
+
 @riverpod
-Future<UserModel> signInWithGoogleUseCase(Ref ref) async {
+Future<UserEntity> signInWithGoogleUseCase(Ref ref) async {
   Flogger.d('[Authentication] Sign in with Google started');
 
-  final GoogleSignIn googleSignIn = GoogleSignIn();
+  final googleSignIn = GoogleSignIn.instance;
 
-  // Step 1: Logout from Current Google account if any
-  if (await googleSignIn.isSignedIn()) {
-    await googleSignIn.disconnect();
-  }
+  // Subtitle: Step 1 - Logout from Current Google account if any
+  await googleSignIn.disconnect();
 
-  // Step 2: Sign in with Google
-  final googleSignInAccount = await googleSignIn.signIn();
+  // Subtitle: Step 2 - Authenticate user with Google
+  final account = await googleSignIn.authenticate();
 
-  if (googleSignInAccount == null) throw const CustomException.signInCancelled();
+  // Subtitle: Step 3 - Authorize scopes
+  var authorization = await account.authorizationClient.authorizationForScopes(_scopes);
+  authorization ??= await account.authorizationClient.authorizeScopes(_scopes);
 
-  final googleSignInAuthentication = await googleSignInAccount.authentication;
+  // Subtitle: Step 4 - Create OAuth credential for Firebase
   final oauthCredential = GoogleAuthProvider.credential(
-    accessToken: googleSignInAuthentication.accessToken,
-    idToken: googleSignInAuthentication.idToken,
+    accessToken: authorization.accessToken,
+    idToken: account.authentication.idToken,
   );
 
-  Flogger.d('[Authentication] Received credential from Google: $oauthCredential');
+  Flogger.d('[Authentication] Received credential: $oauthCredential');
 
   return await ref.read(
-    signInWithOauthCredentialUseCaseProvider(
+    signInWithAuthCredentialUseCaseProvider(
       credential: oauthCredential,
     ).future,
   );
