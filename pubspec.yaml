@@ -18,11 +18,11 @@ dependencies:
     sdk: flutter
 
   # State management
-  flutter_riverpod: 2.6.1
-  riverpod_annotation: 2.6.1
+  flutter_riverpod: ^3.0.1
+  riverpod_annotation: ^3.0.1
 
   # Navigation
-  auto_route: 10.1.0+1
+  auto_route: ^10.1.2
 
   # Data Structures
   freezed_annotation: 3.1.0
@@ -35,20 +35,20 @@ dependencies:
   shared_preferences: 2.5.3
 
   # Firebase
-  firebase_analytics: 12.0.0
-  firebase_auth: 6.0.1
-  firebase_core: 4.0.0
-  firebase_crashlytics: 5.0.0
-  firebase_messaging: 16.0.0
-  firebase_remote_config: 6.0.0
+  firebase_analytics: ^12.0.2
+  firebase_auth: ^6.1.0
+  firebase_core: ^4.1.1
+  firebase_crashlytics: ^5.0.2
+  firebase_messaging: ^16.0.2
+  firebase_remote_config: ^6.0.2
 
   # Authentication
-  google_sign_in: 7.1.1
+  google_sign_in: ^7.2.0
   sign_in_with_apple: 7.0.1
 
   # Device
-  device_info_plus: 11.5.0
-  package_info_plus: 8.3.1
+  device_info_plus: ^12.1.0
+  package_info_plus: ^9.0.0
   path_provider: 2.1.5
   window_manager: 0.5.1
 
@@ -57,19 +57,19 @@ dependencies:
 
   # Logging
   pretty_dio_logger: 1.4.0
-  talker: 4.4.7
-  talker_flutter: 4.4.7
-  talker_dio_logger: 4.4.7
+  talker: ^5.0.1
+  talker_flutter: ^5.0.1
+  talker_dio_logger: ^5.0.1
 
   # Resources
   extended_image: 10.0.1
   flutter_native_splash: 2.4.6
-  flutter_svg: 2.2.0
+  flutter_svg: ^2.2.1
   intl: 0.20.2
 
   # UI
   flutter_animate: 4.5.2
-  flutter_local_notifications: 19.4.0
+  flutter_local_notifications: ^19.4.2
   modal_bottom_sheet: 3.0.0
   universal_html: 2.2.4
 
@@ -86,26 +86,26 @@ dev_dependencies:
     sdk: flutter
 
   # Build Runner
-  build_runner: 2.5.4
+  build_runner: ^2.7.1
 
   # State management
-  riverpod_generator: 2.6.5
+  riverpod_generator: ^3.0.1
 
   # Navigation
-  auto_route_generator: 10.0.1
+  auto_route_generator: ^10.2.4
 
   # Data Structures
-  freezed: 3.0.6
-  json_serializable: 6.9.5
+  freezed: ^3.2.3
+  json_serializable: ^6.11.1
 
   # Resources
-  flutter_gen_runner: 5.11.0
+  flutter_gen_runner: ^5.12.0
 
   # Lint
-  custom_lint: 0.7.5
+  custom_lint: ^0.8.0
   flutter_lints: 6.0.0
   netglade_analysis: 18.0.0
-  riverpod_lint: 2.6.5
+  riverpod_lint: ^3.0.1
 
   # UI Tests
   patrol: 3.19.0
