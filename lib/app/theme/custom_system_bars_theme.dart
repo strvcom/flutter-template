@@ -25,7 +25,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 ///
 class CustomSystemBarsTheme {
   static Future<void> setupSystemBarsTheme({required ProviderContainer providerContainer}) async {
-    final brightness = providerContainer.read(themeModeNotifierProvider.notifier).brightness;
+    final brightness = providerContainer.read(themeModeProvider.notifier).brightness;
 
     await _setupSystemBarsUpdateCallback(providerContainer: providerContainer);
     _setSystemBarsTheme(brightness: brightness);
@@ -81,7 +81,7 @@ class CustomSystemBarsTheme {
     final originalCallback = PlatformDispatcher.instance.onPlatformBrightnessChanged;
     PlatformDispatcher.instance.onPlatformBrightnessChanged = () async {
       originalCallback?.call();
-      final themeMode = await providerContainer.read(themeModeNotifierProvider.future);
+      final themeMode = await providerContainer.read(themeModeProvider.future);
       if (themeMode == ThemeMode.system) {
         _setSystemBarsTheme(brightness: PlatformDispatcher.instance.platformBrightness);
       }
@@ -93,7 +93,7 @@ class CustomSystemBarsTheme {
       if (androidInfo.version.sdkInt == 28) {
         SystemChannels.lifecycle.setMessageHandler((msg) async {
           if (msg == AppLifecycleState.resumed.toString()) {
-            final themeMode = await providerContainer.read(themeModeNotifierProvider.future);
+            final themeMode = await providerContainer.read(themeModeProvider.future);
             if (themeMode == ThemeMode.system) {
               _setSystemBarsTheme(brightness: PlatformDispatcher.instance.platformBrightness);
             }

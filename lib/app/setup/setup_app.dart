@@ -65,7 +65,7 @@ Future<void> setupApp({required Flavor flavor}) async {
   PaintingBinding.instance.imageCache.maximumSizeBytes = 200 << 20; // Equals to 250MB of cache
 
   // Load Theme Mode from DB before starting app
-  await providerContainer.read(themeModeNotifierProvider.future);
+  await providerContainer.read(themeModeProvider.future);
 
   // Setup reactive Edge-to-Edge support across all platforms
   await CustomSystemBarsTheme.setupSystemBarsTheme(providerContainer: providerContainer);

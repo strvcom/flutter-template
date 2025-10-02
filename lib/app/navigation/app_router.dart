@@ -7,7 +7,6 @@ import 'package:flutter_app/features/home/home_page.dart';
 import 'package:flutter_app/features/landing/landing_page.dart';
 import 'package:flutter_app/features/profile/profile_page.dart';
 import 'package:flutter_app/features/root/root_page.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_router.g.dart';

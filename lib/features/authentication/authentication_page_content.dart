@@ -12,10 +12,10 @@ class AuthenticationPageContent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(authenticationStateNotifierProvider);
+    final state = ref.watch(authenticationStateProvider);
 
     return state.mapContentState(
-      provider: authenticationStateNotifierProvider,
+      provider: authenticationStateProvider,
       data: (data) => _DataStateWidget(data: data),
     );
   }
@@ -46,19 +46,19 @@ class _DataStateWidget extends ConsumerWidget {
             CustomButtonPrimary(
               text: 'Sign in Anonymously',
               isLoading: data.isSigningIn,
-              onPressed: () => ref.read(authenticationStateNotifierProvider.notifier).signInAnonymously(),
+              onPressed: () => ref.read(authenticationStateProvider.notifier).signInAnonymously(),
             ),
             const SizedBox(height: 24),
             CustomButtonPrimary(
               text: 'Sign in with Google',
               isLoading: data.isSigningIn,
-              onPressed: () => ref.read(authenticationStateNotifierProvider.notifier).signInWithGoogle(),
+              onPressed: () => ref.read(authenticationStateProvider.notifier).signInWithGoogle(),
             ),
             const SizedBox(height: 8),
             CustomButtonPrimary(
               text: 'Sign in with Apple',
               isLoading: data.isSigningIn,
-              onPressed: () => ref.read(authenticationStateNotifierProvider.notifier).signInWithApple(),
+              onPressed: () => ref.read(authenticationStateProvider.notifier).signInWithApple(),
             ),
           ],
         ),

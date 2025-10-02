@@ -17,7 +17,7 @@ class DebugToolsWidgetsPageContent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(debugToolsWidgetsPageStateNotifierProvider);
+    final state = ref.watch(debugToolsWidgetsPageStateProvider);
 
     ref.listen(
       debugToolsWidgetsPageEventNotifierProvider,
@@ -31,7 +31,7 @@ class DebugToolsWidgetsPageContent extends ConsumerWidget {
     );
 
     return state.mapContentState(
-      provider: debugToolsWidgetsPageStateNotifierProvider,
+      provider: debugToolsWidgetsPageStateProvider,
       data: (data) => ListView(
         padding: const EdgeInsets.all(20),
         children: [
@@ -43,12 +43,12 @@ class DebugToolsWidgetsPageContent extends ConsumerWidget {
           const SizedBox(height: 20),
           CustomTextField(
             label: 'Example of custom text field',
-            validatorController: ref.read(debugToolsWidgetsPageStateNotifierProvider.notifier).exampleTextController,
+            validatorController: ref.read(debugToolsWidgetsPageStateProvider.notifier).exampleTextController,
             textCapitalization: TextCapitalization.words,
           ),
           const SizedBox(height: 20),
           CustomButtonPrimary(
-            onPressed: () => ref.read(debugToolsWidgetsPageStateNotifierProvider.notifier).validateSampleTextField(),
+            onPressed: () => ref.read(debugToolsWidgetsPageStateProvider.notifier).validateSampleTextField(),
             text: 'Validate text field',
           ),
           const SizedBox(height: 16),
@@ -56,7 +56,7 @@ class DebugToolsWidgetsPageContent extends ConsumerWidget {
           const SizedBox(height: 20),
           CustomTextFieldButton(
             label: 'Example of custom text field button',
-            validatorController: ref.read(debugToolsWidgetsPageStateNotifierProvider.notifier).exampleTextController,
+            validatorController: ref.read(debugToolsWidgetsPageStateProvider.notifier).exampleTextController,
             onClick: () => Flogger.d('Clicked text field button'),
           ),
           const SizedBox(height: 64),
@@ -65,7 +65,7 @@ class DebugToolsWidgetsPageContent extends ConsumerWidget {
           CustomRadioButtonGroup(
             options: const {'First': 'First', 'Second': 'Second', 'Third': 'Third'},
             selectedOption: data.selectedOption,
-            onOptionSelected: (newOption) => ref.read(debugToolsWidgetsPageStateNotifierProvider.notifier).onOptionChanged(newOption),
+            onOptionSelected: (newOption) => ref.read(debugToolsWidgetsPageStateProvider.notifier).onOptionChanged(newOption),
           ),
           const SizedBox(height: 20),
         ],

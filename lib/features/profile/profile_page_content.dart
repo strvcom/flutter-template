@@ -13,10 +13,10 @@ class ProfilePageContent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(profileStateNotifierProvider);
+    final state = ref.watch(profileStateProvider);
 
     return state.mapContentState(
-      provider: profileStateNotifierProvider,
+      provider: profileStateProvider,
       loading: (loading) => const _LoadingStateWidget(),
       data: (data) => _DataStateWidget(data: data),
     );
@@ -73,7 +73,7 @@ class _DataStateWidget extends ConsumerWidget {
           CustomButtonPrimary(
             text: 'Sign out',
             isLoading: data.isSigningOut,
-            onPressed: () => ref.read(profileStateNotifierProvider.notifier).signOut(),
+            onPressed: () => ref.read(profileStateProvider.notifier).signOut(),
           ),
         ],
       ),

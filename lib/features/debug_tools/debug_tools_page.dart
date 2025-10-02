@@ -24,10 +24,10 @@ class DebugToolsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final stateProvider = ref.watch(debugToolsPageStateNotifierProvider);
+    final stateProvider = ref.watch(debugToolsPageStateProvider);
 
     return stateProvider.mapState(
-      provider: debugToolsPageStateNotifierProvider,
+      provider: debugToolsPageStateProvider,
       data: (data) => Scaffold(
         appBar: const CustomAppBar(
           title: 'Debug tools',
@@ -36,7 +36,7 @@ class DebugToolsPage extends ConsumerWidget {
           canPop: data.selectedAction == null || !ResponsiveWidget.isSmallScreen(context),
           onPopInvokedWithResult: (didPop, result) {
             if (!didPop) {
-              ref.read(debugToolsPageStateNotifierProvider.notifier).setAction(null);
+              ref.read(debugToolsPageStateProvider.notifier).setAction(null);
             }
           },
           child: SafeArea(

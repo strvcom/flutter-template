@@ -38,7 +38,7 @@ class _DebugToolsActionsPageContentState extends ConsumerState<DebugToolsActions
                   child: TalkerScreen(
                     talker: Flogger.talker,
                     theme: const TalkerScreenTheme(
-                      logColors: {TalkerLogType.debug: Colors.green},
+                      logColors: {'debug': Colors.green},
                     ),
                   ),
                 ),
@@ -107,22 +107,22 @@ class _DebugToolsActionsPageContentState extends ConsumerState<DebugToolsActions
       const SizedBox(height: 20),
       CustomButtonPrimary(
         text: 'Widgets sample',
-        onPressed: () => ref.read(debugToolsPageStateNotifierProvider.notifier).setAction(DebugToolsSampleType.widgets),
+        onPressed: () => ref.read(debugToolsPageStateProvider.notifier).setAction(DebugToolsSampleType.widgets),
       ),
       const SizedBox(height: 16),
       CustomButtonPrimary(
         text: 'Popups sample',
-        onPressed: () => ref.read(debugToolsPageStateNotifierProvider.notifier).setAction(DebugToolsSampleType.popups),
+        onPressed: () => ref.read(debugToolsPageStateProvider.notifier).setAction(DebugToolsSampleType.popups),
       ),
       const SizedBox(height: 16),
       CustomButtonPrimary(
         text: 'Colors sample',
-        onPressed: () => ref.read(debugToolsPageStateNotifierProvider.notifier).setAction(DebugToolsSampleType.colors),
+        onPressed: () => ref.read(debugToolsPageStateProvider.notifier).setAction(DebugToolsSampleType.colors),
       ),
       const SizedBox(height: 16),
       CustomButtonPrimary(
         text: 'Text Styles sample',
-        onPressed: () => ref.read(debugToolsPageStateNotifierProvider.notifier).setAction(DebugToolsSampleType.textStyles),
+        onPressed: () => ref.read(debugToolsPageStateProvider.notifier).setAction(DebugToolsSampleType.textStyles),
       ),
     ];
   }
