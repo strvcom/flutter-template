@@ -36,7 +36,7 @@ class Flogger {
         exception: exception,
         stackTrace: stackTrace,
         pen: colors['verbose'],
-        key: TalkerLogType.verbose.key,
+        key: 'verbose',
       ),
     );
   }
@@ -49,7 +49,7 @@ class Flogger {
         exception: exception,
         stackTrace: stackTrace,
         pen: colors['debug'],
-        key: TalkerLogType.debug.key,
+        key: 'debug',
       ),
     );
   }
@@ -62,7 +62,7 @@ class Flogger {
         exception: exception,
         stackTrace: stackTrace,
         pen: colors['info'],
-        key: TalkerLogType.info.key,
+        key: 'info',
       ),
     );
   }
@@ -75,7 +75,7 @@ class Flogger {
         exception: exception,
         stackTrace: stackTrace,
         pen: colors['warning'],
-        key: TalkerLogType.warning.key,
+        key: 'warning',
       ),
     );
   }
@@ -88,7 +88,7 @@ class Flogger {
         exception: exception,
         stackTrace: stackTrace,
         pen: colors['error'],
-        key: TalkerLogType.error.key,
+        key: 'error',
       ),
     );
   }
@@ -97,7 +97,7 @@ class Flogger {
     _CustomLog(
       message.toString(),
       pen: colors['navigation'],
-      key: TalkerLogType.route.key,
+      key: 'navigation',
     ),
   );
 
@@ -106,7 +106,7 @@ class Flogger {
           _CustomLog(
             message.toString(),
             pen: colors['providerAdded'],
-            key: TalkerLogType.riverpodAdd.key,
+            key: 'providerAdded',
           ),
         )
       : null;
@@ -115,7 +115,7 @@ class Flogger {
           _CustomLog(
             message.toString(),
             pen: colors['providerUpdated'],
-            key: TalkerLogType.riverpodUpdate.key,
+            key: 'providerUpdated',
           ),
         )
       : null;
@@ -124,7 +124,7 @@ class Flogger {
           _CustomLog(
             message.toString(),
             pen: colors['providerRemoved'],
-            key: TalkerLogType.riverpodDispose.key,
+            key: 'providerRemoved',
           ),
         )
       : null;
