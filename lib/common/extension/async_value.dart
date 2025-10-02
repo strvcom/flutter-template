@@ -6,10 +6,11 @@ import 'package:flutter_app/common/composition/placeholder/error_placeholder_wid
 import 'package:flutter_app/common/data/entity/exception/custom_exception.dart';
 import 'package:flutter_app/common/extension/dynamic.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart';
 
 extension AsyncValueExtension<T> on AsyncValue<T> {
   Widget mapState({
-    required Refreshable<Object> provider,
+    required ProviderBase<Object> provider,
     required Widget Function(T data) data,
     bool Function(T data)? isEmpty,
     Widget Function(T? error)? error,
@@ -55,7 +56,7 @@ extension AsyncValueExtension<T> on AsyncValue<T> {
   }
 
   Widget mapContentState({
-    required Refreshable<Object> provider,
+    required ProviderBase<Object> provider,
     required Widget Function(T data) data,
     bool Function(T data)? isEmpty,
     Widget Function(T? error)? error,
@@ -96,7 +97,7 @@ class _EmptyPlaceholderWidget extends StatelessWidget {
     this.provider,
   );
 
-  final Refreshable<Object> provider;
+  final ProviderBase<Object> provider;
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +115,7 @@ class _ErrorPlaceholderWidget extends StatelessWidget {
     this.error,
   );
 
-  final Refreshable<Object> provider;
+  final ProviderBase<Object> provider;
   final Object error;
 
   @override

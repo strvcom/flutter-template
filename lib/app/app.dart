@@ -51,7 +51,7 @@ class App extends ConsumerWidget {
 
   Widget _createAppWidget(WidgetRef ref) {
     final appRouter = ref.watch(appRouterProvider);
-    final themeProvider = ref.watch(themeModeNotifierProvider);
+    final themeProvider = ref.watch(themeModeProvider);
 
     return MaterialApp.router(
       title: 'Flutter Template',
