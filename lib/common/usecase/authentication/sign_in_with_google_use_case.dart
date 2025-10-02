@@ -4,16 +4,12 @@ import 'package:flutter_app/common/usecase/authentication/sign_in_with_auth_cred
 import 'package:flutter_app/core/flogger.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-part 'sign_in_with_google_use_case.g.dart';
 
 const List<String> _scopes = <String>[
   'email',
 ];
 
-@riverpod
-Future<UserEntity> signInWithGoogleUseCase(Ref ref) async {
+final signInWithGoogleUseCase = FutureProvider<UserEntity>((ref) async {
   Flogger.d('[Authentication] Sign in with Google started');
 
   final googleSignIn = GoogleSignIn.instance;
@@ -41,4 +37,4 @@ Future<UserEntity> signInWithGoogleUseCase(Ref ref) async {
       credential: oauthCredential,
     ).future,
   );
-}
+});

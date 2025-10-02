@@ -6,13 +6,9 @@ import 'package:flutter_app/common/data/entity/user_entity.dart';
 import 'package:flutter_app/common/usecase/authentication/sign_in_with_auth_credential_use_case.dart';
 import 'package:flutter_app/core/flogger.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
-part 'sign_in_with_apple_use_case.g.dart';
-
-@riverpod
-Future<UserEntity> signInWithAppleUseCase(Ref ref) async {
+final signInWithAppleUseCase = FutureProvider<UserEntity>((ref) async {
   Flogger.d('[Authentication] Sign in with Apple started');
 
   // To prevent replay attacks with the credential returned from Apple, we include a nonce in the credential request.
@@ -38,4 +34,4 @@ Future<UserEntity> signInWithAppleUseCase(Ref ref) async {
   Flogger.d('[Authentication] Received credential from Apple: $oauthCredential');
 
   return await ref.read(signInWithAuthCredentialUseCaseProvider(credential: oauthCredential).future);
-}
+});

@@ -6,6 +6,7 @@ import 'package:flutter_app/common/usecase/authentication/sign_in_with_google_us
 import 'package:flutter_app/core/flogger.dart';
 import 'package:flutter_app/core/riverpod/state_handler.dart';
 import 'package:flutter_app/features/authentication/authentication_event.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -29,18 +30,18 @@ class AuthenticationStateNotifier extends _$AuthenticationStateNotifier with Aut
   }
 
   Future<void> signInAnonymously() async {
-    await _signInWithProvider(signInAnonymouslyUseCaseProvider);
+    await _signInWithProvider(signInAnonymouslyUseCase);
   }
 
   Future<void> signInWithGoogle() async {
-    await _signInWithProvider(signInWithGoogleUseCaseProvider);
+    await _signInWithProvider(signInWithGoogleUseCase);
   }
 
   Future<void> signInWithApple() async {
-    await _signInWithProvider(signInWithAppleUseCaseProvider);
+    await _signInWithProvider(signInWithAppleUseCase);
   }
 
-  Future<void> _signInWithProvider(AutoDisposeFutureProvider<UserEntity> provider) async {
+  Future<void> _signInWithProvider(FutureProvider<UserEntity> provider) async {
     setStateData(currentData?.copyWith(isSigningIn: true));
 
     try {

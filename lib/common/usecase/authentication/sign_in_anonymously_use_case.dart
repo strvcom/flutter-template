@@ -3,12 +3,8 @@ import 'package:flutter_app/common/data/entity/user_entity.dart';
 import 'package:flutter_app/common/usecase/authentication/sign_in_completion_use_case.dart';
 import 'package:flutter_app/core/flogger.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'sign_in_anonymously_use_case.g.dart';
-
-@riverpod
-Future<UserEntity> signInAnonymouslyUseCase(Ref ref) async {
+final signInAnonymouslyUseCase = FutureProvider<UserEntity>((ref) async {
   Flogger.d('[Authentication] Going to sign in user anonymously');
 
   await FirebaseAuth.instance.signInAnonymously();
@@ -16,4 +12,4 @@ Future<UserEntity> signInAnonymouslyUseCase(Ref ref) async {
   final user = await ref.read(signInCompletionUseCaseProvider.future);
 
   return user;
-}
+});
