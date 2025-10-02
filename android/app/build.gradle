@@ -27,8 +27,8 @@ if (flutterVersionName == null) {
 }
 
 def minAndroidSdkVersion = 24
-def compileAndroidSdkVersion = 35
-def targetAndroidSdkVersion = 35
+def compileAndroidSdkVersion = 36
+def targetAndroidSdkVersion = 36
 
 // Initialize a new Properties() object called keystoreProperties.
 def debugKeystoreProperties = new Properties()
