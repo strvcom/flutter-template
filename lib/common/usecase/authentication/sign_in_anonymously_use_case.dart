@@ -4,7 +4,7 @@ import 'package:flutter_app/common/usecase/authentication/sign_in_completion_use
 import 'package:flutter_app/core/flogger.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final signInAnonymouslyUseCase = FutureProvider.autoDispose<UserEntity>((ref) async {
+final signInAnonymouslyUseCase = FutureProvider<UserEntity>((ref) async {
   Flogger.d('[Authentication] Going to sign in user anonymously');
 
   await FirebaseAuth.instance.signInAnonymously();

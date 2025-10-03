@@ -9,7 +9,7 @@ const List<String> _scopes = <String>[
   'email',
 ];
 
-final signInWithGoogleUseCase = FutureProvider.autoDispose<UserEntity>((ref) async {
+final signInWithGoogleUseCase = FutureProvider<UserEntity>((ref) async {
   Flogger.d('[Authentication] Sign in with Google started');
 
   final googleSignIn = GoogleSignIn.instance;
