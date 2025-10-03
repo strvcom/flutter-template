@@ -17,34 +17,36 @@ class CustomRadioButtonGroup<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: options.entries.map(
-        (entry) {
-          void onOptionClick() {
-            onOptionSelected(entry.key);
-          }
-
-          return CustomInkWellRoundedRectangle(
-            cornerRadius: 4,
-            onClick: onOptionClick,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-              child: Row(
-                children: [
-                  Radio(
-                    value: entry.key,
-                    groupValue: selectedOption,
-                    fillColor: WidgetStateProperty.all(context.colorScheme.primary),
-                    onChanged: (_) => onOptionClick,
-                  ),
-                  const SizedBox(width: 12),
-                  CustomText(text: entry.value, style: context.textTheme.labelLarge),
-                ],
+    return RadioGroup<T>(
+      groupValue: selectedOption,
+      onChanged: (value) {
+        if (value != null) {
+          onOptionSelected(value);
+        }
+      },
+      child: Column(
+        children: options.entries.map(
+          (entry) {
+            return CustomInkWellRoundedRectangle(
+              cornerRadius: 4,
+              onClick: () => onOptionSelected(entry.key),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                child: Row(
+                  children: [
+                    Radio(
+                      value: entry.key,
+                      fillColor: WidgetStateProperty.all(context.colorScheme.primary),
+                    ),
+                    const SizedBox(width: 12),
+                    CustomText(text: entry.value, style: context.textTheme.labelLarge),
+                  ],
+                ),
               ),
-            ),
-          );
-        },
-      ).toList(),
+            );
+          },
+        ).toList(),
+      ),
     );
   }
 }
