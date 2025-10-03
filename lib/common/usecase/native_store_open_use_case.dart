@@ -1,6 +1,5 @@
 import 'package:flutter_app/app/setup/app_platform.dart';
 import 'package:flutter_app/core/flogger.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:url_launcher/url_launcher.dart';
 

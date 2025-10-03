@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter_app/common/data/entity/user_entity.dart';
 import 'package:flutter_app/core/database/shared_preferences.dart';
 import 'package:flutter_app/core/flogger.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'get_database_user_use_case.g.dart';
