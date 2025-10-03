@@ -34,7 +34,7 @@ class CustomSwitch extends StatelessWidget {
       dense: dense,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       contentPadding: EdgeInsets.zero,
-      activeColor: context.colorScheme.primary,
+      activeThumbColor: context.colorScheme.primary,
       inactiveThumbColor: Colors.grey.shade600,
       inactiveTrackColor: Colors.grey.shade400,
       trackOutlineColor: WidgetStateProperty.all(Colors.transparent),
