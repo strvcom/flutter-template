@@ -33,7 +33,7 @@ class ForceUpdatePageContent extends ConsumerWidget {
               if (AppPlatform.isMobile)
                 CustomButtonPrimary(
                   onPressed: () {
-                    // TODO: Fill correct Android and iOS app IDs
+                    // TODO(strv): Fill correct Android and iOS app IDs
                     ref.read(nativeStoreOpenUseCaseProvider(androidAppBundleId: 'com.strv.template.app', appStoreId: '123123123'));
                   },
                   text: context.locale.forceUpdateButton,

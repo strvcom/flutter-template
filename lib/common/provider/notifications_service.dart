@@ -56,7 +56,7 @@ class NotificationsService extends _$NotificationsService {
     switch (notification) {
       case NotificationPayloadEntitySample():
         Flogger.d('[Notifications] Handle open of Sample notification');
-        // TODO: [Notifications] Handle Notification open action here
+      // TODO(strv): [Notifications] Handle Notification open action here
 
       case NotificationPayloadEntityUnknown():
       // Do nothing

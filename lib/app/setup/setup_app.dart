@@ -71,14 +71,14 @@ Future<void> setupApp({required Flavor flavor}) async {
   await CustomSystemBarsTheme.setupSystemBarsTheme(providerContainer: providerContainer);
 }
 
-// TODO: Support it or remove it!
+// TODO(strv): Support it or remove it!
 Future<void> _setupFirebase({required Flavor flavor}) async {
   if (AppPlatform.isMobile || AppPlatform.isMacOS) {
     await Firebase.initializeApp();
   } else if (AppPlatform.isWeb) {
     await Firebase.initializeApp(
       // For WebApp we need to specify the FirebaseOptions here!
-      // TODO: Replace with actual values. Can be found inside Firebase -> Project Settings, under Web App
+      // TODO(strv): Replace with actual values. Can be found inside Firebase -> Project Settings, under Web App
       options: const FirebaseOptions(
         apiKey: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         authDomain: 'strv-flutter-template.firebaseapp.com',
@@ -92,7 +92,7 @@ Future<void> _setupFirebase({required Flavor flavor}) async {
   }
 }
 
-/// TODO: Support it or remove it!
+// TODO(strv): Support it or remove it!
 /// Setup Firebase crashlytics according [docs](https://firebase.google.com/docs/crashlytics/customize-crash-reports?platform=flutter).
 Future<void> _setupFirebaseCrashlytics() async {
   if (!AppPlatform.isMobile) return;
@@ -127,28 +127,28 @@ Future<void> _setupFirebaseCrashlytics() async {
   );
 }
 
-/// TODO: Support it or remove it!
+// TODO(strv): Support it or remove it!
 Future<void> _setupFirebaseRemoteConfig() async {
   if (!AppPlatform.isMobile) return;
 
   await providerContainer.read(firebaseRemoteConfigServiceProvider.future);
 }
 
-/// TODO: Support it or remove it!
+// TODO(strv): Support it or remove it!
 Future<void> _setupFirebaseMessaging() async {
   if (!AppPlatform.isLinux && !AppPlatform.isWindows) {
     await providerContainer.read(firebaseMessagingServiceProvider.future);
   }
 }
 
-/// TODO: Support it or remove it!
+// TODO(strv): Support it or remove it!
 Future<void> _setupLocalNotificationsService() async {
   if (!AppPlatform.isLinux && !AppPlatform.isWindows) {
     await providerContainer.read(notificationsServiceProvider.future);
   }
 }
 
-// TODO: [FreeRASP] Configure correct package names and other values
+// TODO(strv): [FreeRASP] Configure correct package names and other values
 Future<void> _setupRASP({required Flavor flavor}) async {
   // Only Mobile platforms are supported!
   if (!AppPlatform.isMobile) return;

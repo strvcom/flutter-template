@@ -2,7 +2,6 @@ import 'package:flutter_app/common/data/entity/user_entity.dart';
 import 'package:flutter_app/common/data/enum/user_role.dart';
 import 'package:flutter_app/common/provider/current_user_state.dart';
 import 'package:flutter_app/core/flogger.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'sign_in_completion_use_case.g.dart';
@@ -17,7 +16,7 @@ Future<UserEntity> signInCompletionUseCase(Ref ref) async {
   final userResponse = UserResponseDTO.fromJson(response.data);
   final user = UserEntity.fromAPI(user: userResponse);
   */
-  // TODO: Remove this line and uncomment the above lines
+  // TODO(strv): Remove this line and uncomment the above lines
   const user = UserEntity(
     id: '1',
     email: 'john.doe@example.com',

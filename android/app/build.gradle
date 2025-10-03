@@ -129,7 +129,7 @@ android {
 
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
            
-            // TODO: Remove or change to true, once Firebase is set-up correctly
+            // TODO(strv): Remove or change to true, once Firebase is set-up correctly
             firebaseCrashlytics {
                 mappingFileUploadEnabled = false
                 unstrippedNativeLibsDir file("build/app/intermediates/merged_native_libs/productionRelease/out/lib")
