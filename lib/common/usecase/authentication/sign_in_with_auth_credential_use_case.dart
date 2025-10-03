@@ -3,7 +3,6 @@ import 'package:flutter_app/common/data/entity/exception/custom_exception.dart';
 import 'package:flutter_app/common/data/entity/user_entity.dart';
 import 'package:flutter_app/common/usecase/authentication/sign_in_completion_use_case.dart';
 import 'package:flutter_app/core/flogger.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'sign_in_with_auth_credential_use_case.g.dart';

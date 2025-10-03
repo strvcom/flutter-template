@@ -8,7 +8,7 @@ import 'package:flutter_app/core/flogger.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
-final signInWithAppleUseCase = FutureProvider<UserEntity>((ref) async {
+final signInWithAppleUseCase = FutureProvider.autoDispose<UserEntity>((ref) async {
   Flogger.d('[Authentication] Sign in with Apple started');
 
   // To prevent replay attacks with the credential returned from Apple, we include a nonce in the credential request.
