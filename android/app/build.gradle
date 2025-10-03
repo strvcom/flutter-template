@@ -117,9 +117,6 @@ android {
             shrinkResources true
 
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-
-            // Comment this when testing dynamic links.
-            applicationIdSuffix = ".profile"
         }
         release {
             signingConfig signingConfigs.release
