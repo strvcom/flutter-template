@@ -27,8 +27,8 @@ if (flutterVersionName == null) {
 }
 
 def minAndroidSdkVersion = 24
-def compileAndroidSdkVersion = 35
-def targetAndroidSdkVersion = 35
+def compileAndroidSdkVersion = 36
+def targetAndroidSdkVersion = 36
 
 // Initialize a new Properties() object called keystoreProperties.
 def debugKeystoreProperties = new Properties()
@@ -44,14 +44,13 @@ android {
     namespace "com.strv.flutter.template"
 
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
-
-        coreLibraryDesugaringEnabled true
     }
 
     kotlinOptions {
-        jvmTarget = '17'
+        jvmTarget = JavaVersion.VERSION_17
     }
 
     sourceSets {
@@ -118,9 +117,6 @@ android {
             shrinkResources true
 
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-
-            // Comment this when testing dynamic links.
-            applicationIdSuffix = ".debug"
         }
         release {
             signingConfig signingConfigs.release
@@ -130,7 +126,7 @@ android {
 
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
            
-            // TODO: Remove or change to true, once Firebase is set-up correctly
+            // TODO(strv): Remove or change to true, once Firebase is set-up correctly
             firebaseCrashlytics {
                 mappingFileUploadEnabled = false
                 unstrippedNativeLibsDir file("build/app/intermediates/merged_native_libs/productionRelease/out/lib")
@@ -159,10 +155,9 @@ flutter {
 }
 
 dependencies {
-    implementation 'com.google.android.material:material:1.13.0-alpha05'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.0.0"
-    androidTestUtil "androidx.test:orchestrator:1.4.2"
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
+    implementation 'com.google.android.material:material:1.13.0-alpha12'
+    androidTestUtil "androidx.test:orchestrator:1.5.1"
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
 }
 
 // This section must appear at the bottom of the file

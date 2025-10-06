@@ -13,15 +13,15 @@ import 'package:flutter/material.dart';
 /// [textDirection] : direction of the text for slide animation (default: [TextDirection.ltr])
 class CustomFadeSlideAnimation extends StatefulWidget {
   const CustomFadeSlideAnimation({
-    super.key,
     required this.child,
+    super.key,
     this.beginOffset = const Offset(0, 0.5),
-    this.endOffset = const Offset(0, 0),
+    this.endOffset = Offset.zero,
     this.fadeDuration = const Duration(milliseconds: 1000),
     this.slideDuration = const Duration(milliseconds: 500),
     this.fadeCurve = Curves.decelerate,
     this.slideCurve = Curves.decelerate,
-    this.delay = const Duration(milliseconds: 0),
+    this.delay = Duration.zero,
     this.textDirection = TextDirection.ltr,
   });
 
@@ -46,7 +46,7 @@ class CustomFadeSlideAnimationState extends State<CustomFadeSlideAnimation> with
   late AnimationController? _fadeController;
   late AnimationController? _slideController;
 
-  /// Controllers are initialised in [initState] with the values defined or received as parameters in the widget
+  /// Controllers are initialized in [initState] with the values defined or received as parameters in the widget
   @override
   void initState() {
     super.initState();
@@ -61,7 +61,7 @@ class CustomFadeSlideAnimationState extends State<CustomFadeSlideAnimation> with
     );
 
     // Start animation after the specified delay
-    Future.delayed(widget.delay).then((value) => {_fadeController?.forward(), _slideController?.forward()});
+    Future<void>.delayed(widget.delay).then((value) => {_fadeController?.forward(), _slideController?.forward()});
   }
 
   /// Both the animation controllers are being disposed for safety

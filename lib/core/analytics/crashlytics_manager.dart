@@ -6,13 +6,13 @@ import 'package:flutter_app/app/setup/app_platform.dart';
 class CrashlyticsManager {
   static Future<void> logMessage(dynamic message) async {
     if (Firebase.apps.isNotEmpty && AppPlatform.isMobile && !kDebugMode) {
-      await FirebaseCrashlytics.instance.log(message);
+      await FirebaseCrashlytics.instance.log(message.toString());
     }
   }
 
   static Future<void> logNonCritical(dynamic exception, {StackTrace? stack, String? message}) async {
     if (Firebase.apps.isNotEmpty && AppPlatform.isMobile && !kDebugMode) {
-      await FirebaseCrashlytics.instance.recordError(exception, stack, reason: message, fatal: false);
+      await FirebaseCrashlytics.instance.recordError(exception, stack, reason: message);
     }
   }
 

@@ -21,7 +21,7 @@ class DioAuthorizationTokenInterceptor extends Interceptor {
       return handler.next(options);
     }
 
-    final token = await ref.read(getAuthorizationTokenUseCaseProvider(forceRefresh: false).future);
+    final token = await ref.read(getAuthorizationTokenUseCaseProvider().future);
 
     options.headers['Authorization'] = 'Bearer $token';
 

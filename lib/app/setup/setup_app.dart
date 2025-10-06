@@ -16,20 +16,22 @@ import 'package:flutter_app/common/provider/firebase_remote_config_service.dart'
 import 'package:flutter_app/common/provider/notifications_service.dart';
 import 'package:flutter_app/common/provider/theme_mode_provider.dart';
 import 'package:flutter_app/core/analytics/crashlytics_manager.dart';
+import 'package:flutter_app/core/flogger.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:freerasp/freerasp.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:window_manager/window_manager.dart';
 
 Future<void> setupApp({required Flavor flavor}) async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   if (!kIsWeb) {
     FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   }
 
   // Force app orientation to portrait and landscape.
   // This must be also forced in info.plist file for iOS, under [UISupportedInterfaceOrientations].
-  SystemChrome.setPreferredOrientations([
+  await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
     DeviceOrientation.landscapeLeft,
@@ -46,6 +48,9 @@ Future<void> setupApp({required Flavor flavor}) async {
   await _setupFirebaseMessaging();
   await _setupLocalNotificationsService();
 
+  // Setup Google Sign In
+  await GoogleSignIn.instance.initialize();
+
   // Setup FreeRASP Security
   await _setupRASP(flavor: flavor);
 
@@ -60,20 +65,20 @@ Future<void> setupApp({required Flavor flavor}) async {
   PaintingBinding.instance.imageCache.maximumSizeBytes = 200 << 20; // Equals to 250MB of cache
 
   // Load Theme Mode from DB before starting app
-  await providerContainer.read(themeModeNotifierProvider.future);
+  await providerContainer.read(themeModeProvider.future);
 
-  // Setup reactive Edge-to-Edge support accross all platforms
+  // Setup reactive Edge-to-Edge support across all platforms
   await CustomSystemBarsTheme.setupSystemBarsTheme(providerContainer: providerContainer);
 }
 
-// TODO: Support it or remove it!
+// TODO(strv): Support it or remove it!
 Future<void> _setupFirebase({required Flavor flavor}) async {
   if (AppPlatform.isMobile || AppPlatform.isMacOS) {
     await Firebase.initializeApp();
   } else if (AppPlatform.isWeb) {
     await Firebase.initializeApp(
       // For WebApp we need to specify the FirebaseOptions here!
-      // TODO: Replace with actual values. Can be found inside Firebase -> Project Settings, under Web App
+      // TODO(strv): Replace with actual values. Can be found inside Firebase -> Project Settings, under Web App
       options: const FirebaseOptions(
         apiKey: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         authDomain: 'strv-flutter-template.firebaseapp.com',
@@ -87,7 +92,7 @@ Future<void> _setupFirebase({required Flavor flavor}) async {
   }
 }
 
-/// TODO: Support it or remove it!
+// TODO(strv): Support it or remove it!
 /// Setup Firebase crashlytics according [docs](https://firebase.google.com/docs/crashlytics/customize-crash-reports?platform=flutter).
 Future<void> _setupFirebaseCrashlytics() async {
   if (!AppPlatform.isMobile) return;
@@ -107,37 +112,43 @@ Future<void> _setupFirebaseCrashlytics() async {
   };
 
   // Handles errors that happen outside of the Flutter context
-  Isolate.current.addErrorListener(RawReceivePort((pair) async {
-    final List<dynamic> errorAndStacktrace = pair;
-    await CrashlyticsManager.logCritical(
-      errorAndStacktrace.first,
-      stack: errorAndStacktrace.last,
-    );
-  }).sendPort);
+  Isolate.current.addErrorListener(
+    RawReceivePort((dynamic pair) async {
+      if (pair is List && pair.length == 2 && pair[1] is StackTrace) {
+        final dynamic error = pair[0];
+        final stack = pair[1] as StackTrace;
+
+        await CrashlyticsManager.logCritical(error, stack: stack);
+      } else {
+        // Optionally log or handle unexpected message format
+        Flogger.e('Unexpected error message format from isolate: $pair');
+      }
+    }).sendPort,
+  );
 }
 
-/// TODO: Support it or remove it!
+// TODO(strv): Support it or remove it!
 Future<void> _setupFirebaseRemoteConfig() async {
   if (!AppPlatform.isMobile) return;
 
   await providerContainer.read(firebaseRemoteConfigServiceProvider.future);
 }
 
-/// TODO: Support it or remove it!
+// TODO(strv): Support it or remove it!
 Future<void> _setupFirebaseMessaging() async {
   if (!AppPlatform.isLinux && !AppPlatform.isWindows) {
     await providerContainer.read(firebaseMessagingServiceProvider.future);
   }
 }
 
-/// TODO: Support it or remove it!
+// TODO(strv): Support it or remove it!
 Future<void> _setupLocalNotificationsService() async {
   if (!AppPlatform.isLinux && !AppPlatform.isWindows) {
     await providerContainer.read(notificationsServiceProvider.future);
   }
 }
 
-// TODO: [FreeRASP] Configure correct package names and other values
+// TODO(strv): [FreeRASP] Configure correct package names and other values
 Future<void> _setupRASP({required Flavor flavor}) async {
   // Only Mobile platforms are supported!
   if (!AppPlatform.isMobile) return;
@@ -198,7 +209,7 @@ Future<void> _setupWebPlatform({required Flavor flavor}) async {
 Future<void> _setupDesktopPlatform() async {
   if (AppPlatform.isDesktop) {
     await windowManager.ensureInitialized();
-    windowManager.setMinimumSize(const Size(400, 400));
-    windowManager.setSize(const Size(500, 950));
+    await windowManager.setMinimumSize(const Size(400, 400));
+    await windowManager.setSize(const Size(500, 950));
   }
 }

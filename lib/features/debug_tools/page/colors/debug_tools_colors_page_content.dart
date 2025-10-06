@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/component/custom_text/custom_text.dart';
 import 'package:flutter_app/common/extension/build_context.dart';
-import 'package:flutter_app/features/debug_tools/page/colors/model/debug_tools_color.dart';
+import 'package:flutter_app/features/debug_tools/page/colors/entity/debug_tools_color.dart';
 
 class DebugToolsColorsPageContent extends StatelessWidget {
   const DebugToolsColorsPageContent({super.key});

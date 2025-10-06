@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/core/analytics/analytics_manager.dart';
 import 'package:flutter_app/core/flogger.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'analytics_route_observer.g.dart';
@@ -16,7 +15,7 @@ class AnalyticsRouteObserver extends AutoRouterObserver {
   final Ref ref;
 
   @override
-  void didPush(Route route, Route? previousRoute) {
+  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
     if (route.settings.name == null) return;
 
     Flogger.d('[AnalyticsRouteObserver] New route pushed: ${route.settings.name}');
@@ -37,7 +36,9 @@ class AnalyticsRouteObserver extends AutoRouterObserver {
 
   void _logScreenName(String screenName) {
     try {
-      ref.read(analyticsManagerLogScreenViewProvider(screenName).future);
+      if (ref.mounted) {
+        ref.read(analyticsManagerLogScreenViewProvider(screenName).future);
+      }
     } on Exception catch (error) {
       Flogger.e('[AnalyticsRouteObserver] Error while sending event $error');
     }

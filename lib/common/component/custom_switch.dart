@@ -4,17 +4,17 @@ import 'package:flutter_app/common/extension/build_context.dart';
 
 class CustomSwitch extends StatelessWidget {
   const CustomSwitch({
-    super.key,
     required this.title,
     required this.value,
     required this.onChanged,
+    super.key,
     this.subtitle,
     this.dense = false,
   });
 
   final String title;
   final bool value;
-  final Function(bool value) onChanged;
+  final ValueChanged<bool> onChanged;
   final String? subtitle;
   final bool dense;
 
@@ -34,7 +34,7 @@ class CustomSwitch extends StatelessWidget {
       dense: dense,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       contentPadding: EdgeInsets.zero,
-      activeColor: context.colorScheme.primary,
+      activeThumbColor: context.colorScheme.primary,
       inactiveThumbColor: Colors.grey.shade600,
       inactiveTrackColor: Colors.grey.shade400,
       trackOutlineColor: WidgetStateProperty.all(Colors.transparent),

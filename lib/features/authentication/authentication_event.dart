@@ -5,9 +5,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'authentication_event.freezed.dart';
 
 @freezed
-class AuthenticationEvent with _$AuthenticationEvent {
-  const factory AuthenticationEvent.signedIn() = _SignedIn;
+sealed class AuthenticationEvent with _$AuthenticationEvent {
+  const factory AuthenticationEvent.signedIn() = AuthenticationEventSignedIn;
 }
 
-final authenticationEventNotifierProvider =
-    StateNotifierProvider.autoDispose<EventNotifier<AuthenticationEvent?>, AuthenticationEvent?>((ref) => EventNotifier(null));
+final authenticationEventNotifierProvider = NotifierProvider.autoDispose<EventNotifier<AuthenticationEvent?>, AuthenticationEvent?>(
+  EventNotifier.new,
+);

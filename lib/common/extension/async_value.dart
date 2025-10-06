@@ -3,18 +3,19 @@ import 'package:flutter_app/common/component/custom_app_bar.dart';
 import 'package:flutter_app/common/component/custom_progress_indicator.dart';
 import 'package:flutter_app/common/composition/placeholder/empty_placeholder_widget.dart';
 import 'package:flutter_app/common/composition/placeholder/error_placeholder_widget.dart';
-import 'package:flutter_app/common/data/model/exception/custom_exception.dart';
+import 'package:flutter_app/common/data/entity/exception/custom_exception.dart';
 import 'package:flutter_app/common/extension/dynamic.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart';
 
 extension AsyncValueExtension<T> on AsyncValue<T> {
-  Widget mapState<R>({
-    required Refreshable provider,
+  Widget mapState({
+    required ProviderBase<Object> provider,
+    required Widget Function(T data) data,
     bool Function(T data)? isEmpty,
     Widget Function(T? error)? error,
     Widget Function(T? loading)? loading,
     Widget Function(T data)? empty,
-    required Widget Function(T data) data,
   }) {
     return map(
       // Title: Loading State
@@ -43,24 +44,24 @@ extension AsyncValueExtension<T> on AsyncValue<T> {
       data: (dataParam) => (isEmpty?.let((it) => it(dataParam.value)) ?? false)
           // Title: Empty State
           ? (empty?.call(dataParam.value) ??
-              Scaffold(
-                appBar: const CustomAppBar(),
-                body: SafeArea(
-                  child: _EmptyPlacholderWidget(provider),
-                ),
-              ))
+                Scaffold(
+                  appBar: const CustomAppBar(),
+                  body: SafeArea(
+                    child: _EmptyPlaceholderWidget(provider),
+                  ),
+                ))
           // Title: Data State
           : data(dataParam.value),
     );
   }
 
-  Widget mapContentState<R>({
-    required Refreshable provider,
+  Widget mapContentState({
+    required ProviderBase<Object> provider,
+    required Widget Function(T data) data,
     bool Function(T data)? isEmpty,
     Widget Function(T? error)? error,
     Widget Function(T? loading)? loading,
     Widget Function(T data)? empty,
-    required Widget Function(T data) data,
   }) {
     return map(
       // Title: Loading State
@@ -73,7 +74,7 @@ extension AsyncValueExtension<T> on AsyncValue<T> {
 
       data: (dataParam) => (isEmpty?.let((it) => it(dataParam.value)) ?? false)
           // Title: Empty State
-          ? (empty?.call(dataParam.value) ?? _EmptyPlacholderWidget(provider))
+          ? (empty?.call(dataParam.value) ?? _EmptyPlaceholderWidget(provider))
           // Title: Data State
           : data(dataParam.value),
     );
@@ -91,12 +92,12 @@ class _ProgressIndicatorWidget extends StatelessWidget {
   }
 }
 
-class _EmptyPlacholderWidget extends StatelessWidget {
-  const _EmptyPlacholderWidget(
+class _EmptyPlaceholderWidget extends StatelessWidget {
+  const _EmptyPlaceholderWidget(
     this.provider,
   );
 
-  final Refreshable provider;
+  final ProviderBase<Object> provider;
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +115,7 @@ class _ErrorPlaceholderWidget extends StatelessWidget {
     this.error,
   );
 
-  final Refreshable provider;
+  final ProviderBase<Object> provider;
   final Object error;
 
   @override

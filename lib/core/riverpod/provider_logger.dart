@@ -1,32 +1,27 @@
 import 'package:flutter_app/core/flogger.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ProvidersLogger extends ProviderObserver {
+base class ProvidersLogger extends ProviderObserver {
   @override
-  void didAddProvider(
-    ProviderBase provider,
-    Object? value,
-    ProviderContainer container,
-  ) {
-    super.didAddProvider(provider, value, container);
+  void didAddProvider(ProviderObserverContext context, Object? value) {
+    super.didAddProvider(context, value);
 
     Flogger.v(
-      '[PROVIDER] Provider added: ${provider.name ?? provider.runtimeType},'
+      '[PROVIDER] Provider added: ${context.provider.name ?? context.provider.runtimeType},'
       '\n[PROVIDER] Value: $value',
     );
   }
 
   @override
   void didUpdateProvider(
-    ProviderBase provider,
+    ProviderObserverContext context,
     Object? previousValue,
     Object? newValue,
-    ProviderContainer container,
   ) {
-    super.didUpdateProvider(provider, previousValue, newValue, container);
+    super.didUpdateProvider(context, previousValue, newValue);
 
     Flogger.v(
-      '[PROVIDER] Provider updated: ${provider.name ?? provider.runtimeType},'
+      '[PROVIDER] Provider updated: ${context.provider.name ?? context.provider.runtimeType},'
       '\n[PROVIDER] Old value: $previousValue,'
       '\n[PROVIDER] New value: $newValue',
     );
@@ -34,11 +29,10 @@ class ProvidersLogger extends ProviderObserver {
 
   @override
   void didDisposeProvider(
-    ProviderBase provider,
-    ProviderContainer container,
+    ProviderObserverContext context,
   ) {
-    super.didDisposeProvider(provider, container);
+    super.didDisposeProvider(context);
 
-    Flogger.v('[PROVIDER] Provider disposed: ${provider.name ?? provider.runtimeType}');
+    Flogger.v('[PROVIDER] Provider disposed: ${context.provider.name ?? context.provider.runtimeType}');
   }
 }

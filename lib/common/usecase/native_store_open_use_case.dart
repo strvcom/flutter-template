@@ -1,6 +1,5 @@
 import 'package:flutter_app/app/setup/app_platform.dart';
 import 'package:flutter_app/core/flogger.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -15,7 +14,9 @@ final _platformNotSupportedException = Exception('Platform not supported');
 
 /// This exception was thrown when page in store can't be launchd
 class CantLaunchPageException implements Exception {
-  CantLaunchPageException(String cause) : super();
+  CantLaunchPageException(this.message) : super();
+
+  final String message;
 }
 
 @riverpod
@@ -64,38 +65,36 @@ Future<void> _open(String? appStoreId, String? appStoreIdMacOS, String? androidA
   throw _platformNotSupportedException;
 }
 
-Future _openAndroid(String? androidAppBundleId) async {
+Future<void> _openAndroid(String? androidAppBundleId) async {
   if (androidAppBundleId != null) {
     await _openUrl('$_playMarketUrl$androidAppBundleId');
-    return;
+  } else {
+    throw CantLaunchPageException('androidAppBundleId is not passed');
   }
-  throw CantLaunchPageException('androidAppBundleId is not passed');
 }
 
-Future _openIOS(String? appStoreId) async {
+Future<void> _openIOS(String? appStoreId) async {
   if (appStoreId != null) {
     await _openUrl('$_appStoreUrlIOS$appStoreId');
-    return;
+  } else {
+    throw CantLaunchPageException('appStoreId is not passed');
   }
-  throw CantLaunchPageException('appStoreId is not passed');
 }
 
-Future _openMacOS(String? appStoreId, String? appStoreIdMacOS) async {
+Future<void> _openMacOS(String? appStoreId, String? appStoreIdMacOS) async {
   if (appStoreId != null || appStoreIdMacOS != null) {
     await _openUrl('$_appStoreUrlMacOS${appStoreIdMacOS ?? appStoreId}');
-    return;
+  } else {
+    throw CantLaunchPageException('appStoreId and appStoreIdMacOS is not passed');
   }
-  throw CantLaunchPageException(
-    'appStoreId and appStoreIdMacOS is not passed',
-  );
 }
 
-Future _openWindows(String? windowsProductId) async {
+Future<void> _openWindows(String? windowsProductId) async {
   if (windowsProductId != null) {
     await _openUrl('$_microsoftStoreUrl$windowsProductId');
-    return;
+  } else {
+    throw CantLaunchPageException('windowsProductId is not passed');
   }
-  throw CantLaunchPageException('windowsProductId is not passed');
 }
 
 Future<void> _openUrl(String url) async {
@@ -105,7 +104,7 @@ Future<void> _openUrl(String url) async {
       uri,
       mode: LaunchMode.externalApplication,
     );
-    return;
+  } else {
+    throw CantLaunchPageException('Could not launch $url');
   }
-  throw CantLaunchPageException('Could not launch $url');
 }

@@ -24,7 +24,7 @@ Future<void> findAndReplaceTextInDirectory({
     // Check if the entity is a file and if it's in the excludedFiles list
     if (entity is File) {
       if (includedFiles != null && includedFiles.contains(entity.path.split(Platform.pathSeparator).last)) {
-        await findAndRemplaceTextInFile(
+        await findAndReplaceTextInFile(
           file: entity,
           searchString: searchString,
           replaceString: replaceString,
@@ -35,7 +35,7 @@ Future<void> findAndReplaceTextInDirectory({
   }
 }
 
-Future<void> findAndRemplaceTextInFile({
+Future<void> findAndReplaceTextInFile({
   required File file,
   required String searchString,
   required String replaceString,

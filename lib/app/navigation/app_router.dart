@@ -7,7 +7,6 @@ import 'package:flutter_app/features/home/home_page.dart';
 import 'package:flutter_app/features/landing/landing_page.dart';
 import 'package:flutter_app/features/profile/profile_page.dart';
 import 'package:flutter_app/features/root/root_page.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_router.g.dart';
@@ -23,27 +22,30 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
-        // Subtitle: Landing Route
-        CustomRoute(
-          page: LandingRoute.page,
-          initial: true,
-          // We don't really need to animate landing page, because
-          // it doesn't have UI, it's covered by splash screen.
-          durationInMilliseconds: 0,
-        ),
+    // Subtitle: Landing Route
+    CustomRoute<void>(
+      page: LandingRoute.page,
+      initial: true,
+      // We don't really need to animate landing page, because
+      // it doesn't have UI, it's covered by splash screen.
+      duration: Duration.zero,
+    ),
 
-        // Subtitle: Authentication Route
-        AutoRoute(page: AuthenticationRoute.page),
+    // Subtitle: Authentication Route
+    AutoRoute(page: AuthenticationRoute.page),
 
-        // Subtitle: Main Routes
-        AutoRoute(page: RootRoute.page, children: [
-          AutoRoute(page: HomeRoute.page),
-          AutoRoute(page: EventsRoute.page),
-          AutoRoute(page: ProfileRoute.page),
-        ]),
-        AutoRoute(page: EventDetailRoute.page),
+    // Subtitle: Main Routes
+    AutoRoute(
+      page: RootRoute.page,
+      children: [
+        AutoRoute(page: HomeRoute.page),
+        AutoRoute(page: EventsRoute.page),
+        AutoRoute(page: ProfileRoute.page),
+      ],
+    ),
+    AutoRoute(page: EventDetailRoute.page),
 
-        // Subtitle: Debug Tools Routes
-        AutoRoute(page: DebugToolsRoute.page),
-      ];
+    // Subtitle: Debug Tools Routes
+    AutoRoute(page: DebugToolsRoute.page),
+  ];
 }

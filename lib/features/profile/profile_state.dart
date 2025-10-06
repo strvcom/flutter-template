@@ -1,5 +1,5 @@
-import 'package:flutter_app/common/data/model/exception/custom_exception.dart';
-import 'package:flutter_app/common/provider/current_user_model_state.dart';
+import 'package:flutter_app/common/data/entity/exception/custom_exception.dart';
+import 'package:flutter_app/common/provider/current_user_state.dart';
 import 'package:flutter_app/common/usecase/authentication/sign_out_use_case.dart';
 import 'package:flutter_app/common/usecase/get_random_image_url_use_case.dart';
 import 'package:flutter_app/core/flogger.dart';
@@ -12,7 +12,7 @@ part 'profile_state.freezed.dart';
 part 'profile_state.g.dart';
 
 @freezed
-class ProfileState with _$ProfileState {
+abstract class ProfileState with _$ProfileState {
   const factory ProfileState({
     required String displayName,
     required String imageUrl,
@@ -24,10 +24,10 @@ class ProfileState with _$ProfileState {
 class ProfileStateNotifier extends _$ProfileStateNotifier with AutoDisposeStateHandler {
   @override
   FutureOr<ProfileState> build() async {
-    final currentUser = await ref.read(currentUserModelStateProvider.future);
+    final currentUser = await ref.read(currentUserStateProvider.future);
     final imageUrl = ref.read(getRandomImageUrlUseCaseProvider(width: 120, height: 120));
 
-    await Future.delayed(const Duration(seconds: 2));
+    await Future<void>.delayed(const Duration(seconds: 2));
 
     return ProfileState(
       displayName: currentUser?.displayName ?? '',

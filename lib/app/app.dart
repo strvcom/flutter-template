@@ -40,7 +40,7 @@ class App extends ConsumerWidget {
                 message: Configuration.instance.flavor == Flavor.develop ? 'DEV' : 'STG',
                 location: BannerLocation.topStart,
                 color: Configuration.instance.flavor == Flavor.develop ? const Color(0xFF37B73B) : const Color(0xFF3C45D9),
-              )
+              ),
             ],
           ),
         );
@@ -51,7 +51,7 @@ class App extends ConsumerWidget {
 
   Widget _createAppWidget(WidgetRef ref) {
     final appRouter = ref.watch(appRouterProvider);
-    final themeProvider = ref.watch(themeModeNotifierProvider);
+    final themeProvider = ref.watch(themeModeProvider);
 
     return MaterialApp.router(
       title: 'Flutter Template',
@@ -65,11 +65,13 @@ class App extends ConsumerWidget {
       ),
       builder: (context, child) {
         if (AppPlatform.isWeb) {
-          return Overlay(initialEntries: [
-            OverlayEntry(
-              builder: (context) => SelectionArea(child: child ?? const SizedBox()),
-            ),
-          ]);
+          return Overlay(
+            initialEntries: [
+              OverlayEntry(
+                builder: (context) => SelectionArea(child: child ?? const SizedBox()),
+              ),
+            ],
+          );
         } else {
           return child ?? const SizedBox();
         }

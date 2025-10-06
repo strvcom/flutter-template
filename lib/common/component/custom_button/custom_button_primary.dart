@@ -6,9 +6,9 @@ import 'package:flutter_app/common/extension/build_context.dart';
 
 class CustomButtonPrimary extends StatelessWidget {
   const CustomButtonPrimary({
-    super.key,
     required this.text,
     required this.onPressed,
+    super.key,
     this.isLoading = false,
     this.isEnabled = true,
   });
@@ -29,7 +29,7 @@ class CustomButtonPrimary extends StatelessWidget {
               onPressed();
             },
       style: _getButtonStyle(context),
-      child: (isLoading)
+      child: isLoading
           ? SizedBox(
               width: 24,
               height: 24,

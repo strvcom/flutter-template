@@ -10,13 +10,10 @@ class WebSetup {
     switch (flavor) {
       case Flavor.develop:
         script.id = 'develop';
-        break;
       case Flavor.staging:
         script.id = 'staging';
-        break;
       case Flavor.production:
         script.id = 'production';
-        break;
     }
 
     document.head?.append(script);

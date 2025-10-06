@@ -1,11 +1,12 @@
 name: flutter_app
-description: Template project for flutter apps.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+description: Template project for Flutter apps.
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+10000000 #1 00 00 000
 
 
 environment:
-  sdk: '>=3.5.0 <4.0.0'
+  sdk: ">=3.8.0 <4.0.0"
+  flutter: 3.32.0
 
 
 dependencies:
@@ -17,94 +18,97 @@ dependencies:
     sdk: flutter
 
   # State management
-  flutter_riverpod: 2.6.1                     # https://pub.dev/packages/flutter_riverpod
-  riverpod_annotation: 2.6.1                  # https://pub.dev/packages/riverpod_annotation
+  flutter_riverpod: ^3.0.1
+  riverpod_annotation: ^3.0.1
 
-  # Network
-  dio: 5.7.0                                  # https://pub.dev/packages/dio
-  pretty_dio_logger: 1.4.0                    # https://pub.dev/packages/pretty_dio_logger
-
-  # Firebase
-  firebase_analytics: 11.4.0                  # https://pub.dev/packages/firebase_analytics
-  firebase_auth: 5.4.0                        # https://pub.dev/packages/firebase_auth
-  firebase_core: 3.10.0                       # https://pub.dev/packages/firebase_core
-  firebase_crashlytics: 4.3.0                 # https://pub.dev/packages/firebase_crashlytics
-  firebase_dynamic_links : 6.1.0              # https://pub.dev/packages/firebase_dynamic_links
-  firebase_messaging: 15.2.0                  # https://pub.dev/packages/firebase_messaging
-  firebase_remote_config: 5.3.0               # https://pub.dev/packages/firebase_remote_config
-
-  # Authentication
-  google_sign_in: 6.2.2                       # https://pub.dev/packages/google_sign_in
-  sign_in_with_apple: 6.1.4                   # https://pub.dev/packages/sign_in_with_apple
-
-  # Storage
-  shared_preferences: 2.3.5                   # https://pub.dev/packages/shared_preferences
+  # Navigation
+  auto_route: ^10.1.2
 
   # Data Structures
-  freezed_annotation: 2.4.4                   # https://pub.dev/packages/freezed_annotation
-  json_annotation: 4.9.0                      # https://pub.dev/packages/json_annotation
+  freezed_annotation: 3.1.0
+  json_annotation: 4.9.0
+
+  # Network
+  dio: 5.9.0
+
+  # Storage
+  shared_preferences: 2.5.3
+
+  # Firebase
+  firebase_analytics: ^12.0.2
+  firebase_auth: ^6.1.0
+  firebase_core: ^4.1.1
+  firebase_crashlytics: ^5.0.2
+  firebase_messaging: ^16.0.2
+  firebase_remote_config: ^6.0.2
+
+  # Authentication
+  google_sign_in: ^7.2.0
+  sign_in_with_apple: 7.0.1
+
+  # Device
+  device_info_plus: ^12.1.0
+  package_info_plus: ^9.0.0
+  path_provider: 2.1.5
+  window_manager: 0.5.1
+
+  # Security
+  freerasp: 7.2.1
 
   # Logging
-  talker: 4.4.7                               # https://pub.dev/packages/talker
-  talker_flutter: 4.4.7                       # https://pub.dev/packages/talker_flutter
-  talker_dio_logger: 4.4.7                    # https://pub.dev/packages/talker_dio_logger
-  
-  # Device
-  device_info_plus: 11.2.0                    # https://pub.dev/packages/device_info_plus
-  package_info_plus: 8.1.2                    # https://pub.dev/packages/package_info_plus
-  path_provider: 2.1.5                        # https://pub.dev/packages/path_provider
-  window_manager: 0.4.3                       # https://pub.dev/packages/window_manager
-  
-  # Navigation
-  auto_route: 9.3.0+1                         # https://pub.dev/packages/auto_route
-  url_launcher: 6.3.1                         # https://pub.dev/packages/url_launcher
-  
+  pretty_dio_logger: 1.4.0
+  talker: ^5.0.1
+  talker_flutter: ^5.0.1
+  talker_dio_logger: ^5.0.1
+
   # Resources
-  extended_image: 9.1.0                       # https://pub.dev/packages/extended_image
-  flutter_native_splash: 2.4.4                # https://pub.dev/packages/flutter_native_splash
-  flutter_svg: 2.0.17                         # https://pub.dev/packages/flutter_svg
-  intl: 0.19.0                                # https://pub.dev/packages/intl https://docs.flutter.dev/development/accessibility-and-localization/internationalization
-  
-  # Security
-  freerasp: 6.11.0                            # https://pub.dev/packages/freerasp
+  extended_image: 10.0.1
+  flutter_native_splash: 2.4.6
+  flutter_svg: ^2.2.1
+  intl: 0.20.2
 
   # UI
-  flutter_animate: 4.5.2                      # https://pub.dev/packages/flutter_animate
-  flutter_local_notifications: 18.0.1         # https://pub.dev/packages/flutter_local_notifications
-  modal_bottom_sheet: 3.0.0                   # https://pub.dev/packages/modal_bottom_sheet
-  universal_html: 2.2.4                       # https://pub.dev/packages/universal_html
+  flutter_animate: 4.5.2
+  flutter_local_notifications: ^19.4.2
+  modal_bottom_sheet: 3.0.0
+  universal_html: 2.2.4
 
   # Utility
-  app_settings: 5.1.1                         # https://pub.dev/packages/app_settings
-  collection: 1.19.0                          # https://pub.dev/packages/collection
-  crypto: 3.0.6                               # https://pub.dev/packages/crypto
+  app_settings: 6.1.1
+  collection: 1.19.1
+  crypto: 3.0.6
+  permission_handler: 12.0.1
+  url_launcher: 6.3.2
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  # UI Tests
-  patrol: 3.13.2                              # https://pub.dev/packages/patrol
+  # Build Runner
+  build_runner: ^2.7.1
 
   # State management
-  riverpod_generator: 2.6.3                   # https://pub.dev/packages/riverpod_generator
+  riverpod_generator: ^3.0.1
+
+  # Navigation
+  auto_route_generator: ^10.2.4
 
   # Data Structures
-  freezed: 2.5.7                              # https://pub.dev/packages/freezed
-  json_serializable: 6.9.0                    # https://pub.dev/packages/json_serializable
+  freezed: ^3.2.3
+  json_serializable: ^6.11.1
 
   # Resources
-  flutter_gen_runner: 5.8.0                   # https://pub.dev/packages/flutter_gen_runner
+  flutter_gen_runner: ^5.12.0
 
   # Lint
-  custom_lint: 0.7.0                          # https://pub.dev/packages/custom_lint
-  flutter_lints: 5.0.0                        # https://pub.dev/packages/flutter_lints
-  riverpod_lint: 2.6.3                        # https://pub.dev/packages/riverpod_lint
+  custom_lint: ^0.8.0
+  flutter_lints: 6.0.0
+  netglade_analysis: 18.0.0
+  riverpod_lint: ^3.0.1
 
-  # Utils
-  auto_route_generator: 9.0.0                 # https://pub.dev/packages/auto_route_generator
-  build_runner: 2.4.14                        # https://pub.dev/packages/build_runner
+  # UI Tests
+  patrol: 3.19.0
 
 
 patrol:
@@ -124,6 +128,7 @@ flutter_gen:
 
 flutter:
   uses-material-design: true
+  generate: true
 
   assets:
     - assets/png/

@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 class CustomInkWellCircular extends StatelessWidget {
   const CustomInkWellCircular({
-    super.key,
     required this.onClick,
+    required this.child,
+    super.key,
     this.onLongClick,
     this.padding,
-    required this.child,
   });
 
-  final Function()? onClick;
-  final Function()? onLongClick;
+  final VoidCallback? onClick;
+  final VoidCallback? onLongClick;
   final EdgeInsets? padding;
   final Widget child;
 
@@ -20,7 +20,7 @@ class CustomInkWellCircular extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Padding(
-          padding: padding ?? const EdgeInsets.all(0),
+          padding: padding ?? EdgeInsets.zero,
           child: child,
         ),
         Positioned.fill(

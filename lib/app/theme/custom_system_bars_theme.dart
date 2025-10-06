@@ -1,9 +1,9 @@
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/app/configuration/configuration.dart';
 import 'package:flutter_app/app/setup/app_platform.dart';
+import 'package:flutter_app/common/component/custom_app_bar.dart' show CustomAppBar;
 import 'package:flutter_app/common/extension/brightness.dart';
 import 'package:flutter_app/common/provider/theme_mode_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,15 +25,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 ///
 class CustomSystemBarsTheme {
   static Future<void> setupSystemBarsTheme({required ProviderContainer providerContainer}) async {
-    final brightness = providerContainer.read(themeModeNotifierProvider.notifier).brightness;
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-    await _setupSystemBarsUpdateCallback(providerContainer: providerContainer);
-    await setSystemBarsTheme(brightness: brightness);
-  }
+    final brightness = providerContainer.read(themeModeProvider.notifier).brightness;
 
-  static Future<void> setSystemBarsTheme({required Brightness brightness}) async {
-    final brightness = PlatformDispatcher.instance.platformBrightness;
-    SystemChrome.setSystemUIOverlayStyle((getSystemBarsTheme(brightness: brightness)));
+    await _setupSystemBarsUpdateCallback(providerContainer: providerContainer);
+    _setSystemBarsTheme(brightness: brightness);
   }
 
   static SystemUiOverlayStyle getSystemBarsTheme({required Brightness brightness}) {
@@ -42,19 +37,23 @@ class CustomSystemBarsTheme {
     } else if (AppPlatform.isIOS) {
       return _getIosSystemBarsTheme(brightness: brightness);
     } else {
-      return (((brightness).isLightMode) ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark);
+      return ((brightness.isLightMode) ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark);
     }
   }
 
+  static void _setSystemBarsTheme({required Brightness brightness}) {
+    SystemChrome.setSystemUIOverlayStyle(getSystemBarsTheme(brightness: brightness));
+  }
+
   static SystemUiOverlayStyle _getAndroidSystemBarsTheme({required Brightness brightness}) {
-    final AndroidDeviceInfo androidInfo = Configuration.instance.androidDeviceInfo!;
-    final bool canUseTransparentNavigation = androidInfo.version.sdkInt >= 29; // Enabled by default for iOS
+    final androidInfo = Configuration.instance.androidDeviceInfo!;
+    final canUseTransparentNavigation = androidInfo.version.sdkInt >= 29; // Enabled by default for iOS
 
     return SystemUiOverlayStyle(
       // StatusBar
       systemStatusBarContrastEnforced: false,
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: brightness.inverse, // For Android
+      statusBarIconBrightness: brightness.inverse,
 
       // NavigationBar
       systemNavigationBarContrastEnforced: false,
@@ -63,8 +62,8 @@ class CustomSystemBarsTheme {
       systemNavigationBarColor: canUseTransparentNavigation
           ? Colors.transparent
           : brightness.isLightMode
-              ? Colors.white
-              : Colors.black,
+          ? Colors.white
+          : Colors.black,
     );
   }
 
@@ -72,14 +71,9 @@ class CustomSystemBarsTheme {
     return SystemUiOverlayStyle(
       // StatusBar
       systemStatusBarContrastEnforced: false,
-      statusBarColor: Colors.transparent,
       statusBarBrightness: brightness, // For iOS
-
       // NavigationBar
       systemNavigationBarContrastEnforced: false,
-      systemNavigationBarColor: Colors.transparent,
-      systemNavigationBarDividerColor: Colors.transparent,
-      systemNavigationBarIconBrightness: brightness,
     );
   }
 
@@ -87,21 +81,21 @@ class CustomSystemBarsTheme {
     final originalCallback = PlatformDispatcher.instance.onPlatformBrightnessChanged;
     PlatformDispatcher.instance.onPlatformBrightnessChanged = () async {
       originalCallback?.call();
-      final themeMode = await providerContainer.read(themeModeNotifierProvider.future);
+      final themeMode = await providerContainer.read(themeModeProvider.future);
       if (themeMode == ThemeMode.system) {
-        setSystemBarsTheme(brightness: PlatformDispatcher.instance.platformBrightness);
+        _setSystemBarsTheme(brightness: PlatformDispatcher.instance.platformBrightness);
       }
     };
 
     // HotFix for API 28, that need SystemBarsTheme applied on each app resume!
     if (AppPlatform.isAndroid) {
-      final AndroidDeviceInfo androidInfo = await DeviceInfoPlugin().androidInfo;
+      final androidInfo = Configuration.instance.androidDeviceInfo!;
       if (androidInfo.version.sdkInt == 28) {
         SystemChannels.lifecycle.setMessageHandler((msg) async {
           if (msg == AppLifecycleState.resumed.toString()) {
-            final themeMode = await providerContainer.read(themeModeNotifierProvider.future);
+            final themeMode = await providerContainer.read(themeModeProvider.future);
             if (themeMode == ThemeMode.system) {
-              setSystemBarsTheme(brightness: PlatformDispatcher.instance.platformBrightness);
+              _setSystemBarsTheme(brightness: PlatformDispatcher.instance.platformBrightness);
             }
           }
           return Future.value(msg);
@@ -113,9 +107,9 @@ class CustomSystemBarsTheme {
 
 class CustomSystemBarsThemeWidget extends StatelessWidget {
   const CustomSystemBarsThemeWidget({
-    super.key,
     required this.brightness,
     required this.child,
+    super.key,
   });
 
   final Brightness brightness;
