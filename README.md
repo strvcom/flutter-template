@@ -51,6 +51,8 @@
 - [Security](#security)
     - [freeRASP](#freerasp)
 
+- [TODOs](#todos)
+
 - [Authors](#authors)
 
 
@@ -525,6 +527,16 @@ For the purpose of Fraud prevention, user safety, and compliance the dedicated A
 ```
 <!-- ################################################## -->
 
+
+<!-- ################################################## -->
+<!-- ##########            TODOs              ######### -->
+<!-- ################################################## -->
+# Todos
+- Fix crashlytics upload mapping symbols in Github actions
+- Implements secret handling 
+    - API keys
+    - Keystores for Android
+    - Service accounts
 
 <!-- ################################################## -->
 <!-- ##########           Authors            ########## -->
