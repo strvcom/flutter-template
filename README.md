@@ -532,11 +532,13 @@ For the purpose of Fraud prevention, user safety, and compliance the dedicated A
 <!-- ##########            TODOs              ######### -->
 <!-- ################################################## -->
 # Todos
+- Investigate Github action caching
 - Fix crashlytics upload mapping symbols in Github actions
 - Implements secret handling 
     - API keys
     - Keystores for Android
     - Service accounts
+- Fix Riverpod async gaps - analytics manager (keep live)
 
 <!-- ################################################## -->
 <!-- ##########           Authors            ########## -->
