@@ -539,6 +539,7 @@ For the purpose of Fraud prevention, user safety, and compliance the dedicated A
     - Keystores for Android
     - Service accounts
 - Fix Riverpod async gaps - analytics manager (keep live)
+- Fix EventNotifier - change updateShouldNotify to return true (in case user returns back to the screen and emits the same value)
 
 <!-- ################################################## -->
 <!-- ##########           Authors            ########## -->
