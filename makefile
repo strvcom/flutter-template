@@ -1,5 +1,5 @@
 # https://medium.com/flutter-community/automating-flutter-workflows-with-the-makefile-423b8e023c9a
-.PHONY: setup watch clean gen locale install integration_test test generateAndroidProductionAppBundle generateIosStagingIpa generateIosProductionIpa generateWebProduction deployWeb runner_gen
+.PHONY: setup watch clean gen locale install integration_test test generateAndroidProductionAppBundle generateIosStagingIpa generateIosProductionIpa generateWebProduction deployWeb runner_gen secretsDecrypt secretsEncrypt secretsClean
 
 setup: # Setup the project
 	@fvm dart ./project_setup/lib/main.dart
@@ -26,6 +26,7 @@ install: # Install any required packages
 	@fvm dart pub global activate icons_launcher
 	@fvm dart pub global activate patrol_cli
 	@fvm dart pub global activate flutterfire_cli
+	@make secretsDecrypt
 
 integration_test: # Runs Patrol Integration tests 
 	@patrol test --target integration_test --flavor develop
@@ -65,3 +66,13 @@ runner_gen: # For github actions
 	@flutter pub get
 	@flutter gen-l10n --arb-dir "assets/localization" --template-arb-file "app_en.arb" --output-localization-file "app_localizations.gen.dart" --output-dir "lib/assets" --no-synthetic-package
 	@dart run build_runner build --delete-conflicting-outputs
+
+secretsDecrypt: # Decrypt secrets
+	@sh ./extras/secrets/tools/load-secrets.sh
+
+secretsEncrypt: # Encrypt secrets
+	@sh ./extras/secrets/tools/encrypt-secrets.sh
+
+secretsClean: # Clean secrets
+	@sh ./extras/secrets/tools/clean-secrets.sh
+	

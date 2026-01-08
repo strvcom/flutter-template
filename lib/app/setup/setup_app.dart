@@ -11,12 +11,10 @@ import 'package:flutter_app/app/setup/app_platform.dart';
 import 'package:flutter_app/app/setup/flavor.dart';
 import 'package:flutter_app/app/setup/web_setup.dart';
 import 'package:flutter_app/app/theme/custom_system_bars_theme.dart';
-import 'package:flutter_app/common/provider/firebase_messaging_service.dart';
-import 'package:flutter_app/common/provider/firebase_remote_config_service.dart';
-import 'package:flutter_app/common/provider/notifications_service.dart';
 import 'package:flutter_app/common/provider/theme_mode_provider.dart';
 import 'package:flutter_app/core/analytics/crashlytics_manager.dart';
 import 'package:flutter_app/core/flogger.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:freerasp/freerasp.dart';
@@ -40,6 +38,15 @@ Future<void> setupApp({required Flavor flavor}) async {
 
   // Configure Flavor
   await Configuration.setup(flavor: flavor);
+
+  // Load secrets from .env file and override with specific flavor file
+  await dotenv.load(
+    overrideWithFiles: switch (flavor) {
+      Flavor.staging => ['.env-staging'],
+      Flavor.develop => ['.env-development'],
+      Flavor.production => ['.env-production'],
+    },
+  );
 
   // Setup Firebase
   await _setupFirebase(flavor: flavor);
@@ -78,15 +85,15 @@ Future<void> _setupFirebase({required Flavor flavor}) async {
   } else if (AppPlatform.isWeb) {
     await Firebase.initializeApp(
       // For WebApp we need to specify the FirebaseOptions here!
-      // TODO(strv): Replace with actual values. Can be found inside Firebase -> Project Settings, under Web App
-      options: const FirebaseOptions(
-        apiKey: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+      // TODO(strv): Replace with actual values (use secrets!). Can be found inside Firebase -> Project Settings, under Web App
+      options: FirebaseOptions(
+        apiKey: dotenv.get('FIREBASE_WEB_API_KEY'),
         authDomain: 'strv-flutter-template.firebaseapp.com',
         projectId: 'strv-flutter-template',
         storageBucket: 'strv-flutter-template.appspot.com',
-        messagingSenderId: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        appId: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        measurementId: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        messagingSenderId: dotenv.get('FIREBASE_WEB_MESSAGING_SENDER_ID'),
+        appId: dotenv.get('FIREBASE_WEB_APP_ID'),
+        measurementId: dotenv.get('FIREBASE_WEB_MEASUREMENT_ID'),
       ),
     );
   }
@@ -130,21 +137,20 @@ Future<void> _setupFirebaseCrashlytics() async {
 // TODO(strv): Support it or remove it!
 Future<void> _setupFirebaseRemoteConfig() async {
   if (!AppPlatform.isMobile) return;
-
-  await providerContainer.read(firebaseRemoteConfigServiceProvider.future);
+  // await providerContainer.read(firebaseRemoteConfigServiceProvider.future);
 }
 
 // TODO(strv): Support it or remove it!
 Future<void> _setupFirebaseMessaging() async {
   if (!AppPlatform.isLinux && !AppPlatform.isWindows) {
-    await providerContainer.read(firebaseMessagingServiceProvider.future);
+    // await providerContainer.read(firebaseMessagingServiceProvider.future);
   }
 }
 
 // TODO(strv): Support it or remove it!
 Future<void> _setupLocalNotificationsService() async {
   if (!AppPlatform.isLinux && !AppPlatform.isWindows) {
-    await providerContainer.read(notificationsServiceProvider.future);
+    // await providerContainer.read(notificationsServiceProvider.future);
   }
 }
 
@@ -155,24 +161,25 @@ Future<void> _setupRASP({required Flavor flavor}) async {
 
   final config = TalsecConfig(
     isProd: flavor == Flavor.production && !kDebugMode,
-    watcherMail: 'lukas.hermann@strv.com',
+    watcherMail: 'flutter_template@strv.com',
 
     /// For Android
     androidConfig: AndroidConfig(
-      packageName: 'com.strv.flutter.template',
+      packageName: dotenv.get('APP_ID'),
       // signingCertHashes: list of hashes of the certificates of the keys which were used to sign the application.
       // At least one hash value must be provided. Hashes which are passed here must be encoded in Base64 form
       // https://github.com/talsec/Free-RASP-Community/wiki/Getting-your-signing-certificate-hash-of-app
       signingCertHashes: [
-        '8t1mXm/GqPmhtbVWyeOlXKwa4Oe8l5v3YliMlR81VeM=', // Debug
-        '0ckwAjw2ivS03BBRWhR1vBD2bqUYUGXl6brlixsmk8g=', // Release
+        dotenv.get('SIGNING_CERT_DEBUG_BASE64'), // Debug
+        dotenv.get('SIGNING_CERT_RELEASE_BASE64'), // Release
+        dotenv.get('SIGNING_CERT_GOOGLE_PLAY_BASE64'), // Google Play
       ],
     ),
 
     /// For iOS
     iosConfig: IOSConfig(
-      bundleIds: ['com.strv.flutter.template'],
-      teamId: 'M8AK35...',
+      bundleIds: [dotenv.get('APP_ID')],
+      teamId: dotenv.get('APPLE_TEAM_ID'),
     ),
   );
 

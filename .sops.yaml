@@ -1,0 +1,14 @@
+creation_rules:
+  - path_regex: \.env.*$
+    input_type: dotenv
+    age: age1e8mlg8wgp5rszgr9h9axu50mpr7v4020du5ry8s7wspwp4wftgmsfh4uxj
+  - path_regex: .plist(\.enc)?$
+    age: age1e8mlg8wgp5rszgr9h9axu50mpr7v4020du5ry8s7wspwp4wftgmsfh4uxj
+  - path_regex: .properties(\.enc)?$
+    age: age1e8mlg8wgp5rszgr9h9axu50mpr7v4020du5ry8s7wspwp4wftgmsfh4uxj
+  - path_regex: .keystore(\.enc)?$
+    input_type: binary
+    age: age1e8mlg8wgp5rszgr9h9axu50mpr7v4020du5ry8s7wspwp4wftgmsfh4uxj
+  - path_regex: 'google-services\.json(\.enc)?$'
+    input_type: json
+    age: age1e8mlg8wgp5rszgr9h9axu50mpr7v4020du5ry8s7wspwp4wftgmsfh4uxj

@@ -32,10 +32,10 @@ def targetAndroidSdkVersion = 36
 
 // Initialize a new Properties() object called keystoreProperties.
 def debugKeystoreProperties = new Properties()
-debugKeystoreProperties.load(new FileInputStream(rootProject.file("extras/keystore/debug.properties")))
+debugKeystoreProperties.load(new FileInputStream(rootProject.file("extras/keystores/debug.properties")))
 
 def releaseKeystoreProperties = new Properties()
-releaseKeystoreProperties.load(new FileInputStream(rootProject.file("extras/keystore/release.properties")))
+releaseKeystoreProperties.load(new FileInputStream(rootProject.file("extras/keystores/release.properties")))
 
 android {
     compileSdkVersion compileAndroidSdkVersion
@@ -90,14 +90,17 @@ android {
             dimension "env"
             applicationIdSuffix ".develop"
             versionNameSuffix "-develop"
+            flutter.target = "lib/main_develop.dart"
         }
         staging {
             dimension "env"
             applicationIdSuffix ".staging"
             versionNameSuffix "-staging"
+            flutter.target = "lib/main_staging.dart"
         }
         production {
             dimension "env"
+            flutter.target = "lib/main_production.dart"
         }
     }
 
@@ -141,6 +144,11 @@ android {
                 releaseNotesFile="../release_notes.txt"
                 serviceCredentialsFile="firebase_app_distribution_service_account.json"
                 groups="developers"
+            }
+
+            firebaseCrashlytics {
+                nativeSymbolUploadEnabled true
+                mappingFileUploadEnabled true
             }
         }
     }

@@ -31,9 +31,7 @@
 				<string>REVERSED_CLIENT_ID</string>
 				<key>CFBundleURLSchemes</key>
 				<array>
-					<string>com.googleusercontent.apps.907121519909-ac5hdm2av7utn2i85dj1v8v2pcttufb3</string>
-					<string>com.googleusercontent.apps.907121519909-5it712s6au9p09d0oo5t2pmp12fs1f8b</string>
-					<string>com.googleusercontent.apps.907121519909-antq2s70r5iu8hp24i6nckcfbd3f4v0b</string>
+					<string>$(REVERSED_GOOGLE_CLIENT_ID)</string>
 				</array>
 			</dict>
 		</array>
@@ -70,5 +68,7 @@
 		</array>
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
+		<key>GIDClientID</key>
+		<string>$(GOOGLE_CLIENT_ID)</string>
 	</dict>
 </plist>

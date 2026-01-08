@@ -63,3 +63,7 @@ integration_test/test_bundle.dart
 
 # FVM Version Cache
 .fvm/
+
+# Secrets
+/.env*
+/extras/secrets/age_key.txt

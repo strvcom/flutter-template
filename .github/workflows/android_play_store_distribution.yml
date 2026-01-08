@@ -12,7 +12,7 @@ concurrency:
 # You need to uncomment [Setup - Flutter Actions with Cache] when you want to use 
 # different runner then our internal M1 flutter-builds runner.
 env:
-  flutter_version: "3.27.1"
+  flutter_version: "3.38.5"
   java_version: "17"
 
 jobs:
@@ -21,7 +21,7 @@ jobs:
 
     runs-on: ubuntu-latest
     # runs-on: [self-hosted, macOS, flutter-builds]  # use this for self-hosted runners
-    timeout-minutes: 15
+    timeout-minutes: 25
 
     steps:
       - name: '[Setup - Checkout]'
@@ -50,7 +50,20 @@ jobs:
       # Install correct fvm version
       - name: '[FVM - Install version]'
         run: fvm install ${{ env.flutter_version }}
+      
+      # Install sops
+      - name: '[Secrets - Setup SOPS]'
+        uses: nhedger/setup-sops@v2
         
+      # Load secrets
+      - name: '[Secrets - Generate keystore and properties]'
+        env:
+          SECRETS_ENCRYPT_KEY: ${{ secrets.SECRETS_ENCRYPT_KEY }}
+          RELEASE_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE }}
+          RELEASE_PROPERTIES: ${{ secrets.RELEASE_PROPERTIES }}
+          FIREBASE_APP_DISTRIBUTION_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_PROD_APP_DISTRIBUTION_SERVICE_ACCOUNT }}
+        run: ./extras/secrets/tools/load-secrets.sh
+
       # Make gen
       - name: '[Flutter - Generate code]'
         run: make gen
@@ -74,9 +87,11 @@ jobs:
           #status: draft # Upload it as draft release if you want to manually publish the release from GooglePlay console
           #userFraction: 0.1 # Rollout of the release <0;1>
 
-      # TODO: Add correct AppId from the Firebase Project
       - name: '[Flutter - Upload Crashlytics Mapping Files]'
-        run: firebase crashlytics:symbols:upload --app=XXX build/app/outputs/symbols
+        run: cd android; 
+             ./gradlew uploadCrashlyticsSymbolFileProductionRelease;
+             ./gradlew uploadCrashlyticsMappingFileProductionRelease;
+             cd ..
       
       # Only on self hosted. Cleanup the files after the build
       # - name: '[Finish - Cleanup]'

@@ -11,6 +11,7 @@
     - [Project run](#project-run)
         - [Linux](#linux)
     - [Flavors](#flavors)
+    - [Secrets](#secrets)
 
 - [Build and Distribution](#build-and-distribution)
     - [Assembling the App](#assembling-the-app)
@@ -98,7 +99,8 @@ These are our four core values:
 6. - [ ] Change the app icon. This process is described in the [Icons generation](./project_setup/README.md#app-icon-generation) section.
 7. - [ ] Change the app splash screen. This process is described in the [Splash screen generation](./project_setup/README.md#splash-screen-generation) section.
 8. - [ ] Set up Firebase or remove it completely. This process is described in the [Firebase setup](#firebase-setup) section.
-9. - [ ] Go through all the ToDo's inside the project, and react to them.
+9. - [ ] Add your own secrets. This process is described in the [Secrets handling](#secrets)
+10. - [ ] Go through all the ToDo's inside the project, and react to them.
 <!-- ################################################## -->
 
 
@@ -187,6 +189,35 @@ For Google sign in:
 - for iOS, you have to copy value from `REVERSED_CLIENT_ID` from `GoogleService-Info.plist` into `GOOGLE_REVERSED_CLIENT_ID` in build settings.
 <!-- ################################################## -->
 
+## Secrets
+API keys, APP IDs, service accounts and even release keystore are stored as secrets in this project. We are using `age` + `sops` libraries for this purpose.
+
+Each environment has it's own secrets file `.env-production`, `.env-staging` and `.env-develop` which overrides the default one `.env`.
+Those files are not placed in version control, rather are kept in secret and generated using encrypted (`.enc`) files.
+
+Secrets from encrypted files are also decrypted into xcode property files `.env.*.xcconfig`. Then properties like `$(APPLE_TEAM_ID)` can be used in `Info.plist` or `project.pbxproj`.
+They are also overrides the same as project ones - e.g. `.env.xcconfig` is overridden by `.env.production.xcconfig` in production flavor of the iOS app.
+
+### Decrypt default values to see how it works:
+- Export path to private key file `export SOPS_AGE_KEY_FILE="<path to projects>/flutter-template/extras/secrets/age_key.txt"`
+- Run `make secretsDecrypt` command, it automatically creates default decrypted files
+- Check generated files with decrypted values to get an idea of how it works
+
+### To use your own secrets:
+- First [decrypt](#Decrypt-default-values-to-see-how-it-works) default secrets
+- Remove current `extras/secrets/age_key.txt` file
+- Generate a new private age key file with `age-keygen -o age_key.txt` and keep this secret safe!
+- Export path to that file with `export SOPS_AGE_KEY_FILE="<path to generated file>/age_key.txt"`
+- Set public key property in `.sops.yaml` file to public key from private key file - e.g. `age: age1e8mlg8wgp5rszgr9h9axu50mpr7v4020du5ry8s7wspwp4wftgmsfh4uxj`
+- Update `.env`, `google-service.json` files and `keystore` secrets
+- Run `make secretsEncrypt` to regenerate secrets with your private key
+
+If you need to 
+- add another API key, just place it into the proper `.env` file and use `make secretsEncrypt` to regenerate encrypted files `.enc`.
+- encrypt another file, modify `extras/secrets/tools/encrypt-secrets.sh` and `extras/secrets/tools/decrypt-secrets.sh` files to include it
+
+Keystore works the same as env secrets, more info can be found in the [Keystore Readme](./android/extras/keystores/README.md).
+<!-- ################################################## -->
 
 <!-- ################################################## -->
 <!-- ##########    Build and Distribution    ########## -->
@@ -212,7 +243,7 @@ flutter build appbundle \
 ### Android
 #### Manual
 To deploy the app manually, you have to:
-1. Make sure you have your keystore configured and set up correctly. Check the [Keystore Readme](./android/extras/keystore/README.md)
+1. Make sure you have your keystore configured and set up correctly. Check the [Keystore Readme](./android/extras/keystores/README.md)
 2. In the terminal run `flutter build appbundle -t lib/main_production.dart --flavor production --obfuscate --split-debug-info=build/app/outputs/symbols` for production release.
 3. After creating an app bundle, the mapping file will be included automatically, but the native symbols has to be added manually - it can be found in `build\app\intermediates\merged_native_libs\productionRelease\out`.
    Grab those generated folders, zip them and upload into Google Play console under the new build.
@@ -227,9 +258,7 @@ base64 -i input.json > output.json.b64
 
 Now you need to set the Base64 string as a secret inside your GitHub. You should name it something like `FIREBASE_DEV_CREDENTIAL_FILE_CONTENT` and check that it has the same name inside the script. Also, do not forget to uncomment `apply plugin: 'com.google.gms.google-services'` at the end of the build.gradle file inside the Android app folder.
 
-Now you can use one of the actions we have. There should be at least two actions to build for the develop and for the production environment. You can launch those two by creating a tag on a commit with the name `*-develop` or `*-production`.
-
-As an alternative, you can use `*-firebase-all` which will deploy both at the same time.
+Now you can use one of the actions we have. There should be at least two actions to build for the develop and for the production environment. You can launch those two by creating a tag on a commit with the name `*-develop`, `*-staging` or `*-production`.
 
 #### Google Play Distribution using GitHub Actions
 We also have a GitHub Action script for deploying to Google Play automatically. The tag requirement is listed in `.github\workflows\android_play_store_distribution.yml`.
@@ -321,7 +350,7 @@ We have three main branches. `develop`, `staging`, and `master`. The most import
 
 We also have a strict naming convention for branches, commit names, and PR names. Jira ticket is used only when there is any. We are using underscores, except in the Jira ticket name so the Jira automation works well.
 For Branches: `{GithubUsername}/{chore/feat/fix/refactor}/{JiraTicketNumber}/{SomeBranchDetails}`
-Example: `helu/feat/MN-1726/sign_up`
+Example: `john/feat/MN-1726/sign_up`
 
 For Commit and PR names: `{chore/feat/fix/refactor}: {Description}`
 Example: `feat: Sign up logic implementation`
@@ -511,6 +540,7 @@ AppName (Web)
 <!-- ##########           Security            ######### -->
 <!-- ################################################## -->
 # Security
+
 ## FreeRASP
 It is recommended to setup FreeRASP on the project. More info about the library [here](https://pub.dev/packages/freerasp).
 

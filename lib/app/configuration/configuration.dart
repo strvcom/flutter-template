@@ -2,11 +2,9 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_app/app/configuration/develop/config_develop.dart';
-import 'package:flutter_app/app/configuration/production/config_production.dart';
-import 'package:flutter_app/app/configuration/staging/config_staging.dart';
 import 'package:flutter_app/app/setup/app_platform.dart';
 import 'package:flutter_app/app/setup/flavor.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class Configuration {
   Configuration({
@@ -30,40 +28,7 @@ class Configuration {
   final AndroidDeviceInfo? androidDeviceInfo;
   final IosDeviceInfo? iosDeviceInfo;
 
-  String get apiHostUrl => switch (flavor) {
-    Flavor.develop => ConfigDevelop.apiHostUrl,
-    Flavor.staging => ConfigStaging.apiHostUrl,
-    Flavor.production => ConfigProduction.apiHostUrl,
-  };
-
-  // Used for Web notifications
-  String get vapidKey => switch (flavor) {
-    Flavor.develop => ConfigDevelop.vapidKey,
-    Flavor.staging => ConfigStaging.vapidKey,
-    Flavor.production => ConfigProduction.vapidKey,
-  };
-
-  // Used for example for Google SignIn init
-  String? get firebaseClientID => switch (flavor) {
-    Flavor.develop => switch (currentPlatform) {
-      AppPlatform.android => ConfigDevelop.androidClientId,
-      AppPlatform.iOS => ConfigDevelop.iosClientId,
-      AppPlatform.web => ConfigDevelop.webClientId,
-      _ => null,
-    },
-    Flavor.staging => switch (currentPlatform) {
-      AppPlatform.android => ConfigStaging.androidClientId,
-      AppPlatform.iOS => ConfigStaging.iosClientId,
-      AppPlatform.web => ConfigStaging.webClientId,
-      _ => null,
-    },
-    Flavor.production => switch (currentPlatform) {
-      AppPlatform.android => ConfigProduction.androidClientId,
-      AppPlatform.iOS => ConfigProduction.iosClientId,
-      AppPlatform.web => ConfigProduction.webClientId,
-      _ => null,
-    },
-  };
+  String get apiHostUrl => dotenv.get('API_HOST_URL');
 
   // Function which setups base configuration.
   static Future<void> setup({required Flavor flavor}) async {

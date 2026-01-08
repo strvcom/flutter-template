@@ -5,6 +5,7 @@ import 'package:flutter_app/common/component/custom_button/custom_button_primary
 import 'package:flutter_app/common/component/custom_text/custom_text.dart';
 import 'package:flutter_app/common/extension/build_context.dart';
 import 'package:flutter_app/common/usecase/native_store_open_use_case.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ForceUpdatePageContent extends ConsumerWidget {
@@ -34,7 +35,9 @@ class ForceUpdatePageContent extends ConsumerWidget {
                 CustomButtonPrimary(
                   onPressed: () {
                     // TODO(strv): Fill correct Android and iOS app IDs
-                    ref.read(nativeStoreOpenUseCaseProvider(androidAppBundleId: 'com.strv.template.app', appStoreId: '123123123'));
+                    ref.read(
+                      nativeStoreOpenUseCaseProvider(androidAppBundleId: dotenv.get('APP_ID'), appStoreId: dotenv.get('APPLE_ID')),
+                    );
                   },
                   text: context.locale.forceUpdateButton,
                 ),

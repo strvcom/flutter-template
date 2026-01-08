@@ -1,9 +1,9 @@
-name: "[Release] Android - FirebaseAppDistribution - Production"
+name: "[Release] Android - FirebaseAppDistribution - Staging"
 
 on:
   push:
     tags:
-      - 'v*-production'
+      - 'v*-staging'
 
 concurrency: 
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -38,10 +38,7 @@ jobs:
         with:
           channel: 'stable'
           flutter-version: ${{ env.flutter_version }}
-          cache: true
           architecture: x64
-          cache-key: 'flutter-:os:-:channel:-:version:-:arch:'
-          cache-path: '${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:'
 
       # Make sure we have latest FVM
       - name: '[FVM - Install]'
@@ -50,18 +47,18 @@ jobs:
       # Install correct fvm version
       - name: '[FVM - Install version]'
         run: fvm install ${{ env.flutter_version }}
-      
+
       # Install sops
       - name: '[Secrets - Setup SOPS]'
         uses: nhedger/setup-sops@v2
-          
+
       # Load secrets
       - name: '[Secrets - Generate keystore and properties]'
         env:
           SECRETS_ENCRYPT_KEY: ${{ secrets.SECRETS_ENCRYPT_KEY }}
           RELEASE_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE }}
           RELEASE_PROPERTIES: ${{ secrets.RELEASE_PROPERTIES }}
-          FIREBASE_APP_DISTRIBUTION_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_PROD_APP_DISTRIBUTION_SERVICE_ACCOUNT }}
+          FIREBASE_APP_DISTRIBUTION_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_STG_APP_DISTRIBUTION_SERVICE_ACCOUNT }}
         run: ./extras/secrets/tools/load-secrets.sh
 
       # Make gen
@@ -69,19 +66,13 @@ jobs:
         run: make gen
 
       - name: '[Flutter - Build APK]'
-        run: fvm flutter build apk -t lib/main_production.dart --flavor production --obfuscate --split-debug-info=build/app/outputs/symbols
+        run: fvm flutter build apk -t lib/main_staging.dart --flavor staging --obfuscate --split-debug-info=build/app/outputs/symbols
 
       - name: '[Flutter - Upload to Firebase App Distribution]'
-        run: cd android; ./gradlew appDistributionUploadProductionRelease; cd ..
+        run: cd android; ./gradlew appDistributionUploadStagingRelease; cd ..
 
       - name: '[Flutter - Upload Crashlytics Mapping Files]'
         run: cd android; 
-             ./gradlew uploadCrashlyticsSymbolFileProductionRelease;
-             ./gradlew uploadCrashlyticsMappingFileProductionRelease;
+             ./gradlew uploadCrashlyticsSymbolFileStagingRelease;
+             ./gradlew uploadCrashlyticsMappingFileStagingRelease;
              cd ..
-
-      # Only on self hosted. Cleanup the files after the build
-      # - name: '[Finish - Cleanup]'
-      #   run: |
-      #     rm -rf ./* || true
-      #     rm -rf ./.??* || true
