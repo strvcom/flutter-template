@@ -8,7 +8,7 @@ Note: The password for store and key must be the same for `PKCS12` storetype.
 
 Here is an example for organizational information that you need to fill during generating of a new key:
 ```
-CN=Joe Doe, OU=STRV, O=STRV, L=Prague, ST=Czechia, C=CZ
+CN=John Doe, OU=STRV, O=STRV, L=Prague, ST=Czechia, C=CZ
 ```
 
 To get the SHA1 Certificate of the keystore (for example for Firebase purpose) you can use following commands:

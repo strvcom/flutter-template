@@ -212,7 +212,7 @@ They are also overrides the same as project ones - e.g. `.env.xcconfig` is overr
 - Update `.env`, `google-service.json` files and `keystore` secrets
 - Run `make secretsEncrypt` to regenerate secrets with your private key
 
-If you need to 
+### If you need to:
 - add another API key, just place it into the proper `.env` file and use `make secretsEncrypt` to regenerate encrypted files `.enc`.
 - encrypt another file, modify `extras/secrets/tools/encrypt-secrets.sh` and `extras/secrets/tools/decrypt-secrets.sh` files to include it
 

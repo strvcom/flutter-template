@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# decrypts ASK_ANGEL properties and signing keys if available
+# decrypts secret properties and signing keys if available
 
 decrypt() {
   local INPUT="$1"
@@ -38,7 +38,7 @@ if [[ -f extras/secrets/release.properties.enc ]]; then
   decrypt extras/secrets/release.properties.enc android/extras/keystores/release.properties
 fi
 
-# Android GoogleService-Info.plist files
+# Android google-services.json file
 if [[ -f extras/secrets/google-services.json.enc ]]; then
   decrypt extras/secrets/google-services.json.enc android/app/google-services.json "--input-type json --output-type json"
 fi

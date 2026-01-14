@@ -1,4 +1,4 @@
-!/usr/bin/env bash
+#!/usr/bin/env bash
 
 if [[ ! -z "$SECRETS_ENCRYPT_KEY" ]]; then
   echo "copying secret encrypt key"

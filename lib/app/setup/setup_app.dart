@@ -137,12 +137,14 @@ Future<void> _setupFirebaseCrashlytics() async {
 // TODO(strv): Support it or remove it!
 Future<void> _setupFirebaseRemoteConfig() async {
   if (!AppPlatform.isMobile) return;
+  // TODO(strv): Uncomment once secrets are filled with proper values
   // await providerContainer.read(firebaseRemoteConfigServiceProvider.future);
 }
 
 // TODO(strv): Support it or remove it!
 Future<void> _setupFirebaseMessaging() async {
   if (!AppPlatform.isLinux && !AppPlatform.isWindows) {
+    // TODO(strv): Uncomment once secrets are filled with proper values
     // await providerContainer.read(firebaseMessagingServiceProvider.future);
   }
 }
@@ -150,6 +152,7 @@ Future<void> _setupFirebaseMessaging() async {
 // TODO(strv): Support it or remove it!
 Future<void> _setupLocalNotificationsService() async {
   if (!AppPlatform.isLinux && !AppPlatform.isWindows) {
+    // TODO(strv): Uncomment once secrets are filled with proper values
     // await providerContainer.read(notificationsServiceProvider.future);
   }
 }
@@ -161,7 +164,7 @@ Future<void> _setupRASP({required Flavor flavor}) async {
 
   final config = TalsecConfig(
     isProd: flavor == Flavor.production && !kDebugMode,
-    watcherMail: 'flutter_template@strv.com',
+    watcherMail: 'michal.urbanek@strv.com',
 
     /// For Android
     androidConfig: AndroidConfig(
