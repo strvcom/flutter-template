@@ -15,4 +15,11 @@ class EventNotifier<T> extends Notifier<T?> {
   T? build() {
     return state;
   }
+
+  /// Always returns true to notify even about the same event
+  /// It was causing issues when navigating back and forth and emitting the same event that was used to navigate
+  @override
+  bool updateShouldNotify(T? previous, T? next) {
+    return true;
+  }
 }
