@@ -70,5 +70,8 @@
 		<false/>
 		<key>GIDClientID</key>
 		<string>$(GOOGLE_CLIENT_ID)</string>
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>Your location is used for analytics purposes to help us improve the app and its
+			services. It is not used for advertising or other tracking purposes.</string>
 	</dict>
 </plist>
