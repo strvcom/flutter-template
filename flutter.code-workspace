@@ -150,7 +150,7 @@
       "android/local.properties": true,
       "android/**/GeneratedPluginRegistrant.java": true,
       "android/**/key.properties": true,
-      "android/**/*.keystore": false,
+      "android/**/*.keystores": false,
       "android/**/*.jks": true
     },
     // [material-icon-theme] Material Icons theme
@@ -236,9 +236,15 @@
     ],
     "cSpell.words": [
       "Buildless",
+      "DSYM",
+      "lproj",
+      "OBJC",
       "Refreshable",
       "Riverpod",
-      "usecase"
+      "usecase",
+      "xcassets",
+      "xcconfig",
+      "xcodeproj"
     ]
   }
 }

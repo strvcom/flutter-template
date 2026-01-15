@@ -53,6 +53,7 @@ dependencies:
   window_manager: 0.5.1
 
   # Security
+  flutter_dotenv: 6.0.0
   freerasp: 7.2.1
 
   # Logging
@@ -131,6 +132,10 @@ flutter:
   generate: true
 
   assets:
+    - .env
+    - .env-staging
+    - .env-production
+    - .env-development
     - assets/png/
     - assets/svg/
 

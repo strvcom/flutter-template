@@ -1,5 +1,4 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_app/app/configuration/configuration.dart';
 import 'package:flutter_app/app/setup/app_platform.dart';
 import 'package:flutter_app/common/data/entity/notification_payload_entity.dart';
 import 'package:flutter_app/common/provider/current_user_state.dart';
@@ -7,6 +6,7 @@ import 'package:flutter_app/common/provider/notifications_service.dart';
 import 'package:flutter_app/common/usecase/create_device_token_use_case.dart';
 import 'package:flutter_app/core/analytics/crashlytics_manager.dart';
 import 'package:flutter_app/core/flogger.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'firebase_messaging_service.g.dart';
@@ -37,7 +37,7 @@ class FirebaseMessagingService extends _$FirebaseMessagingService {
   Future<void> registerFCMToken({String? fcmToken}) async {
     try {
       if (fcmToken == null) {
-        fcmToken = await FirebaseMessaging.instance.getToken(vapidKey: AppPlatform.isWeb ? Configuration.instance.vapidKey : null);
+        fcmToken = await FirebaseMessaging.instance.getToken(vapidKey: AppPlatform.isWeb ? dotenv.get('VAPID_KEY') : null);
         Flogger.d("[Firebase Messaging] Registering User's FCM token: $fcmToken");
       }
     } on Exception catch (e, st) {
