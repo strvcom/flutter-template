@@ -32,15 +32,23 @@ jobs:
           distribution: 'zulu'
           java-version: ${{ env.java_version }}
 
+      - uses: actions/cache@v4
+        id: cache
+        with:
+          path: |
+            /home/runner/.pub-cache
+            /opt/hostedtoolcache/flutter
+          key: ${{ runner.os }}-${{ hashFiles('pubspec.lock') }}
+          restore-keys: ${{ runner.os }}-
+
       - name: '[Setup - Flutter Actions with Cache]'
+        if: steps.cache.outputs.cache-hit != 'true'
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           flutter-version: ${{ env.flutter_version }}
-          cache: true
+          cache: false
           architecture: x64
-          cache-key: 'flutter-:os:-:channel:-:version:-:arch:'
-          cache-path: '${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:'
 
       # Make sure we have latest FVM
       - name: '[FVM - Install]'
