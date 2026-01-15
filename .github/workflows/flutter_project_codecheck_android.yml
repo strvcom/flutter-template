@@ -32,16 +32,17 @@ jobs:
           distribution: 'zulu'
           java-version: ${{ env.java_version }}
 
+      - name: '[Setup - Cache Flutter and Pub Dependencies]'
       - uses: actions/cache@v4
         id: cache
         with:
           path: |
             /home/runner/.pub-cache
             /opt/hostedtoolcache/flutter
-          key: ${{ runner.os }}-${{ hashFiles('pubspec.lock') }}
-          restore-keys: ${{ runner.os }}-
+          key: ${{ runner.os }}-flutter-${{ env.flutter_version }}-${{ hashFiles('pubspec.lock') }}
+          restore-keys: ${{ runner.os }}-flutter-${{ env.flutter_version }}-
 
-      - name: '[Setup - Flutter Actions with Cache]'
+      - name: '[Setup - Flutter SDK]'
         if: steps.cache.outputs.cache-hit != 'true'
         uses: subosito/flutter-action@v2
         with:
