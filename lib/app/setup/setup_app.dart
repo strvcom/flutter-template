@@ -202,7 +202,7 @@ Future<void> _setupRASP({required Flavor flavor}) async {
   );
 
   //  Attach listener and Start freeRASP
-  Talsec.instance.attachListener(callback);
+  await Talsec.instance.attachListener(callback);
   await Talsec.instance.start(config);
 }
 
