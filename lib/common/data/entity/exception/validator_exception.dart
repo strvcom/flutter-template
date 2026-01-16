@@ -5,10 +5,7 @@ part 'validator_exception.freezed.dart';
 
 @freezed
 sealed class ValidatorException with _$ValidatorException implements Exception {
-  const ValidatorException._(this.getText);
-
-  @override
-  final String Function(BuildContext) getText;
+  const ValidatorException._();
 
   const factory ValidatorException.generalIsEmpty(String Function(BuildContext) getText) = _GeneralIsEmpty;
   const factory ValidatorException.generalIsTooShort(String Function(BuildContext) getText) = _GeneralIsTooShort;

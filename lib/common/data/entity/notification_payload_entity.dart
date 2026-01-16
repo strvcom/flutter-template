@@ -16,7 +16,7 @@ enum NotificationType {
       NotificationType.values.firstWhereOrNull((e) => e.value == value) ?? NotificationType.unknown;
 }
 
-@Freezed(fromJson: true, toJson: true)
+@Freezed(fromJson: true)
 sealed class NotificationPayloadEntity with _$NotificationPayloadEntity {
   const NotificationPayloadEntity._();
 
