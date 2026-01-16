@@ -18,9 +18,11 @@ Future<void> signOutUseCase(Ref ref) async {
   try {
     await GoogleSignIn.instance.disconnect();
   } on MissingPluginException catch (error) {
-    Flogger.d('[Authentication] MissingPluginException $error');
+    Flogger.e('[Authentication] Sign Out MissingPluginException $error');
   } on PlatformException catch (error) {
-    Flogger.d('[Authentication] PlatformException $error');
+    Flogger.e('[Authentication] Sign Out PlatformException $error');
+  } on Exception catch (error) {
+    Flogger.e('[Authentication] Sign Out Exception $error');
   }
 
   // Title: Sign out from Firebase

@@ -36,7 +36,6 @@ class _DataStateWidget extends ConsumerWidget {
             const Spacer(),
             CustomButtonPrimary(
               text: 'Mock Sign In',
-              isLoading: data.isSigningIn,
               onPressed: () async {
                 await ref.read(signInCompletionUseCaseProvider.future);
                 if (context.mounted) await context.router.replaceAll([const LandingRoute()]);
@@ -45,19 +44,18 @@ class _DataStateWidget extends ConsumerWidget {
             const SizedBox(height: 48),
             CustomButtonPrimary(
               text: 'Sign in Anonymously',
-              isLoading: data.isSigningIn,
               onPressed: () => ref.read(authenticationStateProvider.notifier).signInAnonymously(),
             ),
             const SizedBox(height: 24),
             CustomButtonPrimary(
               text: 'Sign in with Google',
-              isLoading: data.isSigningIn,
+              isLoading: data.isGoogleSigningIn,
               onPressed: () => ref.read(authenticationStateProvider.notifier).signInWithGoogle(),
             ),
             const SizedBox(height: 8),
             CustomButtonPrimary(
               text: 'Sign in with Apple',
-              isLoading: data.isSigningIn,
+              isLoading: data.isAppleSigningIn,
               onPressed: () => ref.read(authenticationStateProvider.notifier).signInWithApple(),
             ),
           ],
