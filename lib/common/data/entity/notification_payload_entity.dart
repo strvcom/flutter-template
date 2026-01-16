@@ -25,24 +25,18 @@ sealed class NotificationPayloadEntity with _$NotificationPayloadEntity {
     required int id,
     required String title,
     required String body,
-    @Default(NotificationType.sample) NotificationType type,
-  }) = NotificationPayloadEntitySample;
+  }) = _Sample;
 
-  // Subtitle: unknown
-  const factory NotificationPayloadEntity.unknown({
-    @Default(-1) int id,
-    @Default('') String title,
-    @Default('') String body,
-    @Default(NotificationType.unknown) NotificationType type,
-  }) = NotificationPayloadEntityUnknown;
+  // Title: Unknown
+  const factory NotificationPayloadEntity.unknown() = _Unknown;
 
   factory NotificationPayloadEntity.fromJson(Map<String, dynamic> json) {
     switch (NotificationType.fromString(json['type'] as String?)) {
       case NotificationType.sample:
-        return NotificationPayloadEntitySample.fromJson(json);
+        return _Sample.fromJson(json);
 
       case NotificationType.unknown:
-        return const NotificationPayloadEntityUnknown();
+        return const _Unknown();
     }
   }
 }

@@ -53,14 +53,15 @@ class NotificationsService extends _$NotificationsService {
   }
 
   static void handleNotificationOpen(NotificationPayloadEntity notification) {
-    switch (notification) {
-      case NotificationPayloadEntitySample():
+    notification.when(
+      sample: (id, title, body) {
         Flogger.d('[Notifications] Handle open of Sample notification');
-      // TODO(strv): [Notifications] Handle Notification open action here
-
-      case NotificationPayloadEntityUnknown():
-      // Do nothing
-    }
+        // TODO(strv): [Notifications] Handle Notification open action here
+      },
+      unknown: () {
+        // Do nothing
+      },
+    );
   }
 
   static Future<void> handleAppOpenNotification() async {
@@ -74,14 +75,18 @@ class NotificationsService extends _$NotificationsService {
   }
 
   static Future<void> showNotification(NotificationPayloadEntity notification) async {
-    if (notification is NotificationPayloadEntityUnknown) return;
-
     Flogger.i('[Notifications] New local notification to display: $notification');
+    final notificationData = notification.when(sample: (id, title, body) => (id: id, title: title, body: body), unknown: () => null);
+
+    if (notificationData == null) {
+      return;
+    }
+
     await _flutterLocalNotifications.cancelAll();
     await _flutterLocalNotifications.show(
-      notification.id,
-      notification.title,
-      notification.body,
+      notificationData.id,
+      notificationData.title,
+      notificationData.body,
       defaultNotificationDetails,
       payload: jsonEncode(notification),
     );

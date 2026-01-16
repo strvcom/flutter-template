@@ -8,28 +8,19 @@ part 'text_field_validator_state.freezed.dart';
 sealed class TextFieldValidatorState with _$TextFieldValidatorState {
   const TextFieldValidatorState._();
 
-  const factory TextFieldValidatorState.initial() = TextFieldValidatorStateInitial;
-  const factory TextFieldValidatorState.valid() = TextFieldValidatorStateValid;
-  const factory TextFieldValidatorState.invalid({required ValidatorException exception}) = TextFieldValidatorStateInvalid;
+  const factory TextFieldValidatorState.initial() = _Initial;
+  const factory TextFieldValidatorState.valid() = _Valid;
+  const factory TextFieldValidatorState.invalid({required ValidatorException exception}) = _Invalid;
 
-  bool get isValid {
-    return switch (this) {
-      TextFieldValidatorStateValid() => true,
-      _ => false,
-    };
-  }
+  bool get isValid => maybeWhen(
+    valid: () => true,
+    orElse: () => false,
+  );
 
-  bool get hasError {
-    return switch (this) {
-      TextFieldValidatorStateInvalid() => true,
-      _ => false,
-    };
-  }
+  bool get hasError => maybeWhen(
+    invalid: (_) => true,
+    orElse: () => false,
+  );
 
-  String? getErrorMessage(BuildContext context) {
-    return switch (this) {
-      TextFieldValidatorStateInvalid(exception: final exception) => exception.getMessage(context: context),
-      _ => null,
-    };
-  }
+  String? getErrorMessage(BuildContext context) => whenOrNull(invalid: (exception) => exception.getMessage(context: context));
 }
