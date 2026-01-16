@@ -64,7 +64,5 @@ class TextValidatorControllerGeneral extends TextValidatorController {
     notifyListeners();
   }
 
-  bool get isValid => _state is TextFieldValidatorStateValid;
-
-  bool get isInvalid => _state is TextFieldValidatorStateInvalid;
+  bool get isValid => _state.isValid;
 }
