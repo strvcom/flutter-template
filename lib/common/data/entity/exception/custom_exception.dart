@@ -70,6 +70,8 @@ sealed class CustomException with _$CustomException implements Exception {
       switch (error.code) {
         case 'credential-already-in-use':
           return CustomException.credentialAlreadyInUse(credential: error.credential);
+        case 'web-context-canceled':
+          return const CustomException.signInCancelled();
         default:
           return CustomException.withMessage(message: error.message);
       }
