@@ -562,16 +562,7 @@ For the purpose of Fraud prevention, user safety, and compliance the dedicated A
 <!-- ##########            TODOs              ######### -->
 <!-- ################################################## -->
 # Todos
-- Investigate Github action caching
-- Fix crashlytics upload mapping symbols in Github actions
-- Implements secret handling 
-    - API keys
-    - Keystores for Android
-    - Service accounts
-    - Google service json
-    - iOS Xcode properties with .env files
 - Fix Riverpod async gaps - analytics manager (keep live)
-- Fix EventNotifier - change updateShouldNotify to return true (in case user returns back to the screen and emits the same value)
 - Revisit Google and Apple logins - Providers, Cancellation exception, separating Credentials from Sign In. USe Firebase directly for Apple on Android.
 - Refactor Sealed classes - private classes, use generated `when` function instead of switch.
 
