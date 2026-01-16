@@ -16,8 +16,8 @@ class EventNotifier<T> extends Notifier<T?> {
     return state;
   }
 
-  /// Always returns true to notify even about the same event
-  /// It was causing issues when navigating back and forth and emitting the same event that was used to navigate
+  /// Always returns true to ensure listeners are notified even when the same event is emitted multiple times.
+  /// Addresses navigation scenarios where the same event needs to be processed multiple times (e.g. when navigating back and forth).
   @override
   bool updateShouldNotify(T? previous, T? next) {
     return true;
