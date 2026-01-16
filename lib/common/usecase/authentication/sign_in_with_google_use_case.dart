@@ -38,12 +38,14 @@ Future<void> signInWithGoogleUseCase(Ref ref) async {
     // Subtitle: Step 5 - Sign in with credentials from provider
     await FirebaseAuth.instance.signInWithCredential(oauthCredential);
   } on GoogleSignInException catch (e) {
+    Flogger.e('[Authentication] Error during sign in with Google: $e');
     if (e.code == GoogleSignInExceptionCode.canceled) {
       throw const CustomException.signInCancelled();
     } else {
       throw CustomException.fromErrorObject(error: e);
     }
   } catch (e) {
+    Flogger.e('[Authentication] Error during sign in with Google: $e');
     throw CustomException.fromErrorObject(error: e);
   }
 }
