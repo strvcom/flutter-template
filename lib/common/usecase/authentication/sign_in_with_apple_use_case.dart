@@ -42,12 +42,14 @@ Future<void> signInWithAppleUseCase(Ref ref) async {
       await FirebaseAuth.instance.signInWithProvider(appleProvider);
     }
   } on SignInWithAppleAuthorizationException catch (e) {
+    Flogger.e('[Authentication] Error during sign in with Apple: $e');
     if (e.code == AuthorizationErrorCode.canceled) {
       throw const CustomException.signInCancelled();
     } else {
       throw CustomException.fromErrorObject(error: e);
     }
   } catch (e) {
+    Flogger.e('[Authentication] Error during sign in with Apple: $e');
     throw CustomException.fromErrorObject(error: e);
   }
 }
