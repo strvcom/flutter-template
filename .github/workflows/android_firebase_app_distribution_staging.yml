@@ -33,11 +33,13 @@ jobs:
           distribution: 'zulu'
           java-version: ${{ env.java_version }}
 
-      - name: '[Setup - Flutter Actions with Cache]'
+      # Install Flutter SDK
+      - name: '[Setup - Flutter SDK]'
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           flutter-version: ${{ env.flutter_version }}
+          cache: false
           architecture: x64
 
       # Make sure we have latest FVM
