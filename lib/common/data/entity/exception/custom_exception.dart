@@ -16,15 +16,15 @@ part 'custom_exception.freezed.dart';
 sealed class CustomException with _$CustomException implements Exception {
   const CustomException._();
 
-  const factory CustomException.general() = CustomExceptionGeneral;
-  const factory CustomException.withMessage({String? message}) = CustomExceptionWithMessage;
-  const factory CustomException.unauthenticated() = CustomExceptionUnauthenticated;
-  const factory CustomException.notConnectedToTheInternet() = CustomExceptionNotConnectedToTheInternet;
-  const factory CustomException.decodingFailed() = CustomExceptionDecodingFailed;
+  const factory CustomException.general() = _General;
+  const factory CustomException.withMessage({String? message}) = _WithMessage;
+  const factory CustomException.unauthenticated() = _Unauthenticated;
+  const factory CustomException.notConnectedToTheInternet() = _NotConnectedToTheInternet;
+  const factory CustomException.decodingFailed() = _DecodingFailed;
 
   // Note: Mapped Firebase exception with error code `credential-already-in-use`.
-  const factory CustomException.signInCancelled() = CustomExceptionSignInCancelled;
-  const factory CustomException.credentialAlreadyInUse({required AuthCredential? credential}) = CustomExceptionCredentialAlreadyInUse;
+  const factory CustomException.signInCancelled() = _SignInCancelled;
+  const factory CustomException.credentialAlreadyInUse({required AuthCredential? credential}) = _CredentialAlreadyInUse;
 
   factory CustomException.fromErrorObject({required Object? error}) {
     Flogger.e('[CustomException] Received error $error, ');
@@ -78,21 +78,17 @@ sealed class CustomException with _$CustomException implements Exception {
     }
   }
 
-  String getMessage({required BuildContext context}) {
-    return switch (this) {
-      CustomExceptionWithMessage(message: final message) => message ?? context.locale.customExceptionGeneralMessage,
-      CustomExceptionUnauthenticated() => context.locale.customExceptionUnauthenticatedMessage,
-      CustomExceptionNotConnectedToTheInternet() => context.locale.customExceptionInternetConnectionMessage,
-      _ => context.locale.customExceptionGeneralMessage,
-    };
-  }
+  String getMessage({required BuildContext context}) => maybeWhen(
+    withMessage: (message) => message ?? context.locale.customExceptionGeneralMessage,
+    unauthenticated: () => context.locale.customExceptionUnauthenticatedMessage,
+    notConnectedToTheInternet: () => context.locale.customExceptionInternetConnectionMessage,
+    orElse: () => context.locale.customExceptionGeneralMessage,
+  );
 
-  String getDetails({required BuildContext context}) {
-    return switch (this) {
-      CustomExceptionNotConnectedToTheInternet() => context.locale.customExceptionInternetConnectionDetails,
-      _ => context.locale.customExceptionGeneralDetails,
-    };
-  }
+  String getDetails({required BuildContext context}) => maybeWhen(
+    notConnectedToTheInternet: () => context.locale.customExceptionInternetConnectionDetails,
+    orElse: () => context.locale.customExceptionGeneralDetails,
+  );
 
   Future<void> showErrorSnackbar({
     required BuildContext context,

@@ -564,7 +564,6 @@ For the purpose of Fraud prevention, user safety, and compliance the dedicated A
 # Todos
 - Fix Riverpod async gaps - analytics manager (keep live)
 - Revisit Google and Apple logins - Providers, Cancellation exception, separating Credentials from Sign In. USe Firebase directly for Apple on Android.
-- Refactor Sealed classes - private classes, use generated `when` function instead of switch.
 
 <!-- ################################################## -->
 <!-- ##########           Authors            ########## -->

@@ -51,11 +51,15 @@ class AuthenticationStateNotifier extends _$AuthenticationStateNotifier with Aut
       ref.read(authenticationEventNotifierProvider.notifier).send(const AuthenticationEvent.signedIn());
     } on Exception catch (error) {
       final customException = CustomException.fromErrorObject(error: error);
-      if (customException case CustomExceptionSignInCancelled()) {
-        Flogger.d('User cancelled the sign in process');
-      } else {
-        Flogger.e('Error while signing in: $customException');
-      }
+      customException.maybeWhen(
+        signInCancelled: () {
+          Flogger.d('[Authentication] User cancelled the sign in process');
+        },
+        orElse: () {
+          Flogger.e('[Authentication] Error while signing in: $customException');
+          ref.read(authenticationEventNotifierProvider.notifier).send(AuthenticationEvent.error(customException));
+        },
+      );
     }
 
     setStateData(currentData?.copyWith(isSigningIn: false));

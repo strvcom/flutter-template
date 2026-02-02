@@ -14,10 +14,10 @@ class AuthenticationPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(
       authenticationEventNotifierProvider,
-      (_, next) => switch (next) {
-        AuthenticationEventSignedIn() => context.router.replaceAll([const LandingRoute()]),
-        _ => () {},
-      },
+      (_, next) => next?.when(
+        signedIn: () => context.router.replaceAll([const LandingRoute()]),
+        error: (error) => error.showErrorSnackbar(context: context),
+      ),
     );
 
     return const Scaffold(
