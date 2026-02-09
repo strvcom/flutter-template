@@ -1,12 +1,12 @@
 import 'package:flutter_app/common/data/entity/exception/custom_exception.dart';
-import 'package:flutter_app/common/data/entity/user_entity.dart';
+import 'package:flutter_app/common/provider/current_user_state.dart';
 import 'package:flutter_app/common/usecase/authentication/sign_in_anonymously_use_case.dart';
+import 'package:flutter_app/common/usecase/authentication/sign_in_completion_use_case.dart';
 import 'package:flutter_app/common/usecase/authentication/sign_in_with_apple_use_case.dart';
 import 'package:flutter_app/common/usecase/authentication/sign_in_with_google_use_case.dart';
 import 'package:flutter_app/core/flogger.dart';
 import 'package:flutter_app/core/riverpod/state_handler.dart';
 import 'package:flutter_app/features/authentication/authentication_event.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -16,7 +16,8 @@ part 'authentication_state.g.dart';
 @freezed
 abstract class AuthenticationState with _$AuthenticationState {
   const factory AuthenticationState({
-    required bool isSigningIn,
+    required bool isGoogleSigningIn,
+    required bool isAppleSigningIn,
   }) = _AuthenticationState;
 }
 
@@ -25,27 +26,39 @@ class AuthenticationStateNotifier extends _$AuthenticationStateNotifier with Aut
   @override
   FutureOr<AuthenticationState> build() async {
     return const AuthenticationState(
-      isSigningIn: false,
+      isGoogleSigningIn: false,
+      isAppleSigningIn: false,
     );
   }
 
   Future<void> signInAnonymously() async {
-    await _signInWithProvider(signInAnonymouslyUseCase);
+    final provider = ref.read(signInAnonymouslyUseCaseProvider.future);
+    await _signInCompletion(provider);
   }
 
   Future<void> signInWithGoogle() async {
-    await _signInWithProvider(signInWithGoogleUseCase);
+    setStateData(currentData?.copyWith(isGoogleSigningIn: true));
+    final provider = ref.read(signInWithGoogleUseCaseProvider.future);
+    await _signInCompletion(provider);
+    setStateData(currentData?.copyWith(isGoogleSigningIn: false));
   }
 
   Future<void> signInWithApple() async {
-    await _signInWithProvider(signInWithAppleUseCase);
+    setStateData(currentData?.copyWith(isAppleSigningIn: true));
+    final provider = ref.read(signInWithAppleUseCaseProvider.future);
+    await _signInCompletion(provider);
+    setStateData(currentData?.copyWith(isAppleSigningIn: false));
   }
 
-  Future<void> _signInWithProvider(FutureProvider<UserEntity> provider) async {
-    setStateData(currentData?.copyWith(isSigningIn: true));
-
+  Future<void> _signInCompletion(Future<void> provider) async {
     try {
-      await ref.read(provider.future);
+      await provider;
+
+      // Sign in completion on BE
+      final user = await ref.read(signInCompletionUseCaseProvider.future);
+
+      // Update current user
+      await ref.read(currentUserStateProvider.notifier).updateCurrentUser(user);
 
       // Sign in success
       ref.read(authenticationEventNotifierProvider.notifier).send(const AuthenticationEvent.signedIn());
@@ -61,7 +74,5 @@ class AuthenticationStateNotifier extends _$AuthenticationStateNotifier with Aut
         },
       );
     }
-
-    setStateData(currentData?.copyWith(isSigningIn: false));
   }
 }
