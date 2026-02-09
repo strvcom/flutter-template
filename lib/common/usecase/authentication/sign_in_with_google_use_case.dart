@@ -18,7 +18,7 @@ Future<void> signInWithGoogleUseCase(Ref ref) async {
     final googleSignIn = GoogleSignIn.instance;
 
     // Subtitle: Step 1 - Logout from Current Google account if any
-    await googleSignIn.disconnect();
+    await googleSignIn.signOut();
 
     // Subtitle: Step 2 - Authenticate user with Google
     final account = await googleSignIn.authenticate();
