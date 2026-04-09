@@ -5,8 +5,8 @@ version: 1.0.0+10000000 #1 00 00 000
 
 
 environment:
-  sdk: ">=3.8.0 <4.0.0"
-  flutter: 3.38.5
+  sdk: ">=3.11.0 <4.0.0"
+  flutter: 3.41.6
 
 
 dependencies:
@@ -29,7 +29,7 @@ dependencies:
   json_annotation: 4.9.0
 
   # Network
-  dio: 5.9.0
+  dio: ^5.9.2
 
   # Storage
   shared_preferences: ^2.5.4
@@ -70,7 +70,7 @@ dependencies:
 
   # UI
   flutter_animate: 4.5.2
-  flutter_local_notifications: ^19.4.2
+  flutter_local_notifications: ^21.0.0
   modal_bottom_sheet: 3.0.0
   universal_html: ^2.3.0
 
@@ -105,7 +105,7 @@ dev_dependencies:
   # Lint
   custom_lint: ^0.8.0
   flutter_lints: 6.0.0
-  netglade_analysis: ^21.0.0
+  netglade_analysis: ^22.0.0
   riverpod_lint: ^3.0.1
 
   # UI Tests

@@ -84,10 +84,10 @@ class NotificationsService extends _$NotificationsService {
 
     await _flutterLocalNotifications.cancelAll();
     await _flutterLocalNotifications.show(
-      notificationData.id,
-      notificationData.title,
-      notificationData.body,
-      defaultNotificationDetails,
+      id: notificationData.id,
+      title: notificationData.title,
+      body: notificationData.body,
+      notificationDetails: defaultNotificationDetails,
       payload: jsonEncode(notification),
     );
   }
@@ -139,7 +139,7 @@ class NotificationsService extends _$NotificationsService {
     );
 
     await _flutterLocalNotifications.initialize(
-      initializationSettings,
+      settings: initializationSettings,
       onDidReceiveNotificationResponse: localNotificationOpenBgHandler,
       onDidReceiveBackgroundNotificationResponse: localNotificationOpenBgHandler,
     );
