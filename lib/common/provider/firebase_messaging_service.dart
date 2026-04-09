@@ -1,6 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_app/app/setup/app_platform.dart';
 import 'package:flutter_app/common/data/entity/notification_payload_entity.dart';
+import 'package:flutter_app/common/extension/string.dart';
 import 'package:flutter_app/common/provider/current_user_state.dart';
 import 'package:flutter_app/common/provider/notifications_service.dart';
 import 'package:flutter_app/common/usecase/create_device_token_use_case.dart';
@@ -47,8 +48,8 @@ class FirebaseMessagingService extends _$FirebaseMessagingService {
     }
 
     try {
-      if (await ref.read(currentUserStateProvider.future) != null) {
-        await ref.read(createDeviceTokenUseCaseProvider(deviceToken: resolvedFcmToken.toString()).future);
+      if (!resolvedFcmToken.isNullOrEmpty && await ref.read(currentUserStateProvider.future) != null) {
+        await ref.read(createDeviceTokenUseCaseProvider(deviceToken: resolvedFcmToken).future);
       }
     } on Exception catch (e, st) {
       Flogger.e('Firebase Messaging] Error while registering FCM token.', exception: e, stackTrace: st);
