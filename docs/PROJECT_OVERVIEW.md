@@ -136,6 +136,7 @@ Helpers worth knowing:
 - `make test`: wrapper around `fvm flutter test`
 - `make integration_test`: Patrol integration tests
 - `make generateAndroidProductionAppBundle`
+- `make generateIosDevelopIpa`
 - `make generateIosStagingIpa`
 - `make generateIosProductionIpa`
 

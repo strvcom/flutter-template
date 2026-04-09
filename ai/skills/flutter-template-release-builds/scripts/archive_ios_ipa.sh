@@ -18,19 +18,29 @@ case "$flavor" in
     ;;
 esac
 
-version="$(sed -n 's/^version: \([0-9][^+ ]*\).*/\1/p' pubspec.yaml | head -n 1)"
+version="$(sed -n 's/^version: \([^ #][^ #]*\).*/\1/p' pubspec.yaml | head -n 1)"
 
 if [ -z "$version" ]; then
   echo "Could not determine app version from pubspec.yaml" >&2
   exit 1
 fi
 
-ipa_path="$(find build/ios/ipa -maxdepth 1 -type f -name '*.ipa' | head -n 1)"
+ipa_matches="$(find build/ios/ipa -maxdepth 1 -type f -name '*.ipa' | sort)"
 
-if [ -z "$ipa_path" ]; then
+if [ -z "$ipa_matches" ]; then
   echo "No IPA file found in build/ios/ipa" >&2
   exit 1
 fi
+
+ipa_count="$(printf '%s\n' "$ipa_matches" | wc -l | tr -d ' ')"
+
+if [ "$ipa_count" -ne 1 ]; then
+  echo "Expected exactly one IPA file in build/ios/ipa, found $ipa_count" >&2
+  printf '%s\n' "$ipa_matches" >&2
+  exit 1
+fi
+
+ipa_path="$ipa_matches"
 
 ipa_name="$(basename "$ipa_path" .ipa)"
 destination_dir="release_artifacts/ios-ipa/$version"

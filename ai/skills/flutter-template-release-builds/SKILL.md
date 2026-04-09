@@ -75,7 +75,7 @@ The script copies the generated IPA into:
 release_artifacts/ios-ipa/<version>/
 ```
 
-and renames it to include the flavor and version so multiple release IPAs can coexist.
+and renames it to include the flavor plus the full `pubspec.yaml` version token, including the build number, so multiple release IPAs can coexist even when only the build number changes.
 
 ## Recommended iOS Sequence
 1. Build one flavor.
@@ -88,6 +88,7 @@ and renames it to include the flavor and version so multiple release IPAs can co
 ## Watch Outs
 - Do not run multiple iOS make targets back-to-back without archiving.
 - Do not assume the last-built IPA still exists in `build/ios/ipa/`.
+- The archival helper expects exactly one IPA in `build/ios/ipa/` and fails loudly if multiple files are present.
 - Transporter is the handoff point to App Store Connect.
 - Android and iOS release flows are intentionally different in this repo.
 - Transporter delivery is currently a manual step in this workflow, not an automated repo-integrated step.
@@ -96,5 +97,5 @@ and renames it to include the flavor and version so multiple release IPAs can co
 - Android tags match the intended workflows
 - each iOS IPA is generated one-at-a-time
 - each iOS IPA is copied out of the build folder
-- archived IPA filenames include flavor and version
+- archived IPA filenames include flavor and the full app version token
 - the team has a clean handoff path into Transporter
