@@ -31,6 +31,10 @@ class AuthenticationStateNotifier extends _$AuthenticationStateNotifier with Aut
     );
   }
 
+  Future<void> mockSignIn() async {
+    await _signInCompletion(Future.value());
+  }
+
   Future<void> signInAnonymously() async {
     final provider = ref.read(signInAnonymouslyUseCaseProvider.future);
     await _signInCompletion(provider);
