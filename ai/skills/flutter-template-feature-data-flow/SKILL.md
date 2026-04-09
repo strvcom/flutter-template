@@ -33,7 +33,9 @@ Useful current examples:
 - `lib/features/profile/profile_state.dart`
 
 Backend reference when relevant:
-- `https://d38gvh51pxovt1.cloudfront.net/docs`
+- consult the adopting project's API docs or OpenAPI/Swagger spec
+- check the configured API base URL in `Configuration.instance.apiHostUrl`
+- check the environment value behind `API_HOST_URL` when verifying which backend you are integrating with
 
 ## Target Architecture
 Aim for this flow:

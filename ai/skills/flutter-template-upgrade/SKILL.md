@@ -28,11 +28,11 @@ Use this skill for SDK and dependency upgrades in this repository.
 2. Confirm the target Flutter version.
 3. Update `.fvmrc`.
 4. Update `pubspec.yaml` environment constraints to match the new SDK floor.
-5. Run dependency audit commands such as `flutter pub outdated`.
-6. Use `flutter pub upgrade --major-versions` when the goal is to move the dependency graph forward broadly.
+5. Run dependency audit commands such as `fvm flutter pub outdated`.
+6. Use `fvm flutter pub upgrade --major-versions` when the goal is to move the dependency graph forward broadly.
 7. Review any changed direct constraints in `pubspec.yaml`.
 8. Run:
-   - `flutter pub get`
+   - `fvm flutter pub get`
    - `make gen`
    - `fvm flutter analyze`
    - `fvm flutter test`
