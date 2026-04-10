@@ -1,6 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_app/app/setup/app_platform.dart';
 import 'package:flutter_app/common/data/entity/notification_payload_entity.dart';
+import 'package:flutter_app/common/extension/string.dart';
 import 'package:flutter_app/common/provider/current_user_state.dart';
 import 'package:flutter_app/common/provider/notifications_service.dart';
 import 'package:flutter_app/common/usecase/create_device_token_use_case.dart';
@@ -35,18 +36,20 @@ class FirebaseMessagingService extends _$FirebaseMessagingService {
   /// Do not forget to call this after user sign in!
   /// getToken throws an error when the notification permission was not granted
   Future<void> registerFCMToken({String? fcmToken}) async {
+    var resolvedFcmToken = fcmToken;
+
     try {
-      if (fcmToken == null) {
-        fcmToken = await FirebaseMessaging.instance.getToken(vapidKey: AppPlatform.isWeb ? dotenv.get('VAPID_KEY') : null);
-        Flogger.d("[Firebase Messaging] Registering User's FCM token: $fcmToken");
+      if (resolvedFcmToken == null) {
+        resolvedFcmToken = await FirebaseMessaging.instance.getToken(vapidKey: AppPlatform.isWeb ? dotenv.get('VAPID_KEY') : null);
+        Flogger.d("[Firebase Messaging] Registering User's FCM token: $resolvedFcmToken");
       }
     } on Exception catch (e, st) {
       Flogger.e('Firebase Messaging] Error while obtaining FCM token.', exception: e, stackTrace: st);
     }
 
     try {
-      if (await ref.read(currentUserStateProvider.future) != null) {
-        await ref.read(createDeviceTokenUseCaseProvider(deviceToken: fcmToken.toString()).future);
+      if (!resolvedFcmToken.isNullOrEmpty && await ref.read(currentUserStateProvider.future) != null) {
+        await ref.read(createDeviceTokenUseCaseProvider(deviceToken: resolvedFcmToken).future);
       }
     } on Exception catch (e, st) {
       Flogger.e('Firebase Messaging] Error while registering FCM token.', exception: e, stackTrace: st);
