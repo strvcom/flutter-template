@@ -1,5 +1,5 @@
 # https://medium.com/flutter-community/automating-flutter-workflows-with-the-makefile-423b8e023c9a
-.PHONY: setup watch clean gen locale install integration_test test generateAndroidProductionAppBundle generateIosStagingIpa generateIosProductionIpa generateWebProduction deployWeb runner_gen secretsDecrypt secretsEncrypt secretsClean
+.PHONY: setup watch clean gen locale install integration_test test generateAndroidProductionAppBundle generateIosDevelopIpa generateIosStagingIpa generateIosProductionIpa generateWebProduction deployWeb runner_gen secretsDecrypt secretsEncrypt secretsClean
 
 setup: # Setup the project
 	@fvm dart ./project_setup/lib/main.dart
@@ -37,6 +37,10 @@ test: # Runs Flutter tests
 generateAndroidProductionAppBundle: # Clean everything and build Android AppBundle
 	@make clean
 	@fvm flutter build appbundle -t lib/main_production.dart --flavor production --obfuscate --split-debug-info=build/app/outputs/symbols
+
+generateIosDevelopIpa: # Clean everything and build iOS IPA
+	@make clean
+	@fvm flutter build ipa -t lib/main_develop.dart --flavor develop --obfuscate --split-debug-info=build/app/outputs/symbols
 
 generateIosStagingIpa: # Clean everything and build iOS IPA
 	@make clean

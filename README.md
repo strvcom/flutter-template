@@ -40,6 +40,7 @@
 
 - [Tooling](#tooling)
     - [FVM](#fvm)
+    - [AI Support](#ai-support)
     - [Application Rebranding](./project_setup/README.md#application-rebranding)
     - [Icons generation](./project_setup/README.md#app-icon-generation)
     - [Splash screen generation](./project_setup/README.md#splash-screen-generation)
@@ -480,6 +481,32 @@ To install the FVM on your machine, please run:
 ```
 make install
 ```
+
+<!-- ################################################## -->
+
+## AI Support
+
+This template is prepared for AI-assisted work and includes shared project instructions plus reusable workflow guides.
+
+Canonical project files:
+- `AGENTS.md` is the shared source of truth for AI contributors.
+- `docs/PROJECT_OVERVIEW.md` contains the repo map, startup flow, and feature inventory.
+- `docs/PROJECT_GUIDELINES.md` contains implementation conventions and workflow defaults.
+- `.claude/CLAUDE.md` points Claude users at the shared project instructions.
+
+Reusable workflow guides live under `ai/skills/`:
+- `flutter-template-feature-screen` for route and UI scaffolding.
+- `flutter-template-feature-data-flow` for full backend-backed features with DTOs, entities, use cases, and state wiring.
+- `flutter-template-upgrade` for Flutter and dependency upgrades.
+- `flutter-template-release-prepare` for version bump, release notes, release branch, and PR preparation.
+- `flutter-template-release-builds` for post-merge Android tags plus manual iOS IPA generation and archival.
+- `flutter-template-secrets-bootstrap` for safe handling of encrypted secrets and signing material.
+- `flutter-template-pr-review` for bug-first PR and diff review.
+
+Recommended usage:
+- When working with an AI agent, explicitly mention the workflow you want to use, for example `Use the flutter-template-feature-data-flow skill`.
+- Keep long-term project rules in `AGENTS.md` and the docs, and keep repeatable procedures in `ai/skills/`.
+- Treat the repo-local workflow guides as project-specific assets that should evolve with the template.
 
 <!-- ################################################## -->
 

@@ -63,6 +63,7 @@ integration_test/test_bundle.dart
 
 # FVM Version Cache
 .fvm/
+release_artifacts/
 
 # Secrets
 /.env*
