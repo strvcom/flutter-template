@@ -11,7 +11,7 @@ void main() {
   patrolTest(
     'Home Page has Home title',
     ($) async {
-      // We need to save and restore onError handler after setupApp, as it is overriden by the Crashlytics.
+      // We need to save and restore onError handler after setupApp, as it is overridden by the Crashlytics.
       final originalOnError = FlutterError.onError!;
       // Title: Start the app
       await setupApp(flavor: Flavor.develop);

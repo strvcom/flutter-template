@@ -29,7 +29,7 @@ install: # Install any required packages
 	@make secretsDecrypt
 
 integration_test: # Runs Patrol Integration tests 
-	@patrol test --target integration_test --flavor develop
+	@patrol test --flavor develop
 
 test: # Runs Flutter tests 
 	@fvm flutter test

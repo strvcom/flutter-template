@@ -116,6 +116,7 @@ Not every feature needs every file. Simple screens in the template only use `*_p
 ## Testing
 - Widget tests live under `test/`.
 - Patrol-based integration tests live under `integration_test/`.
+- Patrol CLI is configured through `pubspec.yaml` with `patrol.test_directory: integration_test`.
 - Add or update tests when the task calls for behavior changes, bug fixes, or new features. Do not assume tests are off-limits.
 
 ## Release And Versioning Notes
