@@ -58,7 +58,7 @@ class _LandingPageState extends ConsumerState<LandingPage> {
         Flogger.d('[LandingPage] Redirecting to Authentication page');
         await context.replaceRoute(const AuthenticationRoute());
       } else {
-        Flogger.d('[LandingPage] Redirecting to Home page');
+        Flogger.d('[LandingPage] Redirecting to Root page');
         await context.replaceRoute(const RootRoute());
       }
     }
