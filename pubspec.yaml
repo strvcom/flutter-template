@@ -114,6 +114,7 @@ dev_dependencies:
 
 patrol:
   app_name: flutter_app
+  test_directory: integration_test
   android:
     package_name: com.strv.flutter.template
   ios:

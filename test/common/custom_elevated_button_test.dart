@@ -9,7 +9,7 @@ void main() {
   // Title: Setup app configuration
   Configuration.setup(flavor: Flavor.develop);
 
-  patrolTest(
+  patrolWidgetTest(
     'CustomElevatedButton - Primary',
     ($) async {
       // Title: Inflate widget

@@ -466,6 +466,8 @@ or simply just by running:
 ```
 make integration_test
 ```
+
+For Android integration tests, make sure `adb` is already available on your shell `PATH`.
 <!-- ################################################## -->
 
 
