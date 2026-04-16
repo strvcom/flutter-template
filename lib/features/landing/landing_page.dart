@@ -47,20 +47,25 @@ class _LandingPageState extends ConsumerState<LandingPage> {
 
   Future<void> _handleLandingPageNavigation() async {
     final forceUpdateRequired = await _handleForceUpdate();
-    if (forceUpdateRequired) return;
+    if (!mounted) return;
+
+    if (forceUpdateRequired) {
+      FlutterNativeSplash.remove();
+      return;
+    }
 
     final currentUser = await ref.read(currentUserStateProvider.future);
 
-    if (mounted) {
-      FlutterNativeSplash.remove();
+    if (!mounted) return;
 
-      if (currentUser == null) {
-        Flogger.d('[LandingPage] Redirecting to Authentication page');
-        await context.replaceRoute(const AuthenticationRoute());
-      } else {
-        Flogger.d('[LandingPage] Redirecting to Root page');
-        await context.replaceRoute(const RootRoute());
-      }
+    FlutterNativeSplash.remove();
+
+    if (currentUser == null) {
+      Flogger.d('[LandingPage] Redirecting to Authentication page');
+      await context.replaceRoute(const AuthenticationRoute());
+    } else {
+      Flogger.d('[LandingPage] Redirecting to Root page');
+      await context.replaceRoute(const RootRoute());
     }
   }
 

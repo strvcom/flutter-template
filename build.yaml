@@ -40,7 +40,6 @@ targets:
 
           - lib/core/analytics/analytics_manager.dart
           - lib/core/analytics/analytics_route_observer.dart
-          - lib/core/analytics/analytics_route_observer.dart
           - lib/core/database/shared_preferences.dart
           - lib/core/network/dio_provider.dart
           
@@ -73,6 +72,3 @@ targets:
         enabled: true
         generate_for:
           - lib/app/navigation/app_router.dart
-
-      auto_route_generator|auto_router_module_generator:
-        enabled: false

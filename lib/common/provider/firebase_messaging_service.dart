@@ -90,7 +90,7 @@ class FirebaseMessagingService extends _$FirebaseMessagingService {
   }
 
   /// On Android - foreground, background and killed notifications are handled from the `data` payload and are manually displayed.
-  /// Notification opening logic is then handled ny FlutterLocalNotifications.
+  /// Notification opening logic is then handled by FlutterLocalNotifications.
   ///
   /// On iOS - foreground, background and killed notifications are displayed by the system from the `apns` payload.
   /// Notification opening logic is then set by `FirebaseMessaging.onMessageOpenedApp.listen()` for foreground and background.

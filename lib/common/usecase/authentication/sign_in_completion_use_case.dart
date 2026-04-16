@@ -23,7 +23,7 @@ Future<UserEntity> signInCompletionUseCase(Ref ref) async {
       id: '1',
       email: 'john.doe@example.com',
       displayName: 'John Doe',
-      imageUrl: 'https://randomuser.me/api/portraits',
+      imageUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
       role: UserRole.user,
       referredId: '1',
     );

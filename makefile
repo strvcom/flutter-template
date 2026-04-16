@@ -17,7 +17,7 @@ gen: # Generates localization and freezed files in project
 	@fvm dart run build_runner build --delete-conflicting-outputs
 
 locale: # Generates localization and freezed files in project
-	@fvm flutter gen-l10n --arb-dir "assets/localization" --template-arb-file "app_en.arb" --output-localization-file "app_localizations.gen.dart" --output-dir "lib/assets" --no-synthetic-package
+	@fvm flutter gen-l10n --arb-dir "assets/localization" --template-arb-file "app_en.arb" --output-localization-file "app_localizations.gen.dart" --output-dir "lib/assets"
 
 install: # Install any required packages
 	@dart pub global activate fvm
@@ -68,7 +68,7 @@ deployWeb:
 
 runner_gen: # For github actions
 	@flutter pub get
-	@flutter gen-l10n --arb-dir "assets/localization" --template-arb-file "app_en.arb" --output-localization-file "app_localizations.gen.dart" --output-dir "lib/assets" --no-synthetic-package
+	@flutter gen-l10n --arb-dir "assets/localization" --template-arb-file "app_en.arb" --output-localization-file "app_localizations.gen.dart" --output-dir "lib/assets"
 	@dart run build_runner build --delete-conflicting-outputs
 
 secretsDecrypt: # Decrypt secrets

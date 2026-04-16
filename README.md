@@ -88,8 +88,8 @@ These are our four core values:
 
 1. - [ ] Create a new repo from this template.
 2. - [ ] Set up the GIT settings according to your team's needs.
-3. - [ ] Clone created repository and open it trough File -> Open Workspace from File... -> `flutter.code-workspace`. Open.../Open folder... won't work ⚠️
-3. - [ ] Remove any unused platforms (Android, ios, web, Windows, Linux (+snap), macOS)
+3. - [ ] Clone the created repository and open it through File -> Open Workspace from File... -> `flutter.code-workspace`. Open.../Open folder... won't work ⚠️
+4. - [ ] Remove any unused platforms (Android, iOS, web, Windows, Linux (+snap), macOS)
     - Remove them from the folder structure of the template.
     - Remove them from the `AppPlatform` class.
     - When removing the `Web` platform, remove also `firebase.json` and `.firebaserc`, `web_setup.dart`, `flutter_web_plugins` and `universal_html` from the `pubspec.yaml` file.
@@ -129,7 +129,7 @@ These are our four core values:
       ‣ dto -> Classes to transfer data over the network
       ‣ enum -> Enum classes used across the App
       ‣ entity -> Entity classes used across the App
-    ‣ extensions -> Extension classes/methods over existing data types
+    ‣ extension -> Extension classes/methods over existing data types
     ‣ provider -> Global Services and manager providers, like Notification Service
     ‣ usecase -> Methods used to get/post data. Usually from/to network or local database
     ‣ validator -> Classes for text input validation
@@ -193,11 +193,11 @@ For Google sign in:
 ## Secrets
 API keys, APP IDs, service accounts and even release keystore are stored as secrets in this project. We are using `age` + `sops` libraries for this purpose.
 
-Each environment has it's own secrets file `.env-production`, `.env-staging` and `.env-develop` which overrides the default one `.env`.
+Each environment has its own secrets file `.env-production`, `.env-staging`, and `.env-development`, which overrides the default one `.env`.
 Those files are not placed in version control, rather are kept in secret and generated using encrypted (`.enc`) files.
 
 Secrets from encrypted files are also decrypted into xcode property files `.env.*.xcconfig`. Then properties like `$(APPLE_TEAM_ID)` can be used in `Info.plist` or `project.pbxproj`.
-They are also overrides the same as project ones - e.g. `.env.xcconfig` is overridden by `.env.production.xcconfig` in production flavor of the iOS app.
+They also override the same project values. For example, `.env.xcconfig` is overridden by `.env.production.xcconfig` in the production flavor of the iOS app.
 
 ### Decrypt default values to see how it works:
 - Export path to private key file `export SOPS_AGE_KEY_FILE="<path to projects>/flutter-template/extras/secrets/age_key.txt"`
@@ -250,16 +250,16 @@ To deploy the app manually, you have to:
    Grab those generated folders, zip them and upload into Google Play console under the new build.
    
 #### Firebase App Distribution using GitHub Actions
-Android app deployment can be done automatically when adding a tag to GitHub. The tag requirement is listed in `.github\workflows\android_firebase_app_distribution_develop.yml` or `production`. There is still some small setup needed for it to work.
+Android app deployment can be done automatically when adding a tag to GitHub. The exact tag requirements are listed in the Firebase App Distribution workflows under `.github/workflows/`. There is still some small setup needed for it to work.
 
-First, you need to create a new Service Account inside the Google Cloud console. Create the service account with a `Firebase App Distribution Admin` role. Then you need to generate new key for it. This key NEEDS to be converted to Base64. You can covert is using following command:
+First, you need to create a new Service Account inside the Google Cloud console. Create the service account with a `Firebase App Distribution Admin` role. Then you need to generate a new key for it. This key NEEDS to be converted to Base64. You can convert it using the following command:
 ```
 base64 -i input.json > output.json.b64
 ```
 
 Now you need to set the Base64 string as a secret inside your GitHub. You should name it something like `FIREBASE_DEV_CREDENTIAL_FILE_CONTENT` and check that it has the same name inside the script. Also, do not forget to uncomment `apply plugin: 'com.google.gms.google-services'` at the end of the build.gradle file inside the Android app folder.
 
-Now you can use one of the actions we have. There should be at least two actions to build for the develop and for the production environment. You can launch those two by creating a tag on a commit with the name `*-develop`, `*-staging` or `*-production`.
+Now you can use one of the actions we have. Firebase App Distribution builds are triggered by tags ending with `-develop`, `-staging`, or `-production`.
 
 #### Google Play Distribution using GitHub Actions
 We also have a GitHub Action script for deploying to Google Play automatically. The tag requirement is listed in `.github\workflows\android_play_store_distribution.yml`.
@@ -280,15 +280,15 @@ APP_ID can be found in the Firebase console.
 There is some basic setup needed before you are able to build IPA and continue with manual app distribution. First of all, open `Runner.xcworkspace` in `./ios` folder, and click on Runner. There you need to "Signing & Capabilities" tab. Here you have to check "Automatically manage signing" and select correct "Team" for both `Release-staging` and `Release-production` targets. For this you have to be added to the Team in App Store Connect and have the Certificates permissions.
 
 To deploy the app, you have to:
-1. In the terminal (never in XCode) run `flutter build ipa -t lib/main_production.dart --flavor production --obfuscate --split-debug-info=build/app/outputs/symbols` for production release (or use makefile command `generateIosProductionIpa`).
-2. Open generated `./build/ios/ipa` folder and drag builded IPA file to `Transporter` application downloaded from AppStore. Wait for the upload and process to complete, and hit the `Deliver` button.
-3. Go to `./build/ios/archive` open the archive using finder, and go to `XXX` folder. Select all dSYM files, and compress them into single .zip file. Drag this .zip file to Firebase Crashlytics.
+1. In the terminal (never in Xcode) run `fvm flutter build ipa -t lib/main_production.dart --flavor production --obfuscate --split-debug-info=build/app/outputs/symbols` for production release (or use makefile command `generateIosProductionIpa`).
+2. Open the generated `./build/ios/ipa` folder and drag the built IPA file into the `Transporter` app downloaded from the App Store. Wait for the upload and processing to complete, then hit the `Deliver` button.
+3. Go to `./build/ios/archive`, open the generated `.xcarchive` in Finder, then open its `dSYMs` folder. Compress the dSYM files into a single `.zip` file and upload it to Firebase Crashlytics.
 4. After the build is validated, submit it to review by adding an external tester group.
 <!-- ################################################## -->
 
 ### Web
 To deploy the app, you have to:
-1. In the terminal run `make generateWebProduction` to build the web. Make sure you are using `canvaskit`` as a web-rendered. This fixes some rendering issues with fonts, etc. on mobile devices.
+1. In the terminal run `make generateWebProduction` to build the web. Make sure you are using `canvaskit` as the web renderer. This fixes some rendering issues with fonts and similar assets on mobile devices.
 2. In the terminal run `make deployWeb` to upload it to the currently set up firebase Web Hosting. More on the Firebase Hosting setup [here](#firebase-hosting-setup).
 <!-- ################################################## -->
 
@@ -321,13 +321,13 @@ Here are the list of libraries we are using for core functionality of our apps:
 - Patrol (App testing)
 
 ### Architecture ideology
-Note: We will describe our architecture ideology on a sample feature that would be called `user_detail`. Screen, that displays information about any user of the app.
+Note: We will describe our architecture using a sample feature called `user_detail`, a screen that displays information about any user of the app.
 
 The basic idea behind our architecture is that there should be one feature folder per application screen. In an ideal world, each feature should contain UI split into two files. The first file would be called for example `user_detail_page.dart`. This should be a wrapper around `user_detail_page_content.dart`, and should just wrap the content inside Scaffold. The rest should be implemented inside `content` file. The main idea behind this is the screen UI reusability. In some places, we may need to just use the whole screen content, without its AppBar for example. In some other places, on the other hand, we may need to open it as a standalone feature. 
 
 We covered the UI part, now we need to focus more on the app state and business handling logic. For this, we are using the Riverpod library. Each feature should contain a file ending with `_state.dart`. For example `user_detail_state.dart`. This file should then contain two classes. The first class is a `Freezed` class, which defines the state of the screen. It should hold all the data and state for the feature. As for the naming, the class name should end with the word `State`. For example `UserDetailState`.
 The second class is `StateNotifier` class, annotated with `@riverpod` annotation. Rather than splitting the logic completely into small chunks, we believe that it is a good practice to usually have just one `StateNotifier`, providing the `State` for the feature. Naming should follow the same rules as the State class. For example: `UserDetailStateNotifier`. This class must override the `build` method. The State is built inside this method. This is a good place to for example call any necessary API calls, to get data, make some init logic for the feature, etc.. This class can also contain additional methods, to manipulate the State. For example method `updateUser` will update the state with `isUpdatingUser` to `true`, then update the user on the BE side and update the state again with progress set to `false``, and providing new user data. 
-Even through we have just a single huge StateHandler, it is possible to observe just specific fields that are needed for building the UI. This way we can optimize the redrawing of the app when the state changes.
+Even though we have just a single large StateHandler, it is possible to observe only the specific fields needed to build the UI. This helps optimize redraws when the state changes.
 
 The last part is the solution, on how to communicate one-time events from `StateNotifier` back to the UI. For this, we are using a custom implementation of `EventNotifier` which extends `StateNotifier`. This part is implemented inside `*_event.dart` file. For example: `user_detail_event.dart`. Inside we can find the `Freezed` class defining the events (for example `error` event, `userUpdated` event). There is also a definition of an autodispose StateNotifierProvider, named by the feature. For example: `userDetailEventNotifierProvider`. We should then listen to all these defined events using `ref.listen()` inside our `*_page.dart` widget build method. 
 <!-- ################################################## -->
@@ -356,10 +356,10 @@ Example: `john/feat/MN-1726/sign_up`
 For Commit and PR names: `{chore/feat/fix/refactor}: {Description}`
 Example: `feat: Sign up logic implementation`
 
-When making staging or production releases, you should also always create an appropriate tag on the commit merged to the `master` or `staging` branch. The tag always starts with the letter `v` followed by the version, and optionally by `-staging` flag.
+When making releases, create an appropriate tag on the commit merged to the `master` or `staging` branch. Firebase App Distribution workflows use tags ending in `-develop`, `-staging`, or `-production`, while the Google Play workflow uses tags ending in `-release`.
 ```
-Example tag on the master branch: v1.2.3
-Example tag on the staging branch: v1.2.3-staging
+Example Play Store tag on the master branch: v1.2.3-release
+Example Firebase App Distribution tag on the staging branch: v1.2.3-staging
 ```
 <!-- ################################################## -->
 
@@ -408,8 +408,8 @@ To be able to use the firebase provider for Apple login, we need to do some conf
 
 - Firebase setup that will be done under `Authentication -> Sign-in method -> Apple`
     - Services ID - this is the Identifier of a Service ID created in Apple Developer - `flutter-template-develop`
-    - Apple team Id from Developer (e.g. `965Y6XXXXXX`)
-    - Key Id - generated when the key was created in previous step  (e.g. `798BXXXXXX`)
+    - Apple team ID from Developer (e.g. `965Y6XXXXXX`)
+    - Key ID generated when the key was created in the previous step (e.g. `798BXXXXXX`)
     - Private key - when you created the key you downloaded the Private key as .p8 file
     - Save it and check the `callback URL` - if it changed from what you have in your `Service ID` as `Return URL`, update it in Apple Developer
 <!-- ################################################## -->
@@ -431,7 +431,7 @@ To be able to use the firebase provider for Apple login, we need to do some conf
 <!-- ##########           Testing            ########## -->
 <!-- ################################################## -->
 # Testing
-First, you need to setup your environment. You will need to install patrol CLI using this command:
+First, you need to set up your environment. You will need to install Patrol CLI using this command:
 ```
 fvm dart pub global activate patrol_cli
 ```
@@ -442,11 +442,11 @@ make install
 ```
 
 ## Widget tests
-All widgets test should be put into `test/` folder.
+All widget tests should be put into the `test/` folder.
 
 You can run widget tests using:
 ```
-flutter test
+fvm flutter test
 ```
 
 or simply just by running:
@@ -455,7 +455,7 @@ make test
 ```
 
 ## Integration tests
-All widgets test should be put into `integration_test/tests/` folder.
+All integration tests should be put into `integration_test/tests/`.
 
 You can run integration tests using:
 ```
@@ -528,7 +528,7 @@ Press M (Shift + m) at the command line of flutter run to write the captured **S
 # Services
 ## Firebase setup
 ### Installing dependencies
-First, there are some requirements. You have to have [Firebase CLI](https://firebase.google.com/docs/cli#setup_update_cli) installed. Second, you need to have flutterfire CLI.
+First, there are some requirements. You need [Firebase CLI](https://firebase.google.com/docs/cli#setup_update_cli) installed, and you also need FlutterFire CLI.
 
 You can install it using:
 ```
@@ -543,7 +543,7 @@ make install
 ### Configuring the app
 You can now configure your project using:
 ```
-flutterfire configure
+fvm flutterfire configure
 ```
 
 #### Manual setup
@@ -554,8 +554,8 @@ AppName - Debug (Android)
 AppName (iOS)
 AppName (Web)
 ```
-2. Now you have to download the `google-services.json` file for Android and place them in a specific folder. In case you support multiple flavors (like develop, staging or production), put them in appropriate folders in `android/app/src/{develop,staging,production}/`.
-3. Pretty much the same applies to the iOS too. You have to download `GoogleServices-Info.plist` files, and put them into `ios/Runner/config/{develop,staging,production}/`.
+2. Now you have to download the `google-services.json` file for Android and place it at `android/app/google-services.json`.
+3. For iOS, download `GoogleService-Info.plist` files and put them into `ios/config/{develop,staging,production}/`.
 
 ## Firebase hosting setup
 1. Go to Firebase Console, under the `Build -> Hosting` and enable Firebase Hosting for the app.

@@ -12,7 +12,7 @@ const _microsoftStoreUrl = 'https://apps.microsoft.com/store/detail/';
 
 final _platformNotSupportedException = Exception('Platform not supported');
 
-/// This exception was thrown when page in store can't be launchd
+/// This exception is thrown when a page in the store can't be launched.
 class CantLaunchPageException implements Exception {
   CantLaunchPageException(this.message) : super();
 

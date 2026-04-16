@@ -69,7 +69,7 @@ Future<void> setupApp({required Flavor flavor}) async {
 
   // Setup Images Cache size
   PaintingBinding.instance.imageCache.maximumSize = 100; // Number of images to hold in cache
-  PaintingBinding.instance.imageCache.maximumSizeBytes = 200 << 20; // Equals to 250MB of cache
+  PaintingBinding.instance.imageCache.maximumSizeBytes = 200 << 20; // Equals to 200 MB of cache
 
   // Load Theme Mode from DB before starting app
   await providerContainer.read(themeModeProvider.future);
