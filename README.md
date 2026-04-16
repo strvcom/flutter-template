@@ -193,7 +193,7 @@ For Google sign in:
 ## Secrets
 API keys, APP IDs, service accounts and even release keystore are stored as secrets in this project. We are using `age` + `sops` libraries for this purpose.
 
-Each environment has its own secrets file `.env-production`, `.env-staging`, and `.env-development`, which overrides the default one `.env`.
+Each environment has its own secrets file `.env-production`, `.env-staging`, and `.env-development`, which override the default one `.env`.
 Those files are not placed in version control, rather are kept in secret and generated using encrypted (`.enc`) files.
 
 Secrets from encrypted files are also decrypted into xcode property files `.env.*.xcconfig`. Then properties like `$(APPLE_TEAM_ID)` can be used in `Info.plist` or `project.pbxproj`.
