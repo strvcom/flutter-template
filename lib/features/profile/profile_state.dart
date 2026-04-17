@@ -25,13 +25,11 @@ class ProfileStateNotifier extends _$ProfileStateNotifier with AutoDisposeStateH
   @override
   FutureOr<ProfileState> build() async {
     final currentUser = await ref.read(currentUserStateProvider.future);
-    final imageUrl = ref.read(getRandomImageUrlUseCaseProvider(width: 120, height: 120));
-
-    await Future<void>.delayed(const Duration(seconds: 2));
+    final imageUrl = currentUser?.imageUrl;
 
     return ProfileState(
       displayName: currentUser?.displayName ?? '',
-      imageUrl: imageUrl,
+      imageUrl: imageUrl ?? ref.read(getRandomImageUrlUseCaseProvider(width: 120, height: 120)),
       isSigningOut: false,
     );
   }
