@@ -44,6 +44,10 @@ Not every feature needs every file. Simple screens in the template only use `*_p
 - Stateful feature providers commonly use `@riverpod` classes ending in `StateNotifier`.
 - Shared notifier helpers live in `lib/core/riverpod/state_handler.dart`.
 - `AsyncValueExtension.mapState` and `mapContentState` from `lib/common/extension/async_value.dart` are the standard loading, error, and empty-state helpers.
+- Keep `@Riverpod(keepAlive: true)` for app-scoped state or long-lived services, not one-shot command providers.
+- For async use-case providers, prefer reading dependencies before the first `await` and continuing with captured objects instead of calling `ref` again later.
+- If an auto-dispose use-case truly must access `ref` after an async gap, keep it alive only for that operation with `final link = ref.keepAlive(); try { ... } finally { link.close(); }`.
+- If a page-scoped notifier resumes after `await`, guard UI-only follow-up work with `ref.mounted` before reading other providers or updating local state.
 
 ## One-Off Events
 - One-off UI events use `EventNotifier<T>` from `lib/core/riverpod/event_notifier.dart`.

@@ -9,10 +9,11 @@ part 'sign_out_use_case.g.dart';
 
 @riverpod
 Future<void> signOutUseCase(Ref ref) async {
+  final currentUserStateNotifier = ref.read(currentUserStateProvider.notifier);
   Flogger.d('[Authentication] Going to sign out current user');
 
   // Title: Clear current user state
-  await ref.read(currentUserStateProvider.notifier).updateCurrentUser(null);
+  await currentUserStateNotifier.updateCurrentUser(null);
 
   // Title: Try to sign out from Google - if any
   try {
