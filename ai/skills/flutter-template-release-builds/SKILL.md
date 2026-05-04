@@ -1,6 +1,6 @@
 ---
 name: flutter-template-release-builds
-description: Run post-merge release build steps for this repository, including Android tag-driven releases and sequential iOS IPA generation with archival for Transporter upload. Use after the release PR has been merged.
+description: Run post-merge release build steps for this repository, including Android tag-driven releases and sequential iOS IPA generation with archival for Transporter upload and Crashlytics deobfuscation. Use after the release PR has been merged.
 ---
 
 # Flutter Template Release Builds
@@ -23,6 +23,7 @@ It covers:
 - Android release triggering by tags
 - iOS IPA generation
 - archiving IPA files outside the cleaned build folder for Transporter upload
+- archiving Flutter obfuscation symbols from `build/app/outputs/symbols` for Crashlytics Dart stack-trace deobfuscation
 
 ## Android Release Flow
 Android releases are triggered by tags after the release branch work is merged.
@@ -45,7 +46,7 @@ iOS release builds are manual and should be done one flavor at a time.
 Why:
 - each make target runs `make clean`
 - each build clears the `build/` directory
-- IPA files must be copied out of `build/ios/ipa/` before the next build if you want to keep all generated artifacts
+- IPA files and Flutter obfuscation symbols must be copied out of `build/` before the next build if you want to keep all generated artifacts
 
 ## iOS Build Commands
 - develop:
@@ -55,8 +56,8 @@ Why:
 - production:
   - `make generateIosProductionIpa`
 
-## IPA Archival Workflow
-Immediately after each IPA build, archive the IPA out of `build/ios/ipa/` before starting the next build.
+## iOS Artifact Archival Workflow
+Immediately after each IPA build, archive the IPA out of `build/ios/ipa/` and Flutter obfuscation symbols out of `build/app/outputs/symbols` before starting the next build.
 
 Use:
 
@@ -77,18 +78,29 @@ release_artifacts/ios-ipa/<version>/
 
 and renames it to include the flavor plus the full `pubspec.yaml` version token, including the build number, so multiple release IPAs can coexist even when only the build number changes.
 
+It also copies the Flutter obfuscation symbols into:
+
+```text
+release_artifacts/flutter-symbols/<version>/<flavor>/
+```
+
+These are the `--split-debug-info` Dart symbol files used for Flutter Crashlytics deobfuscation. They are separate from iOS dSYMs and Android R8/ProGuard `mapping.txt`.
+
 ## Recommended iOS Sequence
 1. Build one flavor.
-2. Archive the IPA with the helper script.
+2. Archive the IPA and Flutter obfuscation symbols with the helper script.
 3. Build the next flavor.
-4. Archive that IPA too.
+4. Archive that IPA and its symbols too.
 5. Repeat until all required IPA files are archived.
 6. After all IPA files are safely archived, upload them manually through Transporter.
+7. Keep the archived Flutter obfuscation symbols with the release artifacts for Crashlytics deobfuscation.
 
 ## Watch Outs
 - Do not run multiple iOS make targets back-to-back without archiving.
 - Do not assume the last-built IPA still exists in `build/ios/ipa/`.
+- Do not assume the last-built Flutter obfuscation symbols still exist in `build/app/outputs/symbols`.
 - The archival helper expects exactly one IPA in `build/ios/ipa/` and fails loudly if multiple files are present.
+- The archival helper also expects `build/app/outputs/symbols` to exist and contain at least one file.
 - Transporter is the handoff point to App Store Connect.
 - Android and iOS release flows are intentionally different in this repo.
 - Transporter delivery is currently a manual step in this workflow, not an automated repo-integrated step.
@@ -97,5 +109,7 @@ and renames it to include the flavor plus the full `pubspec.yaml` version token,
 - Android tags match the intended workflows
 - each iOS IPA is generated one-at-a-time
 - each iOS IPA is copied out of the build folder
+- each iOS build's Flutter obfuscation symbols are copied out of the build folder
 - archived IPA filenames include flavor and the full app version token
+- archived Flutter obfuscation symbols are grouped by version and flavor
 - the team has a clean handoff path into Transporter
