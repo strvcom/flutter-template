@@ -53,7 +53,7 @@ if [ ! -d "$symbols_source_dir" ]; then
   exit 1
 fi
 
-if [ -z "$(find "$symbols_source_dir" -type f -maxdepth 1 | head -n 1)" ]; then
+if [ -z "$(find "$symbols_source_dir" -maxdepth 1 -type f | head -n 1)" ]; then
   echo "No Flutter obfuscation symbol files found in $symbols_source_dir" >&2
   exit 1
 fi
@@ -62,7 +62,7 @@ mkdir -p "$destination_dir"
 cp "$ipa_path" "$destination_path"
 rm -rf "$symbols_destination_dir"
 mkdir -p "$symbols_destination_dir"
-cp "$symbols_source_dir"/* "$symbols_destination_dir"/
+find "$symbols_source_dir" -maxdepth 1 -type f -exec cp {} "$symbols_destination_dir"/ \;
 
 echo "Archived IPA to $destination_path"
 echo "Archived Flutter obfuscation symbols to $symbols_destination_dir"
