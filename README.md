@@ -497,6 +497,7 @@ Canonical project files:
 - `.claude/CLAUDE.md` points Claude users at the shared project instructions.
 
 Reusable workflow guides live under `ai/skills/`:
+- `flutter-template-project-setup` for app identity, icons, splash, platform cleanup, Firebase/secrets decisions, and initial validation.
 - `flutter-template-feature-screen` for route and UI scaffolding.
 - `flutter-template-feature-data-flow` for full backend-backed features with DTOs, entities, use cases, and state wiring.
 - `flutter-template-upgrade` for Flutter and dependency upgrades.

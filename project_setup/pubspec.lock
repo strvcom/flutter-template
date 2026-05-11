@@ -85,10 +85,10 @@ packages:
     dependency: "direct dev"
     description:
       name: netglade_analysis
-      sha256: f63413816d93c4efea92f59599e47c0fee5882bfd3342b2d21e387fabf59765a
+      sha256: cba2f98bf4b61c95aacdd2a1c90653c745bb6a79e81aeec04266bbafeafd2c5d
       url: "https://pub.dev"
     source: hosted
-    version: "21.0.0"
+    version: "22.0.0"
   path:
     dependency: transitive
     description:

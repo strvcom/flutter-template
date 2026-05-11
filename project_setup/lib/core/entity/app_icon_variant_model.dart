@@ -3,8 +3,8 @@ import 'package:project_setup/core/entity/setup_platform.dart';
 class AppIconVariantModel {
   const AppIconVariantModel({
     required this.name,
-    this.labelColorHex = null,
-    this.labelText = null,
+    this.labelColorHex,
+    this.labelText,
     this.debugIndicator = false,
     this.iconShouldOverlayLabel = false,
     this.platforms = const [SetupPlatform.android, SetupPlatform.ios],

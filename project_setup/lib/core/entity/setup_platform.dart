@@ -6,5 +6,5 @@ enum SetupPlatform {
   macos,
   linux;
 
-  static List<SetupPlatform> all() => SetupPlatform.values.toList();
+  static const all = [android, ios, web, windows, macos, linux];
 }

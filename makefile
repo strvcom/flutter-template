@@ -2,6 +2,7 @@
 .PHONY: setup watch clean gen locale install integration_test test generateAndroidProductionAppBundle generateIosDevelopIpa generateIosStagingIpa generateIosProductionIpa generateWebProduction deployWeb runner_gen secretsDecrypt secretsEncrypt secretsClean
 
 setup: # Setup the project
+	@cd project_setup && fvm dart pub get
 	@fvm dart ./project_setup/lib/main.dart
 
 watch: # Run build_runner
