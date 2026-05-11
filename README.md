@@ -95,13 +95,13 @@ These are our four core values:
     - When removing the `Web` platform, remove also `firebase.json` and `.firebaserc`, `web_setup.dart`, `flutter_web_plugins` and `universal_html` from the `pubspec.yaml` file.
     - When removing all Desktop platforms, `window_manager` should be safe to remove from `pubspec.yaml` file.
     - Fix all the reported issues that the change caused.
-4. - [ ] Update `.github/CODEOWNERS` file.
-5. - [ ] Change the package and application name. This process is described in the [Application Rebranding](#application-rebranding) section.
-6. - [ ] Change the app icon. This process is described in the [Icons generation](./project_setup/README.md#app-icon-generation) section.
-7. - [ ] Change the app splash screen. This process is described in the [Splash screen generation](./project_setup/README.md#splash-screen-generation) section.
-8. - [ ] Set up Firebase or remove it completely. This process is described in the [Firebase setup](#firebase-setup) section.
-9. - [ ] Add your own secrets. This process is described in the [Secrets handling](#secrets)
-10. - [ ] Go through all the ToDo's inside the project, and react to them.
+5. - [ ] Update `.github/CODEOWNERS` file.
+6. - [ ] Change the package and application name. This process is described in the [Application Rebranding](#application-rebranding) section.
+7. - [ ] Change the app icon. This process is described in the [Icons generation](./project_setup/README.md#app-icon-generation) section.
+8. - [ ] Change the app splash screen. This process is described in the [Splash screen generation](./project_setup/README.md#splash-screen-generation) section.
+9. - [ ] Set up Firebase or remove it completely. This process is described in the [Firebase setup](#firebase-setup) section.
+10. - [ ] Add your own secrets. This process is described in the [Secrets handling](#secrets)
+11. - [ ] Go through all the ToDo's inside the project, and react to them.
 <!-- ################################################## -->
 
 
