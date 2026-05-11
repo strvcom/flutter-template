@@ -10,7 +10,7 @@ class Configuration {
     AppIconVariantModel(name: 'stagingDebug', labelColorHex: '#3C45D9', labelText: 'STG', debugIndicator: true),
     AppIconVariantModel(name: 'stagingRelease', labelColorHex: '#3C45D9', labelText: 'STG'),
     AppIconVariantModel(name: 'productionDebug', labelColorHex: '#68217A', labelText: 'PROD', debugIndicator: true),
-    AppIconVariantModel(name: 'productionRelease', platforms: SetupPlatform.all),
+    AppIconVariantModel(name: 'productionRelease', platforms: SetupPlatform.values),
   ];
 
   // Title: Splash Screen
