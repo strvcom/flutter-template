@@ -1,6 +1,3 @@
-// You can build this as executable file using the following command:
-//   dart compile exe setup.dart -o run-linux
-
 import 'package:interact/interact.dart';
 import 'package:project_setup/core/app_icon_generator.dart';
 import 'package:project_setup/core/app_rename.dart';
