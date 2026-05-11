@@ -3,27 +3,27 @@ import 'package:project_setup/core/entity/setup_platform.dart';
 
 class Configuration {
   // Title: App Icon
-  static final appIconBackgroundColor = '#F2F2F2';
-  static final appIconVariants = [
+  static const appIconBackgroundColor = '#F2F2F2';
+  static const appIconVariants = [
     AppIconVariantModel(name: 'developDebug', labelColorHex: '#37B73B', labelText: 'DEV', debugIndicator: true),
     AppIconVariantModel(name: 'developRelease', labelColorHex: '#37B73B', labelText: 'DEV'),
     AppIconVariantModel(name: 'stagingDebug', labelColorHex: '#3C45D9', labelText: 'STG', debugIndicator: true),
     AppIconVariantModel(name: 'stagingRelease', labelColorHex: '#3C45D9', labelText: 'STG'),
     AppIconVariantModel(name: 'productionDebug', labelColorHex: '#68217A', labelText: 'PROD', debugIndicator: true),
-    AppIconVariantModel(name: 'productionRelease', platforms: SetupPlatform.all()),
+    AppIconVariantModel(name: 'productionRelease', platforms: SetupPlatform.values),
   ];
 
   // Title: Splash Screen
-  static final splashScreenBackgroundColor = '#F2F2F2';
-  static final splashScreenDarkModeBackgroundColor = '#121618';
-  static final splashScreenPlatforms = [SetupPlatform.android, SetupPlatform.ios, SetupPlatform.web];
+  static const splashScreenBackgroundColor = '#F2F2F2';
+  static const splashScreenDarkModeBackgroundColor = '#121618';
+  static const splashScreenPlatforms = [SetupPlatform.android, SetupPlatform.ios, SetupPlatform.web];
 
   // Title: Rename
-  static final renameOldAppName = 'Flutter Template';
-  static final renameNewAppName = 'Flutter Template';
-  static final renameOldPackageName = 'com.strv.flutter.template';
-  static final renameNewPackageName = 'com.strv.flutter.template';
-  static final renameAppNameIncludedFiles = [
+  static const renameOldAppName = 'Flutter Template';
+  static const renameNewAppName = 'Flutter Template';
+  static const renameOldPackageName = 'com.strv.flutter.template';
+  static const renameNewPackageName = 'com.strv.flutter.template';
+  static const renameAppNameIncludedFiles = [
     'README.md',
     'AndroidManifest.xml',
     'Info.plist',
@@ -34,7 +34,7 @@ class Configuration {
     'app_en.arb',
     'app.dart',
   ];
-  static final renamePackageNameIncludedFiles = [
+  static const renamePackageNameIncludedFiles = [
     'pubspec.yaml',
     'android_play_store_distribution.yml',
     'build.gradle',

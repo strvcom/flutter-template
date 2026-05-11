@@ -6,6 +6,7 @@ import 'package:interact/interact.dart';
 import 'package:project_setup/configuration.dart';
 import 'package:project_setup/core/entity/setup_platform.dart';
 import 'package:project_setup/core/util/print.dart';
+import 'package:project_setup/core/util/process.dart';
 import 'package:project_setup/core/util/util.dart';
 
 Future<void> generateSplashScreen() async {
@@ -14,32 +15,40 @@ Future<void> generateSplashScreen() async {
   final progress = Progress(length: 5, size: 0.25, rightPrompt: (step) => ' $step / 5').interact();
   progress.increase(1);
 
-  // Title: Step 1 - Generate config file
-  final configFile = await _generateConfigFile();
-  progress.increase(1);
+  File? configFile;
+  File? splashImage;
+  try {
+    // Title: Step 1 - Generate config file
+    configFile = await _generateConfigFile();
+    progress.increase(1);
 
-  // Title: Step 2 - Generate image
-  final splashImage = await _generateSplashImage();
-  progress.increase(1);
+    // Title: Step 2 - Generate image
+    splashImage = await _generateSplashImage();
+    progress.increase(1);
 
-  // Title: Step 3 - Run flutter_native_splash
-  await Process.run(
-    'fvm',
-    [
-      'dart',
-      'pub',
-      'run',
-      'flutter_native_splash:create',
-      '--path',
-      '${getSetupDirectoryPath()}/tmp_splash_screen_config.yaml',
-    ],
-    workingDirectory: getProjectRootDirectoryPath(),
-  );
-  progress.increase(1);
-
-  // Title: Step 4 - Cleanup the temporary files
-  await configFile.delete();
-  await splashImage.delete();
+    // Title: Step 3 - Run flutter_native_splash
+    await runRequiredProcess(
+      'fvm',
+      [
+        'dart',
+        'pub',
+        'run',
+        'flutter_native_splash:create',
+        '--path',
+        '${getSetupDirectoryPath()}/tmp_splash_screen_config.yaml',
+      ],
+      workingDirectory: getProjectRootDirectoryPath(),
+    );
+    progress.increase(1);
+  } finally {
+    // Title: Step 4 - Cleanup the temporary files
+    if (configFile != null && await configFile.exists()) {
+      await configFile.delete();
+    }
+    if (splashImage != null && await splashImage.exists()) {
+      await splashImage.delete();
+    }
+  }
 
   progress.increase(1);
 
@@ -74,19 +83,26 @@ flutter_native_splash:
 /// Warning: The image must fit in a circle shape!!!
 Future<File> _generateSplashImage() async {
   // Load the input image file
-  File inputImageFile = File('${getSetupDirectoryPath()}/resources/splash.png');
-  List<int> inputImageBytes = await inputImageFile.readAsBytes();
-  Image inputImage = decodeImage(Uint8List.fromList(inputImageBytes))!;
-  Image outputImage = Image(width: 1152, height: 1152, numChannels: 4);
+  final inputImageFile = File('${getSetupDirectoryPath()}/resources/splash.png');
+  final inputImageBytes = await inputImageFile.readAsBytes();
+  final inputImage = decodeImage(Uint8List.fromList(inputImageBytes));
+  if (inputImage == null) {
+    throw StateError('Could not decode ${inputImageFile.path}.');
+  }
+  if (inputImage.width != 768 || inputImage.height != 768) {
+    throw StateError('Expected ${inputImageFile.path} to be 768x768, got ${inputImage.width}x${inputImage.height}.');
+  }
 
-  void _drawOverlayImage() {
-    final offset = 1152 ~/ 2 - 768 ~/ 2;
+  final outputImage = Image(width: 1152, height: 1152, numChannels: 4);
+
+  void drawOverlayImage() {
+    const offset = 1152 ~/ 2 - 768 ~/ 2;
     // Manually overlay the overlayImage onto the baseImage
-    for (int y = 0; y < inputImage.height; y++) {
-      for (int x = 0; x < inputImage.width; x++) {
+    for (var y = 0; y < inputImage.height; y++) {
+      for (var x = 0; x < inputImage.width; x++) {
         // Get the pixel color and alpha value
-        Pixel pixel = inputImage.getPixel(x, y);
-        num alpha = pixel.a;
+        final pixel = inputImage.getPixel(x, y);
+        final alpha = pixel.a;
 
         // If the pixel is fully transparent, fill it with the specified color
         if (alpha != 0) {
@@ -96,14 +112,14 @@ Future<File> _generateSplashImage() async {
     }
   }
 
-  Future<File> _saveImage(String fileName) async {
-    File outputImageFile = File('${getSetupDirectoryPath()}/$fileName');
+  Future<File> saveImage(String fileName) async {
+    final outputImageFile = File('${getSetupDirectoryPath()}/$fileName');
     await outputImageFile.writeAsBytes(encodePng(outputImage));
     return outputImageFile;
   }
 
   // Title: Generate Larger image (1152x1152 with image in center)
-  _drawOverlayImage();
+  drawOverlayImage();
 
-  return await _saveImage('tmp_splash.png');
+  return saveImage('tmp_splash.png');
 }

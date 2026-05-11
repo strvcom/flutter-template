@@ -13,4 +13,4 @@ dependencies:
 
 
 dev_dependencies:
-  netglade_analysis: ^21.0.0
+  netglade_analysis: ^22.0.0

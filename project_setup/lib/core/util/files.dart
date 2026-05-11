@@ -9,19 +9,41 @@ Future<void> findAndReplaceTextInDirectory({
   List<String>? excludedDirs,
   List<String>? includedFiles,
 }) async {
-  final directory = Directory.fromUri(Uri.parse(directoryPath));
+  final directory = Directory(directoryPath);
 
-  // List all entities (files and directories) in the current directory recursively
-  await for (FileSystemEntity entity in directory.list(recursive: true, followLinks: false)) {
-    // Check if the entity is a directory and if it's in the excludedDirs list
+  await _findAndReplaceTextInDirectory(
+    directory: directory,
+    searchString: searchString,
+    replaceString: replaceString,
+    excludedDirs: excludedDirs,
+    includedFiles: includedFiles,
+  );
+}
+
+Future<void> _findAndReplaceTextInDirectory({
+  required Directory directory,
+  required String searchString,
+  required String replaceString,
+  List<String>? excludedDirs,
+  List<String>? includedFiles,
+}) async {
+  await for (final entity in directory.list(followLinks: false)) {
     if (entity is Directory) {
-      if (excludedDirs != null && excludedDirs.contains(entity.path.split(Platform.pathSeparator).last)) {
+      if (_isExcludedDirectory(entity, excludedDirs)) {
         print('Skipping directory: ${entity.path}');
         continue;
       }
+
+      await _findAndReplaceTextInDirectory(
+        directory: entity,
+        searchString: searchString,
+        replaceString: replaceString,
+        excludedDirs: excludedDirs,
+        includedFiles: includedFiles,
+      );
+      continue;
     }
 
-    // Check if the entity is a file and if it's in the excludedFiles list
     if (entity is File) {
       if (includedFiles != null && includedFiles.contains(entity.path.split(Platform.pathSeparator).last)) {
         await findAndReplaceTextInFile(
@@ -42,7 +64,7 @@ Future<void> findAndReplaceTextInFile({
 }) async {
   try {
     // Read the file content
-    String content = await file.readAsString();
+    var content = await file.readAsString();
 
     // Check if the file contains the search string
     if (content.contains(searchString)) {
@@ -67,39 +89,75 @@ Future<void> findAndReplaceDirectoryPath({
   required String newStructure,
   List<String>? excludedDirs,
 }) async {
-  final directory = Directory.fromUri(Uri.parse(directoryPath));
+  final directory = Directory(directoryPath);
   final dirStillExists = await directory.exists();
   if (!dirStillExists) {
     return;
   }
 
-  // List all entities (files and directories) in the current directory recursively
-  await for (FileSystemEntity entity in directory.list(recursive: true, followLinks: false)) {
-    // Check if the entity is a directory
-    if (entity is Directory) {
-      try {
-        // Check if the entity is in the excludedDirs list
-        if (excludedDirs != null && excludedDirs.contains(entity.path.split(Platform.pathSeparator).last)) {
-          print('Skipping directory: ${entity.path}');
-          continue;
-        }
+  final normalizedOldStructure = oldStructure.replaceAll('/', Platform.pathSeparator);
+  final normalizedNewStructure = newStructure.replaceAll('/', Platform.pathSeparator);
+  final matchingDirectories = <Directory>[];
 
-        await findAndReplaceDirectoryPath(directoryPath: entity.path, oldStructure: oldStructure, newStructure: newStructure);
+  await _collectMatchingDirectories(
+    directory: directory,
+    normalizedOldStructure: normalizedOldStructure,
+    excludedDirs: excludedDirs,
+    matchingDirectories: matchingDirectories,
+  );
 
-        // Check if the directory path matches the old structure
-        final dirStillExists = await entity.exists();
-        if (entity.path.contains(oldStructure) && dirStillExists) {
-          // Create the new directory path
-          final newPath = entity.path.replaceFirst(oldStructure, newStructure);
-          await Directory(newPath).create(recursive: true);
-          await entity.rename(newPath);
-          printBrightBlue('Renamed directory: ${entity.path} to $newPath');
-        }
-        // ignore: avoid_catches_without_on_clauses
-      } catch (e) {
-        // Print an error message if an exception occurs
-        printBoldRed('Error processing directory ${entity.path}: $e');
+  matchingDirectories.sort((a, b) => b.path.length.compareTo(a.path.length));
+
+  for (final entity in matchingDirectories) {
+    try {
+      if (!await entity.exists()) {
+        continue;
       }
+
+      final newPath = entity.path.replaceFirst(normalizedOldStructure, normalizedNewStructure);
+      await Directory(newPath).parent.create(recursive: true);
+      await entity.rename(newPath);
+      printBrightBlue('Renamed directory: ${entity.path} to $newPath');
+      // ignore: avoid_catches_without_on_clauses
+    } catch (e) {
+      printBoldRed('Error processing directory ${entity.path}: $e');
     }
   }
+}
+
+Future<void> _collectMatchingDirectories({
+  required Directory directory,
+  required String normalizedOldStructure,
+  required List<Directory> matchingDirectories,
+  List<String>? excludedDirs,
+}) async {
+  await for (final entity in directory.list(followLinks: false)) {
+    if (entity is! Directory) {
+      continue;
+    }
+
+    if (_isExcludedDirectory(entity, excludedDirs)) {
+      print('Skipping directory: ${entity.path}');
+      continue;
+    }
+
+    if (entity.path.contains(normalizedOldStructure)) {
+      matchingDirectories.add(entity);
+    }
+
+    await _collectMatchingDirectories(
+      directory: entity,
+      normalizedOldStructure: normalizedOldStructure,
+      excludedDirs: excludedDirs,
+      matchingDirectories: matchingDirectories,
+    );
+  }
+}
+
+bool _isExcludedDirectory(Directory directory, List<String>? excludedDirs) {
+  if (excludedDirs == null) {
+    return false;
+  }
+
+  return excludedDirs.contains(directory.path.split(Platform.pathSeparator).last);
 }

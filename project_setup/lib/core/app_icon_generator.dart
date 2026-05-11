@@ -7,6 +7,7 @@ import 'package:project_setup/configuration.dart';
 import 'package:project_setup/core/entity/app_icon_variant_model.dart';
 import 'package:project_setup/core/entity/setup_platform.dart';
 import 'package:project_setup/core/util/print.dart';
+import 'package:project_setup/core/util/process.dart';
 import 'package:project_setup/core/util/util.dart';
 
 Future<void> generateAppIcons() async {
@@ -17,43 +18,51 @@ Future<void> generateAppIcons() async {
     size: 0.25,
     rightPrompt: (step) => ' $step / ${Configuration.appIconVariants.length * 2}',
   ).interact();
-  progress.increase(1);
 
   for (final appIconVariant in Configuration.appIconVariants) {
-    // Title: Step 1 - Generate config file for variant
-    final iconsLauncherConfigFile = await _generateConfigFile(appIconVariant: appIconVariant);
+    File? iconsLauncherConfigFile;
+    var icons = <File>[];
 
-    // Title: Step 2 - Generate icon for variant
-    final icons = await _generateIcons(
-      labelColorHex: appIconVariant.labelColorHex,
-      labelText: appIconVariant.labelText,
-      displayDebugIndicator: appIconVariant.debugIndicator,
-      iconShouldOverlayLabel: appIconVariant.iconShouldOverlayLabel,
-    );
+    try {
+      // Title: Step 1 - Generate config file for variant
+      iconsLauncherConfigFile = await _generateConfigFile(appIconVariant: appIconVariant);
 
-    progress.increase(1);
+      // Title: Step 2 - Generate icon for variant
+      icons = await _generateIcons(
+        labelColorHex: appIconVariant.labelColorHex,
+        labelText: appIconVariant.labelText,
+        displayDebugIndicator: appIconVariant.debugIndicator,
+        iconShouldOverlayLabel: appIconVariant.iconShouldOverlayLabel,
+      );
 
-    // Title: Step 3 - Run icons_launcher
-    await Process.run(
-      'fvm',
-      [
-        'dart',
-        'pub',
-        'global',
-        'run',
-        'icons_launcher:create',
-        '--flavor',
-        '${appIconVariant.name}',
-        '--path',
-        '${getSetupDirectoryPath()}/tmp_icons_launcher_config.yaml',
-      ],
-      workingDirectory: getProjectRootDirectoryPath(),
-    );
+      progress.increase(1);
 
-    // Title: Step 4 - Cleanup the temporary files
-    await iconsLauncherConfigFile.delete();
-    for (final icon in icons) {
-      await icon.delete();
+      // Title: Step 3 - Run icons_launcher
+      await runRequiredProcess(
+        'fvm',
+        [
+          'dart',
+          'pub',
+          'global',
+          'run',
+          'icons_launcher:create',
+          '--flavor',
+          appIconVariant.name,
+          '--path',
+          '${getSetupDirectoryPath()}/tmp_icons_launcher_config.yaml',
+        ],
+        workingDirectory: getProjectRootDirectoryPath(),
+      );
+    } finally {
+      // Title: Step 4 - Cleanup the temporary files
+      if (iconsLauncherConfigFile != null && await iconsLauncherConfigFile.exists()) {
+        await iconsLauncherConfigFile.delete();
+      }
+      for (final icon in icons) {
+        if (await icon.exists()) {
+          await icon.delete();
+        }
+      }
     }
 
     progress.increase(1);
@@ -109,14 +118,21 @@ Future<List<File>> _generateIcons({
   required bool iconShouldOverlayLabel,
 }) async {
   // Load the input image file
-  File inputImageFile = File('${getSetupDirectoryPath()}/resources/icon.png');
-  File fontFile = File('${getSetupDirectoryPath()}/resources/exo_bold.zip');
-  List<int> inputImageBytes = await inputImageFile.readAsBytes();
-  Image inputImage = decodeImage(Uint8List.fromList(inputImageBytes))!;
-  Image outputImage = Image(width: 1500, height: 1500, numChannels: 4);
+  final inputImageFile = File('${getSetupDirectoryPath()}/resources/icon.png');
+  final fontFile = File('${getSetupDirectoryPath()}/resources/exo_bold.zip');
+  final inputImageBytes = await inputImageFile.readAsBytes();
+  final inputImage = decodeImage(Uint8List.fromList(inputImageBytes));
+  if (inputImage == null) {
+    throw StateError('Could not decode ${inputImageFile.path}.');
+  }
+  if (inputImage.width != 900 || inputImage.height != 900) {
+    throw StateError('Expected ${inputImageFile.path} to be 900x900, got ${inputImage.width}x${inputImage.height}.');
+  }
+
+  var outputImage = Image(width: 1500, height: 1500, numChannels: 4);
   final font = BitmapFont.fromZip(await fontFile.readAsBytes());
 
-  void _drawLabel() {
+  void drawLabel() {
     // Draw label rectangle
     drawLine(outputImage, x1: 0, y1: 1240, x2: 1500, y2: 1240, color: colorFromHex(labelColorHex!), thickness: 530);
 
@@ -142,15 +158,15 @@ Future<List<File>> _generateIcons({
     }
   }
 
-  void _drawOverlayImage() {
+  void drawOverlayImage() {
     final widthOffset = 1500 ~/ 2 - inputImage.width ~/ 2;
     final heightOffset = 1500 ~/ 2 - inputImage.height ~/ 2;
     // Manually overlay the overlayImage onto the baseImage
-    for (int y = 0; y < inputImage.height; y++) {
-      for (int x = 0; x < inputImage.width; x++) {
+    for (var y = 0; y < inputImage.height; y++) {
+      for (var x = 0; x < inputImage.width; x++) {
         // Get the pixel color and alpha value
-        Pixel pixel = inputImage.getPixel(x, y);
-        num alpha = pixel.a;
+        final pixel = inputImage.getPixel(x, y);
+        final alpha = pixel.a;
 
         // If the pixel is fully transparent, fill it with the specified color
         if (alpha != 0) {
@@ -160,32 +176,32 @@ Future<List<File>> _generateIcons({
     }
   }
 
-  Future<File> _saveImage(String fileName) async {
-    File outputImageFile = File('${getSetupDirectoryPath()}/$fileName');
+  Future<File> saveImage(String fileName) async {
+    final outputImageFile = File('${getSetupDirectoryPath()}/$fileName');
     await outputImageFile.writeAsBytes(encodePng(outputImage));
     return outputImageFile;
   }
 
   // Title: Step 1 - Generate Android Foreground image (1500x1500 - transparent background)
-  if (!iconShouldOverlayLabel) _drawOverlayImage();
-  if (labelColorHex != null && labelText != null) _drawLabel();
-  if (iconShouldOverlayLabel) _drawOverlayImage();
+  if (!iconShouldOverlayLabel) drawOverlayImage();
+  if (labelColorHex != null && labelText != null) drawLabel();
+  if (iconShouldOverlayLabel) drawOverlayImage();
 
-  final androidForegroundFile = await _saveImage('tmp_app_icon_android_foreground.png');
+  final androidForegroundFile = await saveImage('tmp_app_icon_android_foreground.png');
 
   // Title: Step 2 - Generate Android image (1500x1500 - filled background)
   fill(outputImage, color: colorFromHex(Configuration.appIconBackgroundColor));
-  if (!iconShouldOverlayLabel) _drawOverlayImage();
-  if (labelColorHex != null && labelText != null) _drawLabel();
-  if (iconShouldOverlayLabel) _drawOverlayImage();
+  if (!iconShouldOverlayLabel) drawOverlayImage();
+  if (labelColorHex != null && labelText != null) drawLabel();
+  if (iconShouldOverlayLabel) drawOverlayImage();
 
-  final androidFile = await _saveImage('tmp_app_icon_android.png');
+  final androidFile = await saveImage('tmp_app_icon_android.png');
 
   // Title: Step 3 - Generate Cropped image (1024x1024 - filled background)
-  int space = (1500 - 1024) ~/ 2;
+  const space = (1500 - 1024) ~/ 2;
   outputImage = copyCrop(outputImage, x: space, y: space, width: 1024, height: 1024);
 
-  final croppedFile = await _saveImage('tmp_app_icon_cropped.png');
+  final croppedFile = await saveImage('tmp_app_icon_cropped.png');
 
   return [androidForegroundFile, androidFile, croppedFile];
 }

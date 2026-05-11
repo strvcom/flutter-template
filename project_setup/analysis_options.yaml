@@ -36,6 +36,8 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
+    avoid_print: false
+    avoid_slow_async_io: false
     sort_pub_dependencies: false
     require_trailing_commas: false
     avoid_positional_boolean_parameters: false

@@ -8,7 +8,7 @@ This Dart program is designed to streamline the initial setup process for a new 
 ## App Icon Generation
 
 ### Step 1
-Get your app icon from a designer and save it as `/project_setup/resources/icon.png`. This icon should be 750x750 with a transparent background.
+Get your app icon from a designer and save it as `/project_setup/resources/icon.png`. This icon must be 900x900 with a transparent background.
 
 ### Step 2
 All you need to do now is set the correct configuration in `/project_setup/lib/configuration.dart`.
@@ -35,3 +35,9 @@ All you need to do is set the correct application name and package name configur
 
 ### Step 2
 Run `make setup` in the project root, then select the rename option.
+
+## Validation Notes
+
+- `make setup` runs `dart pub get` for this package before opening the menu.
+- The icon and splash generators fail early when the input PNG has the wrong dimensions.
+- External generation commands are checked; setup stops if `icons_launcher` or `flutter_native_splash` fails.

@@ -86,22 +86,29 @@ These are our four core values:
 <!-- ################################################## -->
 # First steps
 
+## Manual steps
+
 1. - [ ] Create a new repo from this template.
 2. - [ ] Set up the GIT settings according to your team's needs.
 3. - [ ] Clone the created repository and open it through File -> Open Workspace from File... -> `flutter.code-workspace`. Open.../Open folder... won't work ⚠️
-4. - [ ] Remove any unused platforms (Android, iOS, web, Windows, Linux (+snap), macOS)
+4. - [ ] Update `.github/CODEOWNERS` file.
+5. - [ ] Go through all the ToDo's inside the project, and react to them.
+6. - [ ] Add your own secrets. This process is described in the [Secrets handling](#secrets)
+
+## Automated steps
+
+The following steps can be completed or coordinated by `ai/skills/flutter-template-project-setup`.
+
+1. - [ ] Remove any unused platforms (Android, iOS, web, Windows, Linux (+snap), macOS)
     - Remove them from the folder structure of the template.
     - Remove them from the `AppPlatform` class.
     - When removing the `Web` platform, remove also `firebase.json` and `.firebaserc`, `web_setup.dart`, `flutter_web_plugins` and `universal_html` from the `pubspec.yaml` file.
     - When removing all Desktop platforms, `window_manager` should be safe to remove from `pubspec.yaml` file.
     - Fix all the reported issues that the change caused.
-4. - [ ] Update `.github/CODEOWNERS` file.
-5. - [ ] Change the package and application name. This process is described in the [Application Rebranding](#application-rebranding) section.
-6. - [ ] Change the app icon. This process is described in the [Icons generation](./project_setup/README.md#app-icon-generation) section.
-7. - [ ] Change the app splash screen. This process is described in the [Splash screen generation](./project_setup/README.md#splash-screen-generation) section.
-8. - [ ] Set up Firebase or remove it completely. This process is described in the [Firebase setup](#firebase-setup) section.
-9. - [ ] Add your own secrets. This process is described in the [Secrets handling](#secrets)
-10. - [ ] Go through all the ToDo's inside the project, and react to them.
+2. - [ ] Change the package and application name. This process is described in the [Application Rebranding](./project_setup/README.md#application-rebranding) section.
+3. - [ ] Change the app icon. This process is described in the [Icons generation](./project_setup/README.md#app-icon-generation) section.
+4. - [ ] Change the app splash screen. This process is described in the [Splash screen generation](./project_setup/README.md#splash-screen-generation) section.
+5. - [ ] Set up Firebase or remove it completely. This process is described in the [Firebase setup](#firebase-setup) section.
 <!-- ################################################## -->
 
 
@@ -497,6 +504,7 @@ Canonical project files:
 - `.claude/CLAUDE.md` points Claude users at the shared project instructions.
 
 Reusable workflow guides live under `ai/skills/`:
+- `flutter-template-project-setup` for app identity, icons, splash, platform cleanup, Firebase/secrets decisions, and initial validation.
 - `flutter-template-feature-screen` for route and UI scaffolding.
 - `flutter-template-feature-data-flow` for full backend-backed features with DTOs, entities, use cases, and state wiring.
 - `flutter-template-upgrade` for Flutter and dependency upgrades.
