@@ -62,13 +62,13 @@ Immediately after each IPA build, archive the IPA out of `build/ios/ipa/` and Fl
 Use:
 
 ```bash
-sh ai/skills/release-builds/scripts/archive_ios_ipa.sh <flavor>
+ai/skills/release-builds/scripts/archive_ios_ipa.sh <flavor>
 ```
 
 Examples:
-- `sh ai/skills/release-builds/scripts/archive_ios_ipa.sh develop`
-- `sh ai/skills/release-builds/scripts/archive_ios_ipa.sh staging`
-- `sh ai/skills/release-builds/scripts/archive_ios_ipa.sh production`
+- `ai/skills/release-builds/scripts/archive_ios_ipa.sh develop`
+- `ai/skills/release-builds/scripts/archive_ios_ipa.sh staging`
+- `ai/skills/release-builds/scripts/archive_ios_ipa.sh production`
 
 The script copies the generated IPA into:
 

@@ -82,9 +82,13 @@ if ! command -v git >/dev/null 2>&1; then
     exit 1
 fi
 if ! command -v fvm >/dev/null 2>&1; then
-    echo "ERROR: fvm not found on PATH. Install it with: dart pub global activate fvm" >&2
-    echo "       (or see the project README / Makefile 'install' target.)" >&2
-    exit 1
+    if [ -x "$HOME/.pub-cache/bin/fvm" ]; then
+        export PATH="$HOME/.pub-cache/bin:$PATH"
+    else
+        echo "ERROR: fvm not found on PATH. Install it with: dart pub global activate fvm" >&2
+        echo "       (or see the project README / Makefile 'install' target.)" >&2
+        exit 1
+    fi
 fi
 
 REPO_ROOT="$(git rev-parse --show-toplevel)"

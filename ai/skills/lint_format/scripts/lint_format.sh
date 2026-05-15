@@ -28,9 +28,6 @@ Flags:
 EOF
 }
 
-REPO_ROOT="$(git rev-parse --show-toplevel)"
-cd "$REPO_ROOT"
-
 mode="auto"
 check_format=false
 run_format=true
@@ -65,10 +62,22 @@ for arg in "$@"; do
     esac
 done
 
-if ! command -v fvm >/dev/null 2>&1; then
-    echo "fvm not found. Install FVM or make sure it is available on PATH."
+if ! command -v git >/dev/null 2>&1; then
+    echo "git not found on PATH."
     exit 1
 fi
+
+if ! command -v fvm >/dev/null 2>&1; then
+    if [[ -x "$HOME/.pub-cache/bin/fvm" ]]; then
+        export PATH="$HOME/.pub-cache/bin:$PATH"
+    else
+        echo "fvm not found. Install FVM with 'dart pub global activate fvm' or run 'make install'."
+        exit 1
+    fi
+fi
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT"
 
 is_generated_dart() {
     local file="$1"

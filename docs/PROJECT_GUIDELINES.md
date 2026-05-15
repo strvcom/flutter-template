@@ -100,11 +100,21 @@ Not every feature needs every file. Simple screens in the template only use `*_p
 ## FVM And Commands
 - Flutter is managed with FVM. The pinned version lives in `.fvmrc`.
 - Prefer `fvm flutter ...` and `fvm dart ...` commands over machine-global Flutter commands.
+- If a non-interactive shell cannot find `fvm`, check `$HOME/.pub-cache/bin/fvm`; repo-local skill scripts use that fallback when available.
 - Common commands:
   - `make gen`
   - `make watch`
   - `fvm flutter analyze`
   - `fvm flutter test`
+
+## AI Workflow Tooling
+- Repo-local skills live under `ai/skills/` and Claude Code symlinks live under `.claude/skills/`.
+- Skill scripts should be executable and syntax-check clean before relying on them:
+  - `bash -n ai/skills/build-verify/scripts/verify.sh`
+  - `bash -n ai/skills/lint_format/scripts/lint_format.sh`
+  - `sh -n ai/skills/release-builds/scripts/archive_ios_ipa.sh`
+- PR-related skills use GitHub CLI. Install it locally and authenticate with `gh auth login`; verify with `gh auth status`.
+- If `gh auth status` reports an invalid `GITHUB_TOKEN` or `GH_TOKEN`, clear or replace that environment variable so the stored GitHub CLI login can be used.
 
 ## Flutter And Package Upgrades
 - Treat `.fvmrc` and `pubspec.yaml` as the source of truth for SDK and package versions.

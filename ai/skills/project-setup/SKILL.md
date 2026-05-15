@@ -36,9 +36,36 @@ Use this skill when preparing a new app from this template or reviewing whether 
 5. If platform support changes, run the Platform Cleanup Workflow below.
 6. If Firebase support changes, run the Firebase Workflow below.
 7. If secrets or signing material are needed, use the `secrets-bootstrap` workflow.
-8. Update the README First steps checklist to mark any completed setup items with `[x]`.
-9. Run `make gen` after setup changes that affect routes, localization, generated assets, or annotations.
-10. Validate with `fvm flutter analyze` and the relevant tests.
+8. Run the AI Workflow Tooling Check below so repo-local skills and scripts are usable.
+9. Update the README First steps checklist to mark any completed setup items with `[x]`.
+10. Run `make gen` after setup changes that affect routes, localization, generated assets, or annotations.
+11. Validate with `fvm flutter analyze` and the relevant tests.
+
+## AI Workflow Tooling Check
+Use this when setting up a new clone, preparing AI workflows, or debugging skill scripts.
+
+1. Install project tooling:
+   - Run `make install` to activate FVM, install the pinned Flutter SDK, and install project CLIs.
+   - Ensure `fvm` is available either on `PATH` or at `$HOME/.pub-cache/bin/fvm`. Repo scripts fall back to that path when possible.
+2. Install and authenticate GitHub CLI when PR workflows are needed:
+   - Install `gh` with the platform package manager, for example `brew install gh` on macOS.
+   - Run `gh auth login --hostname github.com --git-protocol ssh --web`.
+   - Run `gh auth status` and fix any invalid `GITHUB_TOKEN` / `GH_TOKEN` environment variables if they override the stored login.
+3. Verify repo-local script permissions and syntax:
+   - `test -x ai/skills/build-verify/scripts/verify.sh`
+   - `test -x ai/skills/lint_format/scripts/lint_format.sh`
+   - `test -x ai/skills/release-builds/scripts/archive_ios_ipa.sh`
+   - `bash -n ai/skills/build-verify/scripts/verify.sh`
+   - `bash -n ai/skills/lint_format/scripts/lint_format.sh`
+   - `sh -n ai/skills/release-builds/scripts/archive_ios_ipa.sh`
+4. Verify Claude discovery wiring when Claude Code support is needed:
+   - every `ai/skills/<name>/SKILL.md` has a matching `.claude/skills/<name>` symlink, except folder/name aliases such as `lint_format` -> `lint-format`
+   - every skill has a matching `.claude/commands/<name>.md`
+   - each symlink resolves to a `SKILL.md`
+5. Run lightweight help checks:
+   - `ai/skills/build-verify/scripts/verify.sh --help`
+   - `ai/skills/lint_format/scripts/lint_format.sh --help`
+   - `ai/skills/release-builds/scripts/archive_ios_ipa.sh` should print usage and exit non-zero when no flavor is supplied.
 
 ## Platform Cleanup Workflow
 Use this workflow to automate step 4 from the README First steps checklist.

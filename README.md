@@ -507,11 +507,25 @@ Reusable workflow guides live under `ai/skills/`:
 - `project-setup` for app identity, icons, splash, platform cleanup, Firebase/secrets decisions, and initial validation.
 - `feature-screen` for route and UI scaffolding.
 - `feature-data-flow` for full backend-backed features with DTOs, entities, use cases, and state wiring.
+- `prd`, `techspec`, `tasks`, `implement`, `implement-tasks-sequence`, and `start-job` for the structured spec-to-implementation pipeline.
+- `build-verify` and `lint-format` for repo-local verification scripts.
+- `create-pr` and `review-pr-comments` for GitHub PR workflows.
 - `upgrade` for Flutter and dependency upgrades.
 - `release-prepare` for version bump, release notes, release branch, and PR preparation.
 - `release-builds` for post-merge Android tags plus manual iOS IPA generation and archival.
 - `secrets-bootstrap` for safe handling of encrypted secrets and signing material.
 - `pr-review` for bug-first PR and diff review.
+
+AI workflow prerequisites:
+- Run `make install` so FVM and project CLIs are installed. If your shell cannot find `fvm`, make sure `$HOME/.pub-cache/bin` is on `PATH`.
+- Install GitHub CLI for PR workflows (`brew install gh` on macOS) and authenticate with `gh auth login --hostname github.com --git-protocol ssh --web`.
+- Verify GitHub CLI with `gh auth status`. If an invalid `GITHUB_TOKEN` or `GH_TOKEN` is set in your environment, clear or replace it so the stored login can be used.
+- Repo-local scripts should be executable and syntax-check clean:
+  - `ai/skills/build-verify/scripts/verify.sh --help`
+  - `ai/skills/lint_format/scripts/lint_format.sh --help`
+  - `bash -n ai/skills/build-verify/scripts/verify.sh`
+  - `bash -n ai/skills/lint_format/scripts/lint_format.sh`
+  - `sh -n ai/skills/release-builds/scripts/archive_ios_ipa.sh`
 
 Recommended usage:
 - When working with an AI agent, explicitly mention the workflow you want to use, for example `Use the feature-data-flow skill`.
