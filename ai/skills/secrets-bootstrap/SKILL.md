@@ -1,5 +1,5 @@
 ---
-name: flutter-template-secrets-bootstrap
+name: secrets-bootstrap
 description: Safely work with encrypted secrets, environment files, and signing material in this repository. Use when a task requires loading, decrypting, validating, or explaining the repo's secrets and signing setup.
 ---
 

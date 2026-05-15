@@ -1,5 +1,5 @@
 ---
-name: flutter-template-pr-review
+name: pr-review
 description: Review pull requests and diffs in this Flutter repository with a bug-finding mindset. Use when asked to review changes, review a PR, audit a diff, or check for regressions, missing tests, release risks, or architecture mismatches.
 ---
 

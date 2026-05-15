@@ -3,7 +3,7 @@
 set -eu
 
 if [ "$#" -ne 1 ]; then
-  echo "Usage: sh ai/skills/flutter-template-release-builds/scripts/archive_ios_ipa.sh <develop|staging|production>" >&2
+  echo "Usage: sh ai/skills/release-builds/scripts/archive_ios_ipa.sh <develop|staging|production>" >&2
   exit 1
 fi
 

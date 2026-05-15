@@ -1,5 +1,5 @@
 ---
-name: flutter-template-project-setup
+name: project-setup
 description: Customize a new project created from this Flutter template, including app identity, package name, platform cleanup, icons, splash screen, Firebase/secrets decisions, setup tool execution, code generation, and validation.
 ---
 
@@ -35,7 +35,7 @@ Use this skill when preparing a new app from this template or reviewing whether 
 4. Run `make setup` from the repository root and select the needed setup operation.
 5. If platform support changes, run the Platform Cleanup Workflow below.
 6. If Firebase support changes, run the Firebase Workflow below.
-7. If secrets or signing material are needed, use the `flutter-template-secrets-bootstrap` workflow.
+7. If secrets or signing material are needed, use the `secrets-bootstrap` workflow.
 8. Update the README First steps checklist to mark any completed setup items with `[x]`.
 9. Run `make gen` after setup changes that affect routes, localization, generated assets, or annotations.
 10. Validate with `fvm flutter analyze` and the relevant tests.

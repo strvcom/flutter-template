@@ -1,5 +1,5 @@
 ---
-name: flutter-template-upgrade
+name: upgrade
 description: Upgrade Flutter and package dependencies in this repository while keeping .fvmrc, pubspec.yaml, code generation, CI, and tests aligned. Use when bumping Flutter, Dart constraints, direct dependencies, or generator toolchains.
 ---
 

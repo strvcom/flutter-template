@@ -43,12 +43,39 @@ Use this file as the entrypoint for automated work in this repository.
 - If you learn a stable, repo-specific convention while working, update `docs/PROJECT_OVERVIEW.md` or `docs/PROJECT_GUIDELINES.md` instead of adding duplicate instructions elsewhere.
 
 ## Reusable Workflows
-- Shared AI workflow guides live under `ai/skills/`.
-- Use them for repeatable procedures such as:
-  - creating a new feature screen
-  - building a full data-backed feature
-  - upgrading Flutter and dependencies
-  - preparing a release branch and PR
-  - running post-merge release builds
-  - working with encrypted secrets and signing material
-  - reviewing pull requests and diffs
+Repeatable procedures live as skills under `ai/skills/<name>/SKILL.md`. Each
+skill has YAML frontmatter (`name:`, `description:`) so it can be auto-discovered
+by AI tools that support skills.
+
+Existing skills:
+- `project-setup` — customize a new app from this template (identity, platforms, icons, splash, Firebase/secrets, validation)
+- `feature-screen` — add a new route / screen using the existing feature pattern
+- `feature-data-flow` — build a full backend-backed feature (DTOs, entities, use cases, state, UI)
+- `upgrade` — upgrade Flutter SDK and package dependencies
+- `release-prepare` — version bump, release notes, release branch, release PR
+- `release-builds` — post-merge Android tags and iOS IPA generation + archival
+- `secrets-bootstrap` — safe handling of encrypted secrets and signing material
+- `pr-review` — bug-first review of branches / diffs / PRs
+
+### How AI tools find these skills
+- **Codex** reads this `AGENTS.md` and the referenced `ai/skills/<name>/SKILL.md`
+  files. When delegating, mention the workflow by name, e.g. *"use the
+  feature-data-flow workflow"*.
+- **Claude Code** auto-discovers skills through `.claude/skills/<name>` symlinks
+  that point at `ai/skills/<name>/`. Each skill is also exposed as a slash
+  command at `.claude/commands/<name>.md`, so `/feature-screen`, `/pr-review`,
+  `/release-prepare`, etc. work as explicit invocations.
+
+### Creating a new skill
+When adding a new repeatable workflow, complete all four steps so both Codex and
+Claude can use it:
+1. **Author the skill.** Create `ai/skills/<name>/SKILL.md` with YAML frontmatter
+   (`name:` matching the folder, `description:` explaining when to use it) and
+   the workflow body.
+2. **Mention it for Codex.** Add the skill to the "Existing skills" list above.
+3. **Expose it to Claude Code (auto-discovery).** Add a symlink:
+   `ln -s ../../ai/skills/<name> .claude/skills/<name>`
+4. **Add a slash command.** Create `.claude/commands/<name>.md` using one of the
+   existing commands as a template — a short frontmatter (`description`,
+   `argument-hint`) and a one-line body that invokes the skill, followed by
+   `$ARGUMENTS`.

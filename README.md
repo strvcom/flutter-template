@@ -97,7 +97,7 @@ These are our four core values:
 
 ## Automated steps
 
-The following steps can be completed or coordinated by `ai/skills/flutter-template-project-setup`.
+The following steps can be completed or coordinated by `ai/skills/project-setup`.
 
 1. - [ ] Remove any unused platforms (Android, iOS, web, Windows, Linux (+snap), macOS)
     - Remove them from the folder structure of the template.
@@ -504,17 +504,17 @@ Canonical project files:
 - `.claude/CLAUDE.md` points Claude users at the shared project instructions.
 
 Reusable workflow guides live under `ai/skills/`:
-- `flutter-template-project-setup` for app identity, icons, splash, platform cleanup, Firebase/secrets decisions, and initial validation.
-- `flutter-template-feature-screen` for route and UI scaffolding.
-- `flutter-template-feature-data-flow` for full backend-backed features with DTOs, entities, use cases, and state wiring.
-- `flutter-template-upgrade` for Flutter and dependency upgrades.
-- `flutter-template-release-prepare` for version bump, release notes, release branch, and PR preparation.
-- `flutter-template-release-builds` for post-merge Android tags plus manual iOS IPA generation and archival.
-- `flutter-template-secrets-bootstrap` for safe handling of encrypted secrets and signing material.
-- `flutter-template-pr-review` for bug-first PR and diff review.
+- `project-setup` for app identity, icons, splash, platform cleanup, Firebase/secrets decisions, and initial validation.
+- `feature-screen` for route and UI scaffolding.
+- `feature-data-flow` for full backend-backed features with DTOs, entities, use cases, and state wiring.
+- `upgrade` for Flutter and dependency upgrades.
+- `release-prepare` for version bump, release notes, release branch, and PR preparation.
+- `release-builds` for post-merge Android tags plus manual iOS IPA generation and archival.
+- `secrets-bootstrap` for safe handling of encrypted secrets and signing material.
+- `pr-review` for bug-first PR and diff review.
 
 Recommended usage:
-- When working with an AI agent, explicitly mention the workflow you want to use, for example `Use the flutter-template-feature-data-flow skill`.
+- When working with an AI agent, explicitly mention the workflow you want to use, for example `Use the feature-data-flow skill`.
 - Keep long-term project rules in `AGENTS.md` and the docs, and keep repeatable procedures in `ai/skills/`.
 - Treat the repo-local workflow guides as project-specific assets that should evolve with the template.
 

@@ -1,5 +1,5 @@
 ---
-name: flutter-template-release-builds
+name: release-builds
 description: Run post-merge release build steps for this repository, including Android tag-driven releases and sequential iOS IPA generation with archival for Transporter upload and Crashlytics deobfuscation. Use after the release PR has been merged.
 ---
 
@@ -14,7 +14,7 @@ Use this skill only after the release PR has been merged.
 - `pubspec.yaml`
 - `makefile`
 - `.github/workflows/`
-- `ai/skills/flutter-template-release-builds/scripts/archive_ios_ipa.sh`
+- `ai/skills/release-builds/scripts/archive_ios_ipa.sh`
 
 ## Goal
 This skill is for the post-merge release-build phase.
@@ -62,13 +62,13 @@ Immediately after each IPA build, archive the IPA out of `build/ios/ipa/` and Fl
 Use:
 
 ```bash
-sh ai/skills/flutter-template-release-builds/scripts/archive_ios_ipa.sh <flavor>
+sh ai/skills/release-builds/scripts/archive_ios_ipa.sh <flavor>
 ```
 
 Examples:
-- `sh ai/skills/flutter-template-release-builds/scripts/archive_ios_ipa.sh develop`
-- `sh ai/skills/flutter-template-release-builds/scripts/archive_ios_ipa.sh staging`
-- `sh ai/skills/flutter-template-release-builds/scripts/archive_ios_ipa.sh production`
+- `sh ai/skills/release-builds/scripts/archive_ios_ipa.sh develop`
+- `sh ai/skills/release-builds/scripts/archive_ios_ipa.sh staging`
+- `sh ai/skills/release-builds/scripts/archive_ios_ipa.sh production`
 
 The script copies the generated IPA into:
 

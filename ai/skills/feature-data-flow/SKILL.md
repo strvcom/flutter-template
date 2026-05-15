@@ -1,5 +1,5 @@
 ---
-name: flutter-template-feature-data-flow
+name: feature-data-flow
 description: Build a full feature in this Flutter repository that includes backend or storage data flow: read API schema, create DTOs, map DTOs to entities, add Riverpod use cases, connect feature state, and render UI data. Use when a task goes beyond a screen and needs real data integration.
 ---
 
@@ -14,7 +14,7 @@ Use this skill when implementing a complete feature with data flow, not just a r
 - a feature that should load data into Riverpod state
 - a feature that should read Swagger or backend schema before implementation
 
-If the task is only a route and UI shell, prefer `flutter-template-feature-screen`.
+If the task is only a route and UI shell, prefer `feature-screen`.
 
 ## Read First
 - `AGENTS.md`
