@@ -9,7 +9,7 @@
 [List specific and measurable objectives for this feature:
 
 - What success looks like
-- Key metrics to track
+- Key metrics to track (events captured via Firebase Analytics if applicable)
 - Business objectives to achieve]
 
 ## User Stories
@@ -36,16 +36,19 @@
 - User personas and their needs
 - Main user flows and interactions
 - UI/UX considerations and requirements
-- Accessibility requirements]
+- Accessibility requirements (semantics, text scaling, contrast)
+- Localization expectations (which languages are in scope)]
 
 ## High-Level Technical Constraints
 
 [Capture only high-level constraints and considerations:
 
-- Required external integrations or existing systems to interface with
+- Target platforms (iOS, Android, web, macOS, Windows, Linux) and minimum OS versions
+- Required external integrations (backend APIs, Firebase services, third-party SDKs)
 - Compliance, regulatory, or security mandates
-- Performance/scalability targets
-- Data sensitivity/privacy considerations
+- Performance/scalability targets (frame budget, cold start, payload size)
+- Data sensitivity / privacy considerations (PII, encrypted storage, consent)
+- Offline / poor-connectivity behavior expectations
 - Non-negotiable technology or protocol requirements
 
 Implementation details will be addressed in the Technical Specification.]
@@ -55,6 +58,7 @@ Implementation details will be addressed in the Technical Specification.]
 [Clearly state what this feature will NOT include:
 
 - Explicitly excluded features
+- Platforms not targeted by this iteration
 - Future considerations that are out of scope
 - Boundaries and limitations]
 
