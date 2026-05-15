@@ -99,7 +99,7 @@ In standalone mode, verify before considering the task complete.
 
 Use the smallest sufficient verification:
 - Run `make gen` when annotations, routes, DTOs, localization, or asset inputs changed.
-- Run `ai/skills/lint_format/scripts/lint_format.sh` for normal Dart/Flutter code changes.
+- Run `ai/skills/lint-format/scripts/lint-format.sh` for normal Dart/Flutter code changes.
 - Run `fvm flutter test` when behavior, state, use cases, widgets, or tests changed.
 - Run `ai/skills/build-verify/scripts/verify.sh` for broad, cross-platform, dependency, startup, routing, generated-code, or PR-ready tasks.
 - Run `make integration_test` only when Patrol integration flows changed or the user asks for it.

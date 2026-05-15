@@ -17,7 +17,7 @@
 
 ### Entities
 [Define the core entities, their fields, and relationships.
-- DTOs live in `lib/common/data/dto/` (annotated with `@freezed` + `@JsonSerializable`)
+- DTOs live in `lib/common/data/dto/` (using `@freezed` with generated `fromJson` factories)
 - Domain entities live in `lib/common/data/entity/` (mapped from DTOs)
 - Feature-scoped state/event types live next to the feature as `*_state.dart` / `*_event.dart`]
 

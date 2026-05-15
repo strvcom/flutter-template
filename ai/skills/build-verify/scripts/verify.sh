@@ -137,6 +137,14 @@ if [ ! -f "$REPO_ROOT/lib/main_$FLAVOR.dart" ]; then
     exit 2
 fi
 
+append_auto_msg() {
+    if [ -n "$AUTO_MSG" ]; then
+        AUTO_MSG="$AUTO_MSG; $1"
+    else
+        AUTO_MSG="$1"
+    fi
+}
+
 # --- Auto-scope detection ------------------------------------------------
 # Runs unless --full or any explicit narrowing flag is set.
 EXPLICIT_SCOPE=0
@@ -215,6 +223,17 @@ if [ $FULL -eq 0 ] && [ $EXPLICIT_SCOPE -eq 0 ]; then
                 AUTO_MSG="no codegen inputs changed, skipping make gen"
             fi
         fi
+    fi
+fi
+
+if [ "$(uname -s)" != "Darwin" ] && [ $SKIP_BUILDS -eq 0 ]; then
+    if [ $IOS_ONLY -eq 1 ]; then
+        echo "ERROR: iOS builds require macOS. Re-run on macOS or remove --ios-only." >&2
+        exit 2
+    fi
+    if [ $ANDROID_ONLY -eq 0 ]; then
+        ANDROID_ONLY=1
+        append_auto_msg "non-macOS host detected; skipping iOS native build"
     fi
 fi
 

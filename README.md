@@ -522,9 +522,9 @@ AI workflow prerequisites:
 - Verify GitHub CLI with `gh auth status`. If an invalid `GITHUB_TOKEN` or `GH_TOKEN` is set in your environment, clear or replace it so the stored login can be used.
 - Repo-local scripts should be executable and syntax-check clean:
   - `ai/skills/build-verify/scripts/verify.sh --help`
-  - `ai/skills/lint_format/scripts/lint_format.sh --help`
+  - `ai/skills/lint-format/scripts/lint-format.sh --help`
   - `bash -n ai/skills/build-verify/scripts/verify.sh`
-  - `bash -n ai/skills/lint_format/scripts/lint_format.sh`
+  - `bash -n ai/skills/lint-format/scripts/lint-format.sh`
   - `sh -n ai/skills/release-builds/scripts/archive_ios_ipa.sh`
 
 Recommended usage:

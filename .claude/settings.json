@@ -22,7 +22,6 @@
       "Read(**/service-account*.json)",
       "Read(**/.netrc)",
       "Read(**/.npmrc)",
-      "Read(**/extras/**)",
       "Read(**/.gitmodules)",
       "Read(**/.gradle/**)",
       "Read(**/.idea/**)",

@@ -38,26 +38,31 @@ If no PR is found, inform the user and stop. If `gh` is not available or not aut
 
 ## Step 2: Fetch All Review Comments
 
-Extract the owner/repo from `gh repo view --json nameWithOwner --jq '.nameWithOwner'`.
+Extract the PR number and owner/repo:
+
+```bash
+number="$(gh pr list --head "$(git branch --show-current)" --json number --jq '.[0].number')"
+repo="$(gh repo view --json nameWithOwner --jq '.nameWithOwner')"
+```
 
 Fetch all PR review comments, including inline comments on code:
 
 ```bash
-gh api repos/{owner}/{repo}/pulls/{number}/comments --paginate \
+gh api "repos/$repo/pulls/$number/comments" --paginate \
   --jq '.[] | {id: .id, user: .user.login, user_type: .user.type, path: .path, line: .line, original_line: .original_line, diff_hunk: .diff_hunk, body: .body}'
 ```
 
 Also fetch top-level issue-style comments on the PR (some reviewers use these):
 
 ```bash
-gh api repos/{owner}/{repo}/issues/{number}/comments --paginate \
+gh api "repos/$repo/issues/$number/comments" --paginate \
   --jq '.[] | {id: .id, user: .user.login, user_type: .user.type, body: .body}'
 ```
 
 Optionally fetch the PR review summaries if the user asks for every review artifact:
 
 ```bash
-gh api repos/{owner}/{repo}/pulls/{number}/reviews --paginate \
+gh api "repos/$repo/pulls/$number/reviews" --paginate \
   --jq '.[] | {id: .id, user: .user.login, user_type: .user.type, state: .state, body: .body}'
 ```
 
@@ -179,14 +184,14 @@ Do not use AI ignore commands for human comments.
 For inline PR review comments, reply with:
 
 ```bash
-gh api repos/{owner}/{repo}/pulls/{number}/comments/{comment_id}/replies \
+gh api "repos/$repo/pulls/$number/comments/$comment_id/replies" \
   -f body="<reply message>"
 ```
 
 For top-level issue comments or review summaries, use a normal PR comment when a direct reply endpoint is not available:
 
 ```bash
-gh pr comment {number} --body "<reply message>"
+gh pr comment "$number" --body "<reply message>"
 ```
 
 7. Push changes only if the user explicitly approved a push.

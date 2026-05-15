@@ -81,6 +81,10 @@ Both verify compilation on each platform; iOS skips codesigning so it doesn't ne
 provisioning profiles, and Android uses the debug variant so it doesn't need a release
 keystore.
 
+On non-macOS hosts, the script skips the iOS native build automatically unless `--ios-only`
+was explicitly requested. Explicit iOS-only verification fails fast off macOS because
+`flutter build ios` requires Darwin/Xcode.
+
 **Format** — runs after native builds pass: `fvm dart format lib test`. This
 auto-rewrites files; the script reports how many files changed so the user can review.
 

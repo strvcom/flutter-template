@@ -53,18 +53,18 @@ Use this when setting up a new clone, preparing AI workflows, or debugging skill
    - Run `gh auth status` and fix any invalid `GITHUB_TOKEN` / `GH_TOKEN` environment variables if they override the stored login.
 3. Verify repo-local script permissions and syntax:
    - `test -x ai/skills/build-verify/scripts/verify.sh`
-   - `test -x ai/skills/lint_format/scripts/lint_format.sh`
+   - `test -x ai/skills/lint-format/scripts/lint-format.sh`
    - `test -x ai/skills/release-builds/scripts/archive_ios_ipa.sh`
    - `bash -n ai/skills/build-verify/scripts/verify.sh`
-   - `bash -n ai/skills/lint_format/scripts/lint_format.sh`
+   - `bash -n ai/skills/lint-format/scripts/lint-format.sh`
    - `sh -n ai/skills/release-builds/scripts/archive_ios_ipa.sh`
 4. Verify Claude discovery wiring when Claude Code support is needed:
-   - every `ai/skills/<name>/SKILL.md` has a matching `.claude/skills/<name>` symlink, except folder/name aliases such as `lint_format` -> `lint-format`
+   - every `ai/skills/<name>/SKILL.md` has a matching `.claude/skills/<name>` symlink
    - every skill has a matching `.claude/commands/<name>.md`
    - each symlink resolves to a `SKILL.md`
 5. Run lightweight help checks:
    - `ai/skills/build-verify/scripts/verify.sh --help`
-   - `ai/skills/lint_format/scripts/lint_format.sh --help`
+   - `ai/skills/lint-format/scripts/lint-format.sh --help`
    - `ai/skills/release-builds/scripts/archive_ios_ipa.sh` should print usage and exit non-zero when no flavor is supplied.
 
 ## Platform Cleanup Workflow

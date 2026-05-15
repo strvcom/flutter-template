@@ -3,17 +3,17 @@
 # Runs Flutter/Dart format and analyzer checks for this repository.
 #
 # Usage:
-#   ./lint_format.sh                 # Auto-detect changed Flutter-relevant files
-#   ./lint_format.sh all             # Format standard Dart source directories, then analyze
-#   ./lint_format.sh --check         # Check formatting without writing changes, then analyze
-#   ./lint_format.sh --format-only   # Run only dart format
-#   ./lint_format.sh --analyze-only  # Run only flutter analyze
+#   ./lint-format.sh                 # Auto-detect changed Flutter-relevant files
+#   ./lint-format.sh all             # Format standard Dart source directories, then analyze
+#   ./lint-format.sh --check         # Check formatting without writing changes, then analyze
+#   ./lint-format.sh --format-only   # Run only dart format
+#   ./lint-format.sh --analyze-only  # Run only flutter analyze
 
 set -euo pipefail
 
 usage() {
     cat <<'EOF'
-Usage: lint_format.sh [auto|all|--all] [--check] [--format-only|--analyze-only]
+Usage: lint-format.sh [auto|all|--all] [--check] [--format-only|--analyze-only]
 
 Default auto mode:
   - formats changed non-generated Dart files
@@ -118,7 +118,7 @@ while IFS= read -r file; do
     fi
 done <<< "$changed_files"
 
-if [[ "$mode" == "auto" && "$has_flutter_changes" == false ]]; then
+if [[ "$mode" == "auto" && "$has_flutter_changes" == false && "$run_format" == true ]]; then
     echo "No Flutter/Dart-relevant changes detected. Nothing to lint or format."
     exit 0
 fi

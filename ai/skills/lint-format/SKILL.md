@@ -24,7 +24,7 @@ Run this skill after completing Flutter/Dart code changes unless a broader verif
 Run the wrapper script from the repo root:
 
 ```bash
-ai/skills/lint_format/scripts/lint_format.sh
+ai/skills/lint-format/scripts/lint-format.sh
 ```
 
 The script auto-detects whether Flutter-relevant files changed. When relevant files changed, it formats changed Dart files and runs a project-wide analyzer pass.
@@ -32,7 +32,7 @@ The script auto-detects whether Flutter-relevant files changed. When relevant fi
 Claude-discovered path:
 
 ```bash
-.claude/skills/lint-format/scripts/lint_format.sh
+.claude/skills/lint-format/scripts/lint-format.sh
 ```
 
 ## Flags

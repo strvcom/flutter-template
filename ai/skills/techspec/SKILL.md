@@ -62,8 +62,8 @@ Ask the user about any ambiguities:
 - State boundary: a single `@riverpod` notifier or multiple cooperating providers? Sync
   `Notifier` or `AsyncNotifier`?
 - Navigation: new `@RoutePage` route(s), modal vs. full-screen, deep-link entry?
-- Codegen scope: which annotations are involved (`@freezed`, `@JsonSerializable`,
-  `@riverpod`, `@RoutePage`) — this drives when `make gen` needs to run.
+- Codegen scope: which generated inputs are involved (`@freezed` models with `fromJson`,
+  `@riverpod`, `@RoutePage`, localization, assets) — this drives when `make gen` needs to run.
 - Testing strategy: which providers / use cases warrant unit tests; any widget tests required?
 - Any domain-specific logic that needs clarification.
 

@@ -47,7 +47,7 @@ Run `make gen` after touching `@riverpod`, `@freezed`, `@RoutePage`, or other co
 
 [Define essential data structures using project conventions:
 
-- **DTOs** (`lib/common/data/dto/`) — wire-format models annotated with `@freezed` + `@JsonSerializable`, used by `dio`
+- **DTOs** (`lib/common/data/dto/`) — wire-format models using `@freezed` with generated `fromJson` factories, used by `dio`
 - **Entities** (`lib/common/data/entity/`) — domain models; map from DTOs via factory or extension
 - **State models** — feature-scoped `@freezed` classes alongside the feature
 - **Events** — sealed/`@freezed` union types for user/system events feeding the state notifier
