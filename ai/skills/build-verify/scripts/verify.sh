@@ -242,6 +242,17 @@ DART_LOG="$LOG_DIR/dart.log"
 IOS_LOG="$LOG_DIR/ios.log"
 ANDROID_LOG="$LOG_DIR/android.log"
 FMT_LOG="$LOG_DIR/format.log"
+FMT_BEFORE="$LOG_DIR/format-before.cksum"
+FMT_AFTER="$LOG_DIR/format-after.cksum"
+
+snapshot_format_targets() {
+    for dir in lib test; do
+        [ -d "$dir" ] || continue
+        find "$dir" -type f -name '*.dart' -print
+    done | sort | while IFS= read -r file; do
+        cksum "$file"
+    done
+}
 
 echo "=== build-verify ==="
 echo "  flavor: $FLAVOR  (entrypoint: lib/main_$FLAVOR.dart)"
@@ -392,14 +403,13 @@ fi
 
 # --- Format --------------------------------------------------------------
 echo "=== Format ==="
-before_fmt="$(git status --porcelain 2>/dev/null | wc -l | tr -d ' ')"
+snapshot_format_targets > "$FMT_BEFORE"
 fvm dart format lib test 2>&1 | tee "$FMT_LOG"
-after_fmt="$(git status --porcelain 2>/dev/null | wc -l | tr -d ' ')"
-fmt_delta=$(( after_fmt - before_fmt ))
-if [ "$fmt_delta" -gt 0 ]; then
-    echo "  [OK]   Format auto-rewrote files ($fmt_delta new entries in git status). Review before committing."
-else
+snapshot_format_targets > "$FMT_AFTER"
+if cmp -s "$FMT_BEFORE" "$FMT_AFTER"; then
     echo "  [OK]   Format produced no changes."
+else
+    echo "  [OK]   Format auto-rewrote files. Review git diff/status before committing."
 fi
 
 total_elapsed=$(( $(date +%s) - overall_start ))
