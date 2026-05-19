@@ -47,7 +47,8 @@ Explore the codebase to ground the spec in reality:
 - Check `lib/common/` for reusable widgets, extensions, theming, formatters before introducing
   new primitives.
 - Inspect existing DTOs (`lib/common/data/dto/`), entities (`lib/common/data/entity/`),
-  repositories, and use cases for naming / mapping conventions.
+  use cases, and providers for naming / mapping conventions. Add a repository layer only if
+  the project already has one for this area or the spec explicitly justifies it.
 - Check `lib/app/setup/setup_app.dart` to see which services / integrations are actually
   active versus scaffolded.
 - Read `AGENTS.md`, `docs/PROJECT_OVERVIEW.md`, and `docs/PROJECT_GUIDELINES.md` for the
@@ -78,7 +79,7 @@ Read the template at `ai/templates/techspec.md` (also reachable at
 - Follow the project's architecture rules from `AGENTS.md`,
   `docs/PROJECT_OVERVIEW.md`, and `docs/PROJECT_GUIDELINES.md`
 - Include a clear build order in Development Sequencing — typically:
-  1. Data layer (DTOs, entities, repository, use cases) — `make gen` after annotations
+  1. Data layer (DTOs, entities, use cases/providers) — `make gen` after annotations
   2. State layer (`@riverpod` notifier, `*_state.dart`, `*_event.dart`)
   3. UI layer (`*_page.dart` + `*_page_content.dart`)
   4. Integration / navigation (`@RoutePage` wiring, Firebase services, analytics, permissions)

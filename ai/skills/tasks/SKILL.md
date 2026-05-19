@@ -45,8 +45,8 @@ Order tasks following this Flutter-stack progression (mirrors the `ai/templates/
 phases):
 
 1. **Foundation (data layer)** — DTOs in `lib/common/data/dto/` (`@freezed` with
-   generated `fromJson` factories), domain entities in `lib/common/data/entity/`, repositories, and
-   use cases. Run `make gen` after annotation changes.
+   generated `fromJson` factories), domain entities in `lib/common/data/entity/`, and
+   Riverpod use cases/providers. Run `make gen` after annotation changes.
 2. **Core implementation (state + UI)** — `@riverpod` notifiers, `*_state.dart` /
    `*_event.dart` (feature-scoped freezed types), and the page split:
    `*_page.dart` (thin `@RoutePage` widget) + `*_page_content.dart` (heavier UI).

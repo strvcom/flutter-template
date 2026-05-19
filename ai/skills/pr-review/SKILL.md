@@ -1,6 +1,8 @@
 ---
 name: pr-review
 description: Review pull requests, branch diffs, and uncommitted changes in this Flutter repository with a bug-finding mindset. Use when asked to review changes, review a PR, audit a diff, check standards, check compliance, or look for regressions, missing tests, release risks, or architecture mismatches.
+allowed-tools: Agent, Bash, Read, Grep, Glob, Edit
+model: claude-sonnet-4-6
 ---
 
 # Flutter Template PR Review

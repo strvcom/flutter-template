@@ -1,6 +1,8 @@
 ---
 name: project-setup
 description: Customize a new project created from this Flutter template, including app identity, package name, platform cleanup, icons, splash screen, Firebase/secrets decisions, setup tool execution, code generation, and validation.
+allowed-tools: Bash, Read, Grep, Glob, Edit, Write
+model: claude-sonnet-4-6
 ---
 
 # Flutter Template Project Setup
@@ -68,7 +70,7 @@ Use this when setting up a new clone, preparing AI workflows, or debugging skill
    - `ai/skills/release-builds/scripts/archive_ios_ipa.sh` should print usage and exit non-zero when no flavor is supplied.
 
 ## Platform Cleanup Workflow
-Use this workflow to automate step 4 from the README First steps checklist.
+Use this workflow to automate README First steps > Automated steps item 1.
 
 1. Determine the final supported platforms from the user request. Supported platform names are Android, iOS, web, Windows, Linux, snap, and macOS. If the request does not clearly say which platforms to keep or remove, ask before deleting platform folders.
 2. Remove unsupported platform folders and files:
@@ -99,7 +101,7 @@ Use this workflow to automate step 4 from the README First steps checklist.
 9. Run `fvm flutter analyze`. Run relevant tests when platform cleanup touches shared runtime logic.
 
 ## Firebase Workflow
-Use this workflow to automate step 9 from the README First steps checklist.
+Use this workflow to automate README First steps > Automated steps item 5.
 
 1. Determine whether Firebase should be kept or removed. If the request is unclear, ask because Firebase affects authentication, analytics, crash reporting, push notifications, remote config, web hosting, release distribution, and secrets.
 2. If Firebase is kept:
@@ -124,7 +126,7 @@ Use this workflow to automate step 9 from the README First steps checklist.
    - `firebase`, `Firebase`, `GoogleService`, `google-services`, `flutterfire`, `Crashlytics`, `RemoteConfig`, `FirebaseMessaging`, `FirebaseAuth`, `.firebaserc`, and `firebase.json`.
    - Treat encrypted secret files under `extras/secrets/` as secrets-owned unless the user explicitly asked to rotate or remove encrypted Firebase secrets.
 5. Validate with `make gen` when generated providers or routes changed, then run `fvm flutter analyze` and relevant tests.
-6. Mark README First steps item 9 as `[x]` only after Firebase has been configured for the intended platforms or removed completely.
+6. Mark README First steps > Automated steps item 5 as `[x]` only after Firebase has been configured for the intended platforms or removed completely.
 
 ## Dependency Checks
 - Run `fvm dart pub outdated` inside `project_setup/` when touching the setup tool.

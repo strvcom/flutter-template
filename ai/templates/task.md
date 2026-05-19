@@ -6,7 +6,7 @@
 [Business value, user problem being solved]
 
 ## How does it connect to everything else?
-[Where does data flow from/to? Which existing features, providers, repositories, or services does this touch?]
+[Where does data flow from/to? Which existing features, providers, use cases, or services does this touch?]
 
 ## What does success look like?
 [Concrete outcome - what should the user be able to do when this is done?]
@@ -27,11 +27,11 @@
 ## Dependencies
 
 ### Requires (inputs)
-- [APIs (`dio` endpoints), providers, repositories, or use cases this consumes]
+- [APIs (`dio` endpoints), providers, use cases, or services this consumes]
 - [Required Firebase services or platform permissions]
 
 ### Provides (outputs)
-- [New providers, repositories, routes, or use cases this exposes to the rest of the app]
+- [New providers, routes, or use cases this exposes to the rest of the app]
 
 ### Third-party integrations
 - [External APIs, SDKs, Firebase modules, or platform channels needed]

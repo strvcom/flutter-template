@@ -5,7 +5,7 @@
 
 ## Task List
 ### Phase 1: Foundation (data layer)
-- [ ] 1.0 [Task title — DTOs, entities, repository, use cases; run `make gen` after annotation changes]
+- [ ] 1.0 [Task title — DTOs, entities, use cases/providers; run `make gen` after annotation changes]
 
 ### Phase 2: Core Implementation (state + UI)
 - [ ] 2.0 [Task title — `@riverpod` notifier, `*_state.dart`, `*_event.dart`, `*_page.dart`, `*_page_content.dart`]

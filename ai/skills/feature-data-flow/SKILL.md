@@ -1,6 +1,8 @@
 ---
 name: feature-data-flow
 description: Build a full feature in this Flutter repository that includes backend or storage data flow: read API schema, create DTOs, map DTOs to entities, add Riverpod use cases, connect feature state, and render UI data. Use when a task goes beyond a screen and needs real data integration.
+allowed-tools: Bash, Read, Grep, Glob, Edit, Write
+model: claude-sonnet-4-6
 ---
 
 # Flutter Template Feature Data Flow

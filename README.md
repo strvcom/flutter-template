@@ -24,7 +24,7 @@
         - [Web](#web)
     - [Versioning](#versioning)
 
-- [Implementation details](#implementation-details)
+- [Implementation Details](#implementation-details)
     - [Architecture](#architecture)
     - [Push Notifications](#push-notifications)
     - [GIT](#git)
@@ -35,7 +35,7 @@
         - [Google on iOS](#google-on-ios)
 
 - [Testing](#testing)
-    - [Widgets Tests](#widget-tests)
+    - [Widget tests](#widget-tests)
     - [Integration Tests](#integration-tests)
 
 - [Tooling](#tooling)
@@ -53,7 +53,7 @@
 - [Security](#security)
     - [freeRASP](#freerasp)
 
-- [TODOs](#todos)
+- [Todos](#todos)
 
 - [Authors](#authors)
 

@@ -1,6 +1,8 @@
 ---
 name: release-prepare
 description: Prepare a release in this repository by bumping the app version, updating release notes, creating a release branch named release/<version>, and preparing the PR for merge before any release builds or tags are created.
+allowed-tools: Bash, Read, Grep, Glob, Edit, Write
+model: claude-sonnet-4-6
 ---
 
 # Flutter Template Release Prepare
