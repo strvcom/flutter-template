@@ -12,7 +12,7 @@
 
 - Feature module under `lib/features/<feature>/` — pages, content widgets, state notifier, events
 - Shared widgets/extensions reused from `lib/common/`
-- Data layer: DTOs in `lib/common/data/dto/`, domain entities in `lib/common/data/entity/`, use cases, repositories
+- Data layer: DTOs in `lib/common/data/dto/`, domain entities in `lib/common/data/entity/`, use cases, and providers
 - Riverpod providers / `@riverpod` notifiers and how state flows into the UI
 - Navigation entry via `auto_route` (`@RoutePage`, route registration)]
 
@@ -20,13 +20,15 @@
 
 ### Main Interfaces
 
-[Define main contracts (≤20 lines per example). Prefer Dart abstract classes for repositories/use cases and `@riverpod` for state. Examples:
+[Define main contracts (≤20 lines per example). Prefer existing Riverpod use-case/provider patterns and `@riverpod` for state. Add repository abstractions only when the project already has them for this area or the spec explicitly justifies them. Examples:
 
 ```dart
-// Repository contract — implementations live in lib/common/data/
-abstract class ExampleRepository {
-  Future<ExampleEntity> fetch(String id);
-  Stream<List<ExampleEntity>> watchAll();
+// Use case — IO orchestration lives under lib/common/usecase/
+@riverpod
+Future<ExampleEntity> fetchExampleUseCase(Ref ref, String id) async {
+  final dio = ref.read(dioProvider);
+  final response = await dio.get<Map<String, dynamic>>('/examples/$id');
+  return ExampleResponseDTO.fromJson(response.data!).toEntity();
 }
 ```
 
@@ -35,7 +37,10 @@ abstract class ExampleRepository {
 @riverpod
 class ExampleController extends _$ExampleController {
   @override
-  Future<ExampleState> build() async => ref.read(exampleRepositoryProvider).load();
+  Future<ExampleState> build() async {
+    final example = await ref.read(fetchExampleUseCaseProvider('id').future);
+    return ExampleState(example: example);
+  }
 
   Future<void> onEvent(ExampleEvent event) async { /* ... */ }
 }
@@ -69,7 +74,7 @@ Run `make gen` after touching `@riverpod`, `@freezed`, `@RoutePage`, or other co
 
 [Define implementation sequence:
 
-1. Data layer — DTOs, entity mapping, repository, use cases (run `make gen`)
+1. Data layer — DTOs, entity mapping, use cases/providers (run `make gen`)
 2. State layer — `@riverpod` notifier, state/event classes, unit tests
 3. UI layer — `*_page.dart` (thin) + `*_page_content.dart` (heavy UI)
 4. Navigation wiring — `@RoutePage`, route registration, deep link if needed
@@ -90,7 +95,7 @@ Run `make gen` after touching `@riverpod`, `@freezed`, `@RoutePage`, or other co
 
 [Document important technical decisions:
 
-- Approach choice and justification (e.g., Riverpod `Notifier` vs. `AsyncNotifier`, repository vs. direct use case)
+- Approach choice and justification (e.g., Riverpod `Notifier` vs. `AsyncNotifier`, direct use case vs. an explicitly justified repository layer)
 - Trade-offs considered
 - Rejected alternatives and why]
 
@@ -115,4 +120,4 @@ Validation before merging:
 
 ### Relevant Files
 
-[List relevant files here — pages, content widgets, state/event, DTOs, entities, repositories, providers, route definitions, generated files to regenerate.]
+[List relevant files here — pages, content widgets, state/event, DTOs, entities, use cases, providers, route definitions, generated files to regenerate.]

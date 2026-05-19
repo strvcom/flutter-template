@@ -1,6 +1,8 @@
 ---
 name: secrets-bootstrap
 description: Safely work with encrypted secrets, environment files, and signing material in this repository. Use when a task requires loading, decrypting, validating, or explaining the repo's secrets and signing setup.
+allowed-tools: Bash, Read, Grep, Glob
+model: claude-sonnet-4-6
 ---
 
 # Flutter Template Secrets Bootstrap

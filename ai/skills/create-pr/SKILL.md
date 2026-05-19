@@ -104,7 +104,7 @@ Use this format when sections apply:
 - <one short bullet per non-user-facing maintenance change>
 
 ## Screenshot
-TODO
+<TODO: paste screenshot or remove the section>
 ```
 
 For small PRs, skip section headers and write 1-3 concise bullets plus `## Screenshot` when appropriate.

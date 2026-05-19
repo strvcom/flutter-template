@@ -80,8 +80,17 @@ Existing skills:
 When adding a new repeatable workflow, complete all four steps so both Codex and
 Claude can use it:
 1. **Author the skill.** Create `ai/skills/<name>/SKILL.md` with YAML frontmatter
-   (`name:` matching the folder, `description:` explaining when to use it) and
-   the workflow body.
+   and the workflow body. Required fields:
+   - `name:` matching the folder
+   - `description:` explaining when to use the skill
+   - `allowed-tools:` listing the tools the skill needs (for example
+     `Bash, Read, Grep, Glob, Edit, Write`; add `Agent` for skills that delegate
+     to subagents, `Skill` for orchestrators that invoke other skills)
+   - `model:` selecting the model — use `claude-sonnet-4-6` for most
+     implementation, verification, and review workflows, and `claude-opus-4-7`
+     for spec-writing skills like `prd` and `techspec`
+   - `user-invocable: true` only on top-level entry-point skills such as
+     `start-job` and `create-pr`
 2. **Mention it for Codex.** Add the skill to the "Existing skills" list above.
 3. **Expose it to Claude Code (auto-discovery).** Add a symlink:
    `ln -s ../../ai/skills/<name> .claude/skills/<name>`
