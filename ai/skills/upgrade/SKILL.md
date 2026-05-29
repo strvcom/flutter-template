@@ -29,21 +29,31 @@ Use this skill for SDK and dependency upgrades in this repository.
 1. Check current SDK pin in `.fvmrc` and `pubspec.yaml`.
 2. Confirm the target Flutter version.
 3. Update `.fvmrc`.
-4. Update `pubspec.yaml` environment constraints to match the new SDK floor.
-5. Run dependency audit commands such as `fvm flutter pub outdated`.
-6. Use `fvm flutter pub upgrade --major-versions` when the goal is to move the dependency graph forward broadly.
-7. Review any changed direct constraints in `pubspec.yaml`.
-8. Run:
-   - `fvm flutter pub get`
-   - `make gen`
-   - `fvm flutter analyze`
-   - `fvm flutter test`
-9. Fix breakages from:
-   - package API changes
-   - analyzer/lint changes
-   - build runner or codegen config warnings
-   - generated native plugin files
-10. Review GitHub Actions to ensure they still use the pinned project SDK.
+4. Activate the new SDK locally — this always needs to happen after changing `.fvmrc`:
+   ```
+   fvm install
+   fvm use global <version>
+   ```
+   Without this, `fvm flutter` commands still invoke the old SDK.
+5. Update `.vscode/settings.json` — change `dart.flutterSdkPath` to `.fvm/versions/<new-version>`.
+   Then **restart VSCode** (or run "Dart: Change Flutter SDK" from the command palette) so the
+   Dart/Flutter extension reloads against the new SDK. Skipping this causes the IDE to keep
+   analyzing with the old version even though the CLI is already on the new one.
+6. Update `pubspec.yaml` environment constraints to match the new SDK floor.
+7. Run dependency audit commands such as `fvm flutter pub outdated`.
+8. Use `fvm flutter pub upgrade --major-versions` when the goal is to move the dependency graph forward broadly.
+9. Review any changed direct constraints in `pubspec.yaml`.
+10. Run:
+    - `fvm flutter pub get`
+    - `make gen`
+    - `fvm flutter analyze`
+    - `fvm flutter test`
+11. Fix breakages from:
+    - package API changes
+    - analyzer/lint changes
+    - build runner or codegen config warnings
+    - generated native plugin files
+12. Review GitHub Actions to ensure they still use the pinned project SDK.
 
 ## Version Pairs To Check Together
 - `freezed` with `freezed_annotation`
