@@ -11,6 +11,7 @@ include: package:netglade_analysis/lints.yaml
 
 analyzer:
   exclude:
+    - 'build/**'
     - 'project_setup/**'
     - '**.g.dart'
     - '**.gen.dart'
