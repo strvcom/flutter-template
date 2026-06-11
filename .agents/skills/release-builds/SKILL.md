@@ -16,7 +16,7 @@ Use this skill only after the release PR has been merged.
 - `pubspec.yaml`
 - `makefile`
 - `.github/workflows/`
-- `ai/skills/release-builds/scripts/archive_ios_ipa.sh`
+- `.agents/skills/release-builds/scripts/archive_ios_ipa.sh`
 
 ## Goal
 This skill is for the post-merge release-build phase.
@@ -64,13 +64,13 @@ Immediately after each IPA build, archive the IPA out of `build/ios/ipa/` and Fl
 Use:
 
 ```bash
-ai/skills/release-builds/scripts/archive_ios_ipa.sh <flavor>
+.agents/skills/release-builds/scripts/archive_ios_ipa.sh <flavor>
 ```
 
 Examples:
-- `ai/skills/release-builds/scripts/archive_ios_ipa.sh develop`
-- `ai/skills/release-builds/scripts/archive_ios_ipa.sh staging`
-- `ai/skills/release-builds/scripts/archive_ios_ipa.sh production`
+- `.agents/skills/release-builds/scripts/archive_ios_ipa.sh develop`
+- `.agents/skills/release-builds/scripts/archive_ios_ipa.sh staging`
+- `.agents/skills/release-builds/scripts/archive_ios_ipa.sh production`
 
 The script copies the generated IPA into:
 

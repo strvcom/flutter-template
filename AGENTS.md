@@ -43,9 +43,10 @@ Use this file as the entrypoint for automated work in this repository.
 - If you learn a stable, repo-specific convention while working, update `docs/PROJECT_OVERVIEW.md` or `docs/PROJECT_GUIDELINES.md` instead of adding duplicate instructions elsewhere.
 
 ## Reusable Workflows
-Repeatable procedures live as skills under `ai/skills/<name>/SKILL.md`. Each
-skill has YAML frontmatter (`name:`, `description:`) so it can be auto-discovered
-by AI tools that support skills.
+Repeatable procedures live as skills under `.agents/skills/<name>/SKILL.md` —
+the cross-client location defined by the [Agent Skills](https://agentskills.io)
+format. Each skill has YAML frontmatter (`name:`, `description:`) so it can be
+auto-discovered by AI tools that support skills.
 
 Existing skills:
 - `project-setup` — customize a new app from this template (identity, platforms, icons, splash, Firebase/secrets, validation)
@@ -70,23 +71,21 @@ Existing skills:
 - `techspec` — translate a PRD into an implementation-ready Flutter tech spec at `.claude/tasks/<feature>/techspec.md`, grounded in the Riverpod / Freezed / AutoRoute / Dio / Firebase stack
 
 ### How AI tools find these skills
-- **Codex** reads this `AGENTS.md` and the referenced `ai/skills/<name>/SKILL.md`
-  files. When delegating, mention the workflow by name, e.g. *"use the
-  feature-data-flow workflow"*.
+- **Spec-compliant agents** scan `.agents/skills/` directly — it is the
+  standard cross-client skills location, so no extra wiring is needed.
+- **Codex** reads this `AGENTS.md` and the referenced
+  `.agents/skills/<name>/SKILL.md` files. When delegating, mention the workflow
+  by name, e.g. *"use the feature-data-flow workflow"*.
 - **Claude Code** auto-discovers skills through `.claude/skills/<name>` symlinks
-  that point at `ai/skills/<name>/`. Each skill is also exposed as a slash
+  that point at `.agents/skills/<name>/`. Each skill is also exposed as a slash
   command at `.claude/commands/<name>.md`, so `/feature-screen`, `/pr-review`,
   `/release-prepare`, etc. work as explicit invocations.
-- **Other spec-compliant agents** auto-discover skills through
-  `.agents/skills/<name>` symlinks — the cross-client interop location defined
-  by the [Agent Skills](https://agentskills.io) format that this repo's skills
-  follow.
 
 ### Creating a new skill
-When adding a new repeatable workflow, complete all six steps so Codex, Claude,
+When adding a new repeatable workflow, complete all five steps so Codex, Claude,
 and other skills-compliant agents can use it:
-1. **Author the skill.** Create `ai/skills/<name>/SKILL.md` with YAML frontmatter
-   and the workflow body. Required fields:
+1. **Author the skill.** Create `.agents/skills/<name>/SKILL.md` with YAML
+   frontmatter and the workflow body. Required fields:
    - `name:` matching the folder
    - `description:` explaining when to use the skill
    - `allowed-tools:` listing the tools the skill needs (for example
@@ -99,16 +98,13 @@ and other skills-compliant agents can use it:
      `start-job` and `create-pr`
 2. **Mention it for Codex.** Add the skill to the "Existing skills" list above.
 3. **Expose it to Claude Code (auto-discovery).** Add a symlink:
-   `ln -s ../../ai/skills/<name> .claude/skills/<name>`
-4. **Expose it to other agents (interop).** Add a symlink:
-   `ln -s ../../ai/skills/<name> .agents/skills/<name>`
-5. **Add a slash command.** Create `.claude/commands/<name>.md` using one of the
+   `ln -s ../../.agents/skills/<name> .claude/skills/<name>`
+4. **Add a slash command.** Create `.claude/commands/<name>.md` using one of the
    existing commands as a template — a short frontmatter (`description`,
    `argument-hint`) and a one-line body that invokes the skill, followed by
    `$ARGUMENTS`.
-
-6. **Validate.** Run `python3 ai/validate_skills.py` and fix any reported
+5. **Validate.** Run `python3 .agents/validate_skills.py` and fix any reported
    issues. It checks Agent Skills spec compliance (strict YAML frontmatter,
-   name/description rules) and that all exposure symlinks and the slash
-   command from steps 3-5 exist. Also run it after editing any existing
-   SKILL.md frontmatter.
+   name/description rules) and that the Claude Code symlink and slash command
+   from steps 3-4 exist. Also run it after editing any existing SKILL.md
+   frontmatter.

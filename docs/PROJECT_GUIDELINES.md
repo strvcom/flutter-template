@@ -111,11 +111,11 @@ Not every feature needs every file. Simple screens in the template only use `*_p
   - `fvm flutter test`
 
 ## AI Workflow Tooling
-- Repo-local skills live under `ai/skills/` and Claude Code symlinks live under `.claude/skills/`.
+- Repo-local skills live under `.agents/skills/` and Claude Code symlinks live under `.claude/skills/`.
 - Skill scripts should be executable and syntax-check clean before relying on them:
-  - `bash -n ai/skills/build-verify/scripts/verify.sh`
-  - `bash -n ai/skills/lint-format/scripts/lint-format.sh`
-  - `sh -n ai/skills/release-builds/scripts/archive_ios_ipa.sh`
+  - `bash -n .agents/skills/build-verify/scripts/verify.sh`
+  - `bash -n .agents/skills/lint-format/scripts/lint-format.sh`
+  - `sh -n .agents/skills/release-builds/scripts/archive_ios_ipa.sh`
 - PR-related skills use GitHub CLI. Install it locally and authenticate with `gh auth login`; verify with `gh auth status`.
 - If `gh auth status` reports an invalid `GITHUB_TOKEN` or `GH_TOKEN`, clear or replace that environment variable so the stored GitHub CLI login can be used.
 

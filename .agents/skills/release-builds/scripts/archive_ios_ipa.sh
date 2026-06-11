@@ -3,7 +3,7 @@
 set -eu
 
 if [ "$#" -ne 1 ]; then
-  echo "Usage: ai/skills/release-builds/scripts/archive_ios_ipa.sh <develop|staging|production>" >&2
+  echo "Usage: .agents/skills/release-builds/scripts/archive_ios_ipa.sh <develop|staging|production>" >&2
   exit 1
 fi
 
