@@ -57,6 +57,48 @@ Use this skill for SDK and dependency upgrades in this repository.
     - generated native plugin files
 12. Review GitHub Actions to ensure they still use the pinned project SDK.
 
+## Dependency Conflict Workflow
+
+When `pub get`, `pub upgrade`, or code generation fails because of version solving:
+
+1. Read the full solver message and identify the smallest incompatible package chain.
+2. Run:
+   ```
+   fvm flutter pub outdated
+   ```
+3. Prefer changing direct dependencies in `pubspec.yaml` over editing transitive constraints.
+4. Keep versioned pairs aligned, especially:
+   - `freezed` and `freezed_annotation`
+   - `json_serializable` and `json_annotation`
+   - `riverpod_generator`, `riverpod_annotation`, `flutter_riverpod`, and `riverpod_lint`
+   - `auto_route_generator` and `auto_route`
+5. If a single direct dependency is blocking resolution, try the narrowest compatible constraint
+   first rather than a broad major-version sweep.
+6. After minor/patch upgrades, run `fvm flutter pub upgrade --tighten` to raise the lower bounds
+   in `pubspec.yaml` to the versions actually resolved, keeping constraints honest.
+7. If `pubspec.lock` changes after resolution, review whether the churn matches the intended
+   upgrade scope. Do not hand-edit the lockfile, with one exception: when a single package is
+   retracted or stuck in a conflict, delete only that package's block from `pubspec.lock` and
+   rerun `fvm flutter pub get` so pub re-resolves just that package. Never delete the whole
+   lockfile to force a clean resolve — that causes uncontrolled upgrades across the entire graph.
+8. After dependency resolution succeeds, rerun `make gen` before judging analyzer errors. Generated
+   code and analyzer failures are often stale until codegen completes.
+
+## Static Analysis Fixes During Upgrades
+
+Analyzer and lint changes are expected after SDK or package upgrades. Handle them in this order:
+
+1. Run `fvm flutter analyze` and group failures by root cause.
+2. Use mechanical fixes only when they are clearly safe:
+   ```
+   fvm dart fix --dry-run
+   fvm dart fix --apply
+   ```
+3. Review the resulting diff carefully. Revert or adjust mechanical changes that weaken template
+   conventions, generated-code boundaries, or readability.
+4. Fix remaining analyzer issues by following `docs/PROJECT_GUIDELINES.md` and nearby code.
+5. Run `fvm dart format` only after source changes settle.
+
 ## Common SDK Resolution Failure
 If `pub get` or the IDE package update reports an error like:
 
