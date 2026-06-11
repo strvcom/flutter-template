@@ -31,6 +31,7 @@ Not every feature needs every file. Simple screens in the template only use `*_p
 - `CustomAppBar` is a common default for top bars.
 - `Scaffold` is used directly in the current template. Do not assume a `CustomScaffold` exists.
 - Edge-to-edge behavior is coordinated through `CustomSystemBarsTheme` in `lib/app/theme/custom_system_bars_theme.dart`.
+- Use `LayoutBuilder` when a widget must adapt to parent constraints, and use `MediaQuery.sizeOf(context)` only when the whole screen size matters. Prefer stable constraints (`Expanded`, `Flexible`, `ConstrainedBox`, grid delegates, or aspect ratios) over fixed dimensions that can overflow with localized text or narrow viewports.
 
 ## Shared UI: Components vs Compositions
 - Use `lib/common/component/` for smaller reusable building blocks such as buttons, app bars, inputs, tabs, avatars, and low-level display widgets.

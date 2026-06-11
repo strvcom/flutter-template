@@ -63,6 +63,8 @@ Ask the user about any ambiguities:
 - State boundary: a single `@riverpod` notifier or multiple cooperating providers? Sync
   `Notifier` or `AsyncNotifier`?
 - Navigation: new `@RoutePage` route(s), modal vs. full-screen, deep-link entry?
+- Layout: mobile-only or responsive across tablet/desktop/web? Any scroll, grid, or text-wrapping
+  constraints that should be specified before implementation?
 - Codegen scope: which generated inputs are involved (`@freezed` models with `fromJson`,
   `@riverpod`, `@RoutePage`, localization, assets) — this drives when `make gen` needs to run.
 - Testing strategy: which providers / use cases warrant unit tests; any widget tests required?

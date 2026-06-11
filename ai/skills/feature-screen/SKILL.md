@@ -40,7 +40,10 @@ For simple static screens, `*_state.dart` and `*_event.dart` may be unnecessary.
 7. Register the route in `lib/app/navigation/app_router.dart`.
 8. Use shared widgets and extensions before adding new abstractions.
 9. If data is needed, add DTOs, entities, and use cases in the shared locations instead of doing IO in widgets.
-10. Run `make gen`, then `fvm flutter analyze`, then relevant tests.
+10. Check narrow and wide layout behavior for the page content. Use `LayoutBuilder` for parent
+    constraint-driven layouts, wrap flexible `Row` content in `Expanded`/`Flexible`, and avoid
+    fixed dimensions that can overflow localized text.
+11. Run `make gen`, then `fvm flutter analyze`, then relevant tests.
 
 ## Conventions To Keep
 - Keep `*_page.dart` thin.
@@ -63,3 +66,5 @@ For simple static screens, `*_state.dart` and `*_event.dart` may be unnecessary.
 - This template mixes fully-wired code with scaffolded placeholders. Check `lib/app/setup/setup_app.dart` before assuming a service is active.
 - Do not invent a `CustomScaffold`; current template screens use `Scaffold` directly.
 - Localization currently starts from `assets/localization/app_en.arb`. Add keys there and regenerate.
+- If a screen overflows or needs meaningful responsive behavior, use the `layout-debug` skill before
+  final verification.
