@@ -134,6 +134,7 @@ Not every feature needs every file. Simple screens in the template only use `*_p
 - `make integration_test` runs `patrol test --flavor develop`.
 - For Android integration tests, ensure `adb` is already available on your shell `PATH`.
 - Add or update tests when the task calls for behavior changes, bug fixes, or new features. Do not assume tests are off-limits.
+- Prefer focused widget tests for shared UI, provider-driven visual states, and user-visible bug fixes. Wrap provider-dependent widgets in `ProviderScope`, override IO-facing providers, include generated localization delegates when using `context.locale`, and avoid real network, Firebase, storage, or platform side effects in widget tests.
 
 ## Release And Versioning Notes
 - The repo contains release-oriented files and commands such as `release_notes.txt`, Android app bundle generation, and iOS IPA generation.

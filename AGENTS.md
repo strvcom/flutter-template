@@ -59,6 +59,7 @@ Existing skills:
 - `review-pr-comments` — triage and resolve AI or human GitHub PR feedback
 - `create-pr` — verify, commit, push, and create or update a GitHub PR
 - `lint-format` — run Flutter/Dart formatting and analyzer checks
+- `widget-test` — add or update focused widget tests using this template's Riverpod, localization, theme, and route patterns
 - `build-verify` — full build/test/analyze/format pass (codegen + analyze + test, then iOS + Android builds in parallel, then `dart format`); auto-scopes to the diff and leaves the working tree dirty for review
 - `start-job` — run the post-spec implementation pipeline (`tasks` → `implement-tasks-sequence` → `build-verify` → `pr-review`)
 - `prd` — create a Flutter feature Product Requirements Document under `.claude/tasks/<feature>/prd.md`
