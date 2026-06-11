@@ -13,7 +13,7 @@ Checks per skill:
     extensions are accepted; anything else is a warning)
   - SKILL.md body under 500 lines (spec recommendation; warning)
   - Claude Code exposure exists:
-      .claude/skills/<name> symlink and .claude/commands/<name>.md slash command
+      .claude/skills/<name> symlink and .claude/commands/<name>.md slash command file
 
 Exits 1 on errors, 0 if only warnings.
 """
@@ -103,19 +103,23 @@ def check_skill(skill_dir: str) -> tuple[list[str], list[str]]:
     name = fm.get("name")
     if not name:
         errors.append("missing required field: name")
+    elif not isinstance(name, str):
+        errors.append("name must be a string")
     else:
         if name != dirname:
             errors.append(f"name '{name}' does not match directory '{dirname}'")
-        if not NAME_RE.fullmatch(str(name)):
+        if not NAME_RE.fullmatch(name):
             errors.append(f"name '{name}' violates spec charset rules")
-        if len(str(name)) > 64:
+        if len(name) > 64:
             errors.append("name exceeds 64 characters")
 
     description = fm.get("description")
     if not description:
         errors.append("missing required field: description")
-    elif len(str(description)) > 1024:
-        errors.append(f"description is {len(str(description))} chars (max 1024)")
+    elif not isinstance(description, str):
+        errors.append("description must be a string")
+    elif len(description) > 1024:
+        errors.append(f"description is {len(description)} chars (max 1024)")
 
     allowed_tools = fm.get("allowed-tools")
     if allowed_tools is not None:
@@ -141,13 +145,17 @@ def check_skill(skill_dir: str) -> tuple[list[str], list[str]]:
         warnings.append(f"body is {body_lines} lines (spec recommends < {MAX_BODY_LINES}; "
                         "consider moving detail into references/)")
 
-    for rel, kind in [
-        (os.path.join(".claude", "skills", dirname), "Claude Code symlink"),
-        (os.path.join(".claude", "commands", f"{dirname}.md"), "slash command"),
-    ]:
-        path = os.path.join(REPO_ROOT, rel)
-        if not os.path.exists(path):
-            errors.append(f"missing {kind}: {rel}")
+    skill_link_rel = os.path.join(".claude", "skills", dirname)
+    skill_link_path = os.path.join(REPO_ROOT, skill_link_rel)
+    if not os.path.exists(skill_link_path):
+        errors.append(f"missing Claude Code symlink: {skill_link_rel}")
+    elif not os.path.islink(skill_link_path):
+        errors.append(f"Claude Code skill exposure must be a symlink: {skill_link_rel}")
+
+    command_rel = os.path.join(".claude", "commands", f"{dirname}.md")
+    command_path = os.path.join(REPO_ROOT, command_rel)
+    if not os.path.isfile(command_path):
+        errors.append(f"missing slash command file: {command_rel}")
 
     return errors, warnings
 
