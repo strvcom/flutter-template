@@ -21,6 +21,22 @@ Use this skill for UI fixes and responsive layout work in this Flutter template.
 - The affected `*_page.dart` and `*_page_content.dart`
 - Shared widgets in `lib/common/component/` or `lib/common/composition/` used by the screen
 
+## Error Signatures
+Map console/stack-trace error strings directly to fixes before broader diagnosis:
+
+- **"Vertical viewport was given unbounded height"** — a scrollable (`ListView`, `GridView`)
+  sits inside an unconstrained vertical parent (usually a `Column`). Wrap the scrollable in
+  `Expanded`, or give it an explicit height via `SizedBox`/`ConstrainedBox`.
+- **"An InputDecorator...cannot have an unbounded width"** — a `TextField`/`TextFormField` sits
+  inside an unconstrained horizontal parent (usually a `Row`). Wrap it in `Expanded` or `Flexible`.
+- **"RenderFlex overflowed by N pixels"** — a `Row`/`Column` child requests more space than the
+  parent allows (yellow/black stripes). Wrap the overflowing child in `Expanded` or `Flexible`,
+  or let text wrap.
+- **"Incorrect use of ParentData widget"** — `Expanded`/`Flexible` is not a direct child of a
+  `Row`/`Column`/`Flex`, or `Positioned` is not a direct child of a `Stack`. Move it so it is.
+- **"RenderBox was not laid out"** — cascading side effect, not the root cause. Ignore it and
+  look further up the output for the primary constraint violation above.
+
 ## Diagnosis Checklist
 1. Reproduce or identify the failing viewport, text scale, platform, and state.
 2. Inspect the nearest `Row`, `Column`, `Stack`, `ListView`, `SingleChildScrollView`,

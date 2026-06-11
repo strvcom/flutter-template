@@ -38,6 +38,9 @@ rendering, and provider-driven state transitions.
   test folder unless the repo already has a stronger local pattern.
 
 ## Harness Pattern
+Call `Configuration.setup(flavor: Flavor.develop)` at the top of `main()` before any test runs —
+existing tests in `test/common/` do this and widgets that read configuration fail without it.
+
 Build the smallest wrapper that gives the widget the dependencies it expects:
 
 ```dart

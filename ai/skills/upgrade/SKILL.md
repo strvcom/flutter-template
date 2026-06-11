@@ -74,9 +74,14 @@ When `pub get`, `pub upgrade`, or code generation fails because of version solvi
    - `auto_route_generator` and `auto_route`
 5. If a single direct dependency is blocking resolution, try the narrowest compatible constraint
    first rather than a broad major-version sweep.
-6. If `pubspec.lock` changes after resolution, review whether the churn matches the intended
-   upgrade scope. Do not hand-edit the lockfile.
-7. After dependency resolution succeeds, rerun `make gen` before judging analyzer errors. Generated
+6. After minor/patch upgrades, run `fvm flutter pub upgrade --tighten` to raise the lower bounds
+   in `pubspec.yaml` to the versions actually resolved, keeping constraints honest.
+7. If `pubspec.lock` changes after resolution, review whether the churn matches the intended
+   upgrade scope. Do not hand-edit the lockfile, with one exception: when a single package is
+   retracted or stuck in a conflict, delete only that package's block from `pubspec.lock` and
+   rerun `fvm flutter pub get` so pub re-resolves just that package. Never delete the whole
+   lockfile to force a clean resolve — that causes uncontrolled upgrades across the entire graph.
+8. After dependency resolution succeeds, rerun `make gen` before judging analyzer errors. Generated
    code and analyzer failures are often stale until codegen completes.
 
 ## Static Analysis Fixes During Upgrades
