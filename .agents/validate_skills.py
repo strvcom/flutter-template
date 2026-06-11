@@ -1,0 +1,189 @@
+#!/usr/bin/env python3
+"""Validate .agents/skills/* against the Agent Skills spec (agentskills.io/specification)
+and this repo's skill-exposure convention (see AGENTS.md "Creating a new skill").
+
+Checks per skill:
+  - SKILL.md exists with parseable YAML frontmatter (strict — lenient parsers in
+    some clients mask errors that make other clients silently skip the skill)
+  - name: required, 1-64 chars, lowercase alphanumerics and single hyphens,
+    no leading/trailing hyphen, matches the directory name
+  - description: required, 1-1024 chars
+  - allowed-tools: optional, space-separated string, no comma-separated values
+  - unknown top-level frontmatter fields (spec fields + known Claude Code
+    extensions are accepted; anything else is a warning)
+  - SKILL.md body under 500 lines (spec recommendation; warning)
+  - Claude Code exposure exists:
+      .claude/skills/<name> symlink and .claude/commands/<name>.md slash command file
+
+Exits 1 on errors, 0 if only warnings.
+"""
+
+import os
+import re
+import sys
+
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SKILLS_DIR = os.path.join(REPO_ROOT, ".agents", "skills")
+
+SPEC_FIELDS = {"name", "description", "license", "compatibility", "metadata", "allowed-tools"}
+CLAUDE_EXTENSIONS = {"model", "user-invocable", "disable-model-invocation"}
+NAME_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
+TOOL_RE = re.compile(r"^[A-Za-z0-9_./:-]+(?:\([^)\s]+\))?$")
+MAX_BODY_LINES = 500
+
+try:
+    import yaml
+except ImportError:
+    yaml = None
+
+
+def parse_frontmatter(text: str) -> dict[str, object]:
+    if yaml is not None:
+        fm = yaml.safe_load(text)
+        if not isinstance(fm, dict):
+            raise ValueError("frontmatter is not a YAML mapping")
+        return fm
+
+    data: dict[str, object] = {}
+    lines = text.splitlines()
+    index = 0
+    while index < len(lines):
+        line = lines[index]
+        index += 1
+        if not line.strip():
+            continue
+        if line.startswith((" ", "\t")) or ":" not in line:
+            raise ValueError("frontmatter uses YAML syntax that requires PyYAML")
+
+        key, value = line.split(":", 1)
+        key = key.strip()
+        value = value.strip()
+        if not key:
+            raise ValueError("frontmatter contains an empty key")
+
+        if value in {">", "|"}:
+            block_lines: list[str] = []
+            while index < len(lines) and (lines[index].startswith((" ", "\t")) or not lines[index].strip()):
+                block_lines.append(lines[index].strip())
+                index += 1
+            data[key] = "\n".join(block_lines).strip() if value == "|" else " ".join(block_lines).strip()
+            continue
+
+        if value.lower() == "true":
+            data[key] = True
+        elif value.lower() == "false":
+            data[key] = False
+        else:
+            data[key] = value.strip("\"'")
+
+    return data
+
+
+def check_skill(skill_dir: str) -> tuple[list[str], list[str]]:
+    errors: list[str] = []
+    warnings: list[str] = []
+    dirname = os.path.basename(skill_dir)
+    skill_md = os.path.join(skill_dir, "SKILL.md")
+
+    if not os.path.isfile(skill_md):
+        return [f"missing SKILL.md"], warnings
+
+    text = open(skill_md, encoding="utf-8").read()
+    match = re.match(r"^---\n(.*?)\n---\n?(.*)$", text, re.S)
+    if not match:
+        return ["SKILL.md has no YAML frontmatter block"], warnings
+
+    try:
+        fm = parse_frontmatter(match.group(1))
+    except Exception as exc:
+        msg = str(exc).splitlines()[0]
+        return [f"frontmatter is not valid YAML ({msg}) — "
+                "quote values containing colons or use a '>' block scalar"], warnings
+
+    name = fm.get("name")
+    if not name:
+        errors.append("missing required field: name")
+    elif not isinstance(name, str):
+        errors.append("name must be a string")
+    else:
+        if name != dirname:
+            errors.append(f"name '{name}' does not match directory '{dirname}'")
+        if not NAME_RE.fullmatch(name):
+            errors.append(f"name '{name}' violates spec charset rules")
+        if len(name) > 64:
+            errors.append("name exceeds 64 characters")
+
+    description = fm.get("description")
+    if not description:
+        errors.append("missing required field: description")
+    elif not isinstance(description, str):
+        errors.append("description must be a string")
+    elif len(description) > 1024:
+        errors.append(f"description is {len(description)} chars (max 1024)")
+
+    allowed_tools = fm.get("allowed-tools")
+    if allowed_tools is not None:
+        if not isinstance(allowed_tools, str):
+            errors.append("allowed-tools must be a space-separated string")
+        elif "," in allowed_tools:
+            errors.append("allowed-tools must be space-separated; commas are not valid")
+        else:
+            tools = allowed_tools.split()
+            if not tools:
+                errors.append("allowed-tools must not be empty when provided")
+            for tool in tools:
+                if not TOOL_RE.fullmatch(tool):
+                    errors.append(f"allowed-tools contains invalid tool token '{tool}'")
+
+    for key in fm:
+        if key not in SPEC_FIELDS | CLAUDE_EXTENSIONS:
+            warnings.append(f"unknown frontmatter field '{key}' "
+                            "(spec suggests nesting extras under 'metadata:')")
+
+    body_lines = match.group(2).count("\n") + 1
+    if body_lines > MAX_BODY_LINES:
+        warnings.append(f"body is {body_lines} lines (spec recommends < {MAX_BODY_LINES}; "
+                        "consider moving detail into references/)")
+
+    skill_link_rel = os.path.join(".claude", "skills", dirname)
+    skill_link_path = os.path.join(REPO_ROOT, skill_link_rel)
+    if not os.path.exists(skill_link_path):
+        errors.append(f"missing Claude Code symlink: {skill_link_rel}")
+    elif not os.path.islink(skill_link_path):
+        errors.append(f"Claude Code skill exposure must be a symlink: {skill_link_rel}")
+
+    command_rel = os.path.join(".claude", "commands", f"{dirname}.md")
+    command_path = os.path.join(REPO_ROOT, command_rel)
+    if not os.path.isfile(command_path):
+        errors.append(f"missing slash command file: {command_rel}")
+
+    return errors, warnings
+
+
+def main() -> int:
+    if not os.path.isdir(SKILLS_DIR):
+        print(f"error: skills directory not found: {SKILLS_DIR}")
+        return 1
+
+    total_errors = 0
+    total_warnings = 0
+    for entry in sorted(os.listdir(SKILLS_DIR)):
+        skill_dir = os.path.join(SKILLS_DIR, entry)
+        if not os.path.isdir(skill_dir):
+            continue
+        errors, warnings = check_skill(skill_dir)
+        total_errors += len(errors)
+        total_warnings += len(warnings)
+        status = "FAIL" if errors else ("WARN" if warnings else "OK")
+        print(f"{status:4} {entry}")
+        for issue in errors:
+            print(f"     error: {issue}")
+        for issue in warnings:
+            print(f"     warning: {issue}")
+
+    print(f"\n{total_errors} error(s), {total_warnings} warning(s)")
+    return 1 if total_errors else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

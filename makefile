@@ -32,7 +32,7 @@ install: # Install any required packages
 integration_test: # Runs Patrol Integration tests 
 	@patrol test --flavor develop
 
-test: # Runs Flutter tests 
+test: # Runs Flutter tests
 	@fvm flutter test
 
 generateAndroidProductionAppBundle: # Clean everything and build Android AppBundle

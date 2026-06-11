@@ -1,1 +1,1 @@
-../../ai/templates/prd.md
+../../.agents/templates/prd.md

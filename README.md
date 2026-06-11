@@ -97,7 +97,7 @@ These are our four core values:
 
 ## Automated steps
 
-The following steps can be completed or coordinated by `ai/skills/project-setup`.
+The following steps can be completed or coordinated by `.agents/skills/project-setup`.
 
 1. - [ ] Remove any unused platforms (Android, iOS, web, Windows, Linux (+snap), macOS)
     - Remove them from the folder structure of the template.
@@ -503,7 +503,7 @@ Canonical project files:
 - `docs/PROJECT_GUIDELINES.md` contains implementation conventions and workflow defaults.
 - `.claude/CLAUDE.md` points Claude users at the shared project instructions.
 
-Reusable workflow guides live under `ai/skills/`:
+Reusable workflow guides live under `.agents/skills/`:
 - `project-setup` for app identity, icons, splash, platform cleanup, Firebase/secrets decisions, and initial validation.
 - `feature-screen` for route and UI scaffolding.
 - `feature-data-flow` for full backend-backed features with DTOs, entities, use cases, and state wiring.
@@ -521,15 +521,15 @@ AI workflow prerequisites:
 - Install GitHub CLI for PR workflows (`brew install gh` on macOS) and authenticate with `gh auth login --hostname github.com --git-protocol ssh --web`.
 - Verify GitHub CLI with `gh auth status`. If an invalid `GITHUB_TOKEN` or `GH_TOKEN` is set in your environment, clear or replace it so the stored login can be used.
 - Repo-local scripts should be executable and syntax-check clean:
-  - `ai/skills/build-verify/scripts/verify.sh --help`
-  - `ai/skills/lint-format/scripts/lint-format.sh --help`
-  - `bash -n ai/skills/build-verify/scripts/verify.sh`
-  - `bash -n ai/skills/lint-format/scripts/lint-format.sh`
-  - `sh -n ai/skills/release-builds/scripts/archive_ios_ipa.sh`
+  - `.agents/skills/build-verify/scripts/verify.sh --help`
+  - `.agents/skills/lint-format/scripts/lint-format.sh --help`
+  - `bash -n .agents/skills/build-verify/scripts/verify.sh`
+  - `bash -n .agents/skills/lint-format/scripts/lint-format.sh`
+  - `sh -n .agents/skills/release-builds/scripts/archive_ios_ipa.sh`
 
 Recommended usage:
 - When working with an AI agent, explicitly mention the workflow you want to use, for example `Use the feature-data-flow skill`.
-- Keep long-term project rules in `AGENTS.md` and the docs, and keep repeatable procedures in `ai/skills/`.
+- Keep long-term project rules in `AGENTS.md` and the docs, and keep repeatable procedures in `.agents/skills/`.
 - Treat the repo-local workflow guides as project-specific assets that should evolve with the template.
 
 <!-- ################################################## -->
