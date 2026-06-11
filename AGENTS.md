@@ -83,7 +83,7 @@ Existing skills:
   follow.
 
 ### Creating a new skill
-When adding a new repeatable workflow, complete all five steps so Codex, Claude,
+When adding a new repeatable workflow, complete all six steps so Codex, Claude,
 and other skills-compliant agents can use it:
 1. **Author the skill.** Create `ai/skills/<name>/SKILL.md` with YAML frontmatter
    and the workflow body. Required fields:
@@ -106,3 +106,9 @@ and other skills-compliant agents can use it:
    existing commands as a template — a short frontmatter (`description`,
    `argument-hint`) and a one-line body that invokes the skill, followed by
    `$ARGUMENTS`.
+
+6. **Validate.** Run `python3 ai/validate_skills.py` and fix any reported
+   issues. It checks Agent Skills spec compliance (strict YAML frontmatter,
+   name/description rules) and that all exposure symlinks and the slash
+   command from steps 3-5 exist. Also run it after editing any existing
+   SKILL.md frontmatter.
