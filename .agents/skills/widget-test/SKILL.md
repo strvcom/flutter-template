@@ -5,7 +5,7 @@ description: >
   Riverpod provider overrides, generated localization, shared theme setup, and FVM test
   commands. Use when a task asks for widget tests, UI regression coverage, test coverage for
   a screen/component, or when implementation work changes visible Flutter behavior.
-allowed-tools: Bash, Read, Grep, Glob, Edit, Write
+allowed-tools: Bash Read Grep Glob Edit Write
 model: claude-sonnet-4-6
 ---
 

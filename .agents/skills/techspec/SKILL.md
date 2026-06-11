@@ -5,7 +5,7 @@ description: >
   through deep project analysis and clarification. Use when the user says "create a tech spec",
   "write the technical design", "spec this out", or after a PRD is complete and the user wants
   to move to technical planning.
-allowed-tools: Bash, Read, Grep, Glob, Write, Edit
+allowed-tools: Bash Read Grep Glob Write Edit
 model: claude-opus-4-7
 ---
 

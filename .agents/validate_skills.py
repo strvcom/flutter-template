@@ -8,6 +8,7 @@ Checks per skill:
   - name: required, 1-64 chars, lowercase alphanumerics and single hyphens,
     no leading/trailing hyphen, matches the directory name
   - description: required, 1-1024 chars
+  - allowed-tools: optional, space-separated string, no comma-separated values
   - unknown top-level frontmatter fields (spec fields + known Claude Code
     extensions are accepted; anything else is a warning)
   - SKILL.md body under 500 lines (spec recommendation; warning)
@@ -27,6 +28,7 @@ SKILLS_DIR = os.path.join(REPO_ROOT, ".agents", "skills")
 SPEC_FIELDS = {"name", "description", "license", "compatibility", "metadata", "allowed-tools"}
 CLAUDE_EXTENSIONS = {"model", "user-invocable", "disable-model-invocation"}
 NAME_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
+TOOL_RE = re.compile(r"^[A-Za-z0-9_./:-]+(?:\([^)\s]+\))?$")
 MAX_BODY_LINES = 500
 
 try:
@@ -114,6 +116,20 @@ def check_skill(skill_dir: str) -> tuple[list[str], list[str]]:
         errors.append("missing required field: description")
     elif len(str(description)) > 1024:
         errors.append(f"description is {len(str(description))} chars (max 1024)")
+
+    allowed_tools = fm.get("allowed-tools")
+    if allowed_tools is not None:
+        if not isinstance(allowed_tools, str):
+            errors.append("allowed-tools must be a space-separated string")
+        elif "," in allowed_tools:
+            errors.append("allowed-tools must be space-separated; commas are not valid")
+        else:
+            tools = allowed_tools.split()
+            if not tools:
+                errors.append("allowed-tools must not be empty when provided")
+            for tool in tools:
+                if not TOOL_RE.fullmatch(tool):
+                    errors.append(f"allowed-tools contains invalid tool token '{tool}'")
 
     for key in fm:
         if key not in SPEC_FIELDS | CLAUDE_EXTENSIONS:

@@ -1,7 +1,7 @@
 ---
 name: release-builds
 description: Run post-merge release build steps for this repository, including Android tag-driven releases and sequential iOS IPA generation with archival for Transporter upload and Crashlytics deobfuscation. Use after the release PR has been merged.
-allowed-tools: Bash, Read, Grep, Glob
+allowed-tools: Bash Read Grep Glob
 model: claude-sonnet-4-6
 ---
 

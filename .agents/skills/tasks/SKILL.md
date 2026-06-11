@@ -8,7 +8,7 @@ description: >
   for the next step.
   Use when the user says "break this down into tasks", "create tasks", "task breakdown",
   or after the tech spec is complete and the user wants to plan implementation.
-allowed-tools: Bash, Read, Grep, Glob, Write, Edit
+allowed-tools: Bash Read Grep Glob Write Edit
 model: claude-sonnet-4-6
 ---
 

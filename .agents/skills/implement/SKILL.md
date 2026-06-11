@@ -8,7 +8,7 @@ description: >
   start-job/build-verify.
   Use when the user says "implement task X", "work on task X", or wants to execute
   a specific task from the task list.
-allowed-tools: Bash, Read, Grep, Glob, Edit, Write, Agent
+allowed-tools: Bash Read Grep Glob Edit Write Agent
 model: claude-sonnet-4-6
 ---
 

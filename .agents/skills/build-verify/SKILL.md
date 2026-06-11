@@ -7,7 +7,7 @@ description: >
   Used at the end of the prd → techspec → tasks → implement-tasks-sequence flow before
   `pr-review`, and can also be invoked manually when the user says "verify build", "run
   full verification", or "check everything".
-allowed-tools: Bash, Read, Grep, Glob, Edit, Skill
+allowed-tools: Bash Read Grep Glob Edit Skill
 model: claude-sonnet-4-6
 ---
 

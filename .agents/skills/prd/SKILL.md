@@ -6,7 +6,7 @@ description: >
   `.claude/tasks/<feature-name>/prd.md`. Use when the user says "create a PRD",
   "write requirements", "define the feature", "start a feature spec", or wants to
   specify a feature before techspec/tasks/start-job.
-allowed-tools: Bash, Read, Grep, Glob, Write, Edit
+allowed-tools: Bash Read Grep Glob Write Edit
 model: claude-opus-4-7
 ---
 

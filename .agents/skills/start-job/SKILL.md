@@ -5,7 +5,7 @@ description: >
   tasks → implement-tasks-sequence → build-verify → pr-review uncommitted. Use after a PRD
   and tech spec are complete. Trigger phrases: "start job", "start the job",
   "run the full pipeline", "do it all", "implement the feature end-to-end".
-allowed-tools: Bash, Read, Grep, Glob, Edit, Write, Agent, Skill
+allowed-tools: Bash Read Grep Glob Edit Write Agent Skill
 user-invocable: true
 model: claude-sonnet-4-6
 ---

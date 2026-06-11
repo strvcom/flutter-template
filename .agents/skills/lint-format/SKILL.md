@@ -4,7 +4,7 @@ description: >
   Run Flutter/Dart formatting and static analysis for this repository. Use after completing Dart,
   Flutter, generated-source-input, or project configuration changes; when the user asks to lint,
   format, analyze, or check code style; or when preparing code for a pull request.
-allowed-tools: Bash, Read, Grep, Glob
+allowed-tools: Bash Read Grep Glob
 model: claude-sonnet-4-6
 ---
 

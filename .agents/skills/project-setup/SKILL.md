@@ -1,7 +1,7 @@
 ---
 name: project-setup
 description: Customize a new project created from this Flutter template, including app identity, package name, platform cleanup, icons, splash screen, Firebase/secrets decisions, setup tool execution, code generation, and validation.
-allowed-tools: Bash, Read, Grep, Glob, Edit, Write
+allowed-tools: Bash Read Grep Glob Edit Write
 model: claude-sonnet-4-6
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: feature-screen
 description: Create a new Flutter screen in this repository using the existing feature structure, AutoRoute setup, Riverpod state pattern, and code generation workflow. Use when adding a new page, route, stateful screen, or feature folder in this template.
-allowed-tools: Bash, Read, Grep, Glob, Edit, Write
+allowed-tools: Bash Read Grep Glob Edit Write
 model: claude-sonnet-4-6
 ---
 

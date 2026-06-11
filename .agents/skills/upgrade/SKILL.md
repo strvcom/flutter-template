@@ -1,7 +1,7 @@
 ---
 name: upgrade
 description: Upgrade Flutter and package dependencies in this repository while keeping .fvmrc, pubspec.yaml, code generation, CI, and tests aligned. Use when bumping Flutter, Dart constraints, direct dependencies, or generator toolchains.
-allowed-tools: Bash, Read, Grep, Glob, Edit, Write
+allowed-tools: Bash Read Grep Glob Edit Write
 model: claude-sonnet-4-6
 ---
 

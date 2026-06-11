@@ -7,7 +7,7 @@ description: >
   which runs `build-verify` and `pr-review uncommitted` afterwards).
   Use when the user says "implement all tasks", "run the task sequence", "implement the feature",
   or wants to execute multiple tasks from a task list end-to-end.
-allowed-tools: Bash, Read, Grep, Glob, Edit, Write, Agent
+allowed-tools: Bash Read Grep Glob Edit Write Agent
 model: claude-sonnet-4-6
 ---
 

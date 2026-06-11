@@ -6,7 +6,7 @@ description: >
   approved, pushes, and opens or updates the PR. Supports stacked PRs by asking for the base
   branch when detection is ambiguous. Use when the user says "create PR", "open PR", "push PR",
   or wants to submit their work for review.
-allowed-tools: Bash, Read, Write, Grep, Glob, Skill, Agent
+allowed-tools: Bash Read Write Grep Glob Skill Agent
 user-invocable: true
 model: claude-sonnet-4-6
 ---

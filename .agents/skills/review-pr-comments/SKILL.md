@@ -8,7 +8,7 @@ description: >
   comments, and pushes.
   Use when the user asks to review PR comments, resolve PR feedback, review AI comments, review
   human review comments, or handle code review feedback.
-allowed-tools: Agent, Bash, Read, Edit, Write, Grep, Glob
+allowed-tools: Agent Bash Read Edit Write Grep Glob
 model: claude-sonnet-4-6
 ---
 

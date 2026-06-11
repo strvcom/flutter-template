@@ -6,7 +6,7 @@ description: >
   theme, localization, and shared widget patterns. Use when UI overflows, text clips,
   widgets disappear, layouts fail on mobile/tablet/desktop, or a feature needs responsive
   behavior.
-allowed-tools: Bash, Read, Grep, Glob, Edit, Write
+allowed-tools: Bash Read Grep Glob Edit Write
 model: claude-sonnet-4-6
 ---
 

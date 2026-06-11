@@ -89,7 +89,7 @@ and other skills-compliant agents can use it:
    - `name:` matching the folder
    - `description:` explaining when to use the skill
    - `allowed-tools:` listing the tools the skill needs (for example
-     `Bash, Read, Grep, Glob, Edit, Write`; add `Agent` for skills that delegate
+     `Bash Read Grep Glob Edit Write`; add `Agent` for skills that delegate
      to subagents, `Skill` for orchestrators that invoke other skills)
    - `model:` selecting the model — use `claude-sonnet-4-6` for most
      implementation, verification, and review workflows, and `claude-opus-4-7`
