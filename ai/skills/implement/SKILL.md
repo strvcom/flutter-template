@@ -32,6 +32,8 @@ You are responsible for implementing one task from a Flutter feature plan while 
 ## Applicable Skills
 - `feature-screen` — when the task adds or changes a screen, route, page split, UI state, or navigation.
 - `feature-data-flow` — when the task adds backend/storage data flow, DTOs, entities, use cases, or state that loads real data.
+- `widget-test` — when the task changes shared UI, provider-driven visual states, or user-visible behavior that can be covered by a focused widget test.
+- `layout-debug` — when the task involves overflow fixes, responsive behavior, scroll/constraint issues, or text clipping.
 - `lint-format` — when running standalone and the change does not need the broader `build-verify` suite.
 - `build-verify` — when running standalone and the task changed behavior, generated-code inputs, routes, platform setup, dependencies, tests, or other shared behavior.
 - `pr-review` — optional standalone final check when the user asks for a review after implementation.

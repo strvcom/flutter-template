@@ -45,6 +45,7 @@ Not every feature needs every file. Simple screens in the template only use `*_p
 - Stateful feature providers commonly use `@riverpod` classes ending in `StateNotifier`.
 - Shared notifier helpers live in `lib/core/riverpod/state_handler.dart`.
 - `AsyncValueExtension.mapState` and `mapContentState` from `lib/common/extension/async_value.dart` are the standard loading, error, and empty-state helpers.
+- Prefer Dart pattern matching and sealed/freezed exhaustiveness when handling union states, events, and small branching models. Keep branches explicit when missing a case would change user-visible behavior.
 - Keep `@Riverpod(keepAlive: true)` for app-scoped state or long-lived services, not one-shot command providers.
 - For async use-case providers, prefer reading dependencies before the first `await` and continuing with captured objects instead of calling `ref` again later.
 - If an auto-dispose use-case truly must access `ref` after an async gap, keep it alive only for that operation with `final link = ref.keepAlive(); try { ... } finally { link.close(); }`.
@@ -68,6 +69,7 @@ Not every feature needs every file. Simple screens in the template only use `*_p
 - Keep request and response payloads in `lib/common/data/dto/`.
 - Keep app-facing models in `lib/common/data/entity/`.
 - Map DTOs to entities close to the data layer instead of leaking transport models into widgets.
+- When parsing backend variants, nullable fields, or enum-like strings, use explicit Dart pattern matching or guarded branches so unknown values are intentional rather than accidental.
 - Keep IO-oriented logic in Riverpod use cases under `lib/common/usecase/`.
 - Use `Flogger` when extra diagnostics are useful in service or integration code.
 

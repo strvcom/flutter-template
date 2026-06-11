@@ -73,11 +73,15 @@ Feature UI
 - Use `@freezed` and generated `fromJson` when the DTO is serialized.
 - Keep DTO fields aligned with backend payload names and types.
 - When backend enums are involved, prefer resilient parsing patterns such as explicit unknown cases where needed.
+- Use Dart pattern matching or guarded switches for backend variants, nullable fields, and enum-like
+  strings when that makes parsing more exhaustive and easier to audit.
 
 ## Entity Guidance
 - Put UI-facing or domain-facing models in `lib/common/data/entity/`.
 - Entities may differ from DTOs if the UI needs a cleaner or safer shape.
 - Prefer exposing entities to the rest of the app instead of leaking DTOs into widgets.
+- Prefer explicit, exhaustive handling when mapping DTOs into entities. If an unknown backend value
+  is accepted, make the fallback visible in the mapper rather than burying it in UI code.
 
 ## Mapping Guidance
 - Put mapping in an extension on the DTO when the conversion is straightforward.
