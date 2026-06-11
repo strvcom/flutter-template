@@ -77,10 +77,14 @@ Existing skills:
   that point at `ai/skills/<name>/`. Each skill is also exposed as a slash
   command at `.claude/commands/<name>.md`, so `/feature-screen`, `/pr-review`,
   `/release-prepare`, etc. work as explicit invocations.
+- **Other spec-compliant agents** auto-discover skills through
+  `.agents/skills/<name>` symlinks — the cross-client interop location defined
+  by the [Agent Skills](https://agentskills.io) format that this repo's skills
+  follow.
 
 ### Creating a new skill
-When adding a new repeatable workflow, complete all four steps so both Codex and
-Claude can use it:
+When adding a new repeatable workflow, complete all five steps so Codex, Claude,
+and other skills-compliant agents can use it:
 1. **Author the skill.** Create `ai/skills/<name>/SKILL.md` with YAML frontmatter
    and the workflow body. Required fields:
    - `name:` matching the folder
@@ -96,7 +100,9 @@ Claude can use it:
 2. **Mention it for Codex.** Add the skill to the "Existing skills" list above.
 3. **Expose it to Claude Code (auto-discovery).** Add a symlink:
    `ln -s ../../ai/skills/<name> .claude/skills/<name>`
-4. **Add a slash command.** Create `.claude/commands/<name>.md` using one of the
+4. **Expose it to other agents (interop).** Add a symlink:
+   `ln -s ../../ai/skills/<name> .agents/skills/<name>`
+5. **Add a slash command.** Create `.claude/commands/<name>.md` using one of the
    existing commands as a template — a short frontmatter (`description`,
    `argument-hint`) and a one-line body that invokes the skill, followed by
    `$ARGUMENTS`.
