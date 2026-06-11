@@ -14,7 +14,7 @@ Checks per skill:
   - Claude Code exposure exists:
       .claude/skills/<name> symlink and .claude/commands/<name>.md slash command
 
-Exits 1 on errors, 0 if only warnings. Requires PyYAML (pip install pyyaml).
+Exits 1 on errors, 0 if only warnings.
 """
 
 import os
@@ -32,8 +32,49 @@ MAX_BODY_LINES = 500
 try:
     import yaml
 except ImportError:
-    print("error: PyYAML is required: pip install pyyaml")
-    sys.exit(1)
+    yaml = None
+
+
+def parse_frontmatter(text: str) -> dict[str, object]:
+    if yaml is not None:
+        fm = yaml.safe_load(text)
+        if not isinstance(fm, dict):
+            raise ValueError("frontmatter is not a YAML mapping")
+        return fm
+
+    data: dict[str, object] = {}
+    lines = text.splitlines()
+    index = 0
+    while index < len(lines):
+        line = lines[index]
+        index += 1
+        if not line.strip():
+            continue
+        if line.startswith((" ", "\t")) or ":" not in line:
+            raise ValueError("frontmatter uses YAML syntax that requires PyYAML")
+
+        key, value = line.split(":", 1)
+        key = key.strip()
+        value = value.strip()
+        if not key:
+            raise ValueError("frontmatter contains an empty key")
+
+        if value in {">", "|"}:
+            block_lines: list[str] = []
+            while index < len(lines) and (lines[index].startswith((" ", "\t")) or not lines[index].strip()):
+                block_lines.append(lines[index].strip())
+                index += 1
+            data[key] = "\n".join(block_lines).strip() if value == "|" else " ".join(block_lines).strip()
+            continue
+
+        if value.lower() == "true":
+            data[key] = True
+        elif value.lower() == "false":
+            data[key] = False
+        else:
+            data[key] = value.strip("\"'")
+
+    return data
 
 
 def check_skill(skill_dir: str) -> tuple[list[str], list[str]]:
@@ -51,13 +92,11 @@ def check_skill(skill_dir: str) -> tuple[list[str], list[str]]:
         return ["SKILL.md has no YAML frontmatter block"], warnings
 
     try:
-        fm = yaml.safe_load(match.group(1))
-    except yaml.YAMLError as exc:
+        fm = parse_frontmatter(match.group(1))
+    except Exception as exc:
         msg = str(exc).splitlines()[0]
         return [f"frontmatter is not valid YAML ({msg}) — "
                 "quote values containing colons or use a '>' block scalar"], warnings
-    if not isinstance(fm, dict):
-        return ["frontmatter is not a YAML mapping"], warnings
 
     name = fm.get("name")
     if not name:
