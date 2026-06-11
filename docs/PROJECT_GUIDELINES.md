@@ -121,6 +121,7 @@ Not every feature needs every file. Simple screens in the template only use `*_p
 - Treat `.fvmrc` and `pubspec.yaml` as the source of truth for SDK and package versions.
 - When upgrading Flutter, align the Flutter version in `pubspec.yaml` with `.fvmrc`.
 - After SDK or dependency upgrades, run `fvm flutter pub get`, `make gen`, `fvm flutter analyze`, and `fvm flutter test`.
+- Resolve package conflicts from the smallest incompatible dependency chain first. Prefer updating direct constraints in `pubspec.yaml`, keep generator/runtime annotation pairs aligned, and let `pub` regenerate `pubspec.lock` instead of editing it by hand.
 - Re-check generator compatibility when touching versioned pairs such as:
   - `freezed` and `freezed_annotation`
   - `json_serializable` and `json_annotation`
