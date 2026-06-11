@@ -1,1 +1,1 @@
-../../ai/templates/task.md
+../../.agents/templates/task.md

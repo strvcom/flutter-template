@@ -1,1 +1,1 @@
-../../ai/templates/techspec.md
+../../.agents/templates/techspec.md

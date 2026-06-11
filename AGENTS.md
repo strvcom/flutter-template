@@ -65,7 +65,7 @@ Existing skills:
 - `build-verify` — full build/test/analyze/format pass (codegen + analyze + test, then iOS + Android builds in parallel, then `dart format`); auto-scopes to the diff and leaves the working tree dirty for review
 - `start-job` — run the post-spec implementation pipeline (`tasks` → `implement-tasks-sequence` → `build-verify` → `pr-review`)
 - `prd` — create a Flutter feature Product Requirements Document under `.claude/tasks/<feature>/prd.md`
-- `tasks` — break a PRD + tech spec into discrete, dependency-ordered Flutter implementation tasks under `.claude/tasks/<feature>/` using `ai/templates/task.md` and `ai/templates/task-list.md`
+- `tasks` — break a PRD + tech spec into discrete, dependency-ordered Flutter implementation tasks under `.claude/tasks/<feature>/` using `.agents/templates/task.md` and `.agents/templates/task-list.md`
 - `implement` — implement one generated Flutter task using the repo architecture and verification rules
 - `implement-tasks-sequence` — execute generated task files in dependency order before final verification
 - `techspec` — translate a PRD into an implementation-ready Flutter tech spec at `.claude/tasks/<feature>/techspec.md`, grounded in the Riverpod / Freezed / AutoRoute / Dio / Firebase stack

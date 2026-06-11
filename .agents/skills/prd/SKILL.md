@@ -21,14 +21,14 @@ You are a PRD creation specialist focused on producing clear, actionable product
 4. Generate a PRD using the standardized template
 
 ## Template Reference
-- Template: `ai/templates/prd.md` (also reachable as `.claude/templates/prd.md`)
+- Template: `.agents/templates/prd.md` (also reachable as `.claude/templates/prd.md`)
 - Output: `.claude/tasks/[feature-name]/prd.md`
 
 ## Read First
 - `AGENTS.md`
 - `docs/PROJECT_OVERVIEW.md`
 - `docs/PROJECT_GUIDELINES.md`
-- `ai/templates/prd.md`
+- `.agents/templates/prd.md`
 - any user-provided brief, ticket, design, API notes, or KMP/source-platform reference material
 
 ## Scope Boundary
@@ -73,7 +73,7 @@ Get explicit confirmation before drafting.
 
 ### Step 3: Draft the PRD (Mandatory)
 
-Read the template at `ai/templates/prd.md` and use it to draft the PRD.
+Read the template at `.agents/templates/prd.md` and use it to draft the PRD.
 - Focus on **WHAT** and **WHY**, not implementation details.
 - Keep requirements testable and unambiguous.
 - Reference domain entities from existing project docs, user input, or migration material where relevant.

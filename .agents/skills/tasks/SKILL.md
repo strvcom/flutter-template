@@ -41,7 +41,7 @@ Read both documents and identify:
 
 ### Step 2: Generate Task Structure
 
-Order tasks following this Flutter-stack progression (mirrors the `ai/templates/task-list.md`
+Order tasks following this Flutter-stack progression (mirrors the `.agents/templates/task-list.md`
 phases):
 
 1. **Foundation (data layer)** — DTOs in `lib/common/data/dto/` (`@freezed` with
@@ -67,13 +67,13 @@ Keep the total number of tasks reasonable — prefer fewer, well-scoped tasks ov
 
 ### Step 3: Create Task Summary
 
-Use the template at `ai/templates/task-list.md` (also reachable as
+Use the template at `.agents/templates/task-list.md` (also reachable as
 `.claude/templates/task-list.md` via symlink) to generate:
 `.claude/tasks/[feature-name]/tasks.md`
 
 ### Step 4: Generate Individual Task Files
 
-Use the template at `ai/templates/task.md` (also reachable as `.claude/templates/task.md`
+Use the template at `.agents/templates/task.md` (also reachable as `.claude/templates/task.md`
 via symlink) to create:
 `.claude/tasks/[feature-name]/[num]_task.md`
 

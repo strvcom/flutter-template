@@ -74,7 +74,7 @@ Do not proceed until clarifications are resolved.
 
 ### Step 4: Generate Tech Spec
 
-Read the template at `ai/templates/techspec.md` (also reachable at
+Read the template at `.agents/templates/techspec.md` (also reachable at
 `.claude/templates/techspec.md` via symlink) and draft the spec.
 
 - Reference concrete files and modules from the codebase
