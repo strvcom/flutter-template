@@ -27,7 +27,7 @@ Use this file as the entrypoint for automated work in this repository.
 
 ## Codegen And Commands
 - Run `make gen` after changing `@riverpod`, `@freezed`, `@RoutePage`, localization, or generated asset inputs.
-- Use `make watch` for continuous code generation when doing annotation-heavy work.
+- Use `make watch` for continuous code generation when doing annotation-heavy work. This is a human-only command — agents must never run it (it spawns a persistent background watcher). Agents always use one-shot `make gen`.
 - Do not hand-edit generated files such as `*.g.dart`, `*.freezed.dart`, `*.gr.dart`, or files under `lib/assets/`.
 - Preferred validation commands:
   - `fvm flutter analyze`
@@ -69,6 +69,7 @@ Existing skills:
 - `implement` — implement one generated Flutter task using the repo architecture and verification rules
 - `implement-tasks-sequence` — execute generated task files in dependency order before final verification
 - `techspec` — translate a PRD into an implementation-ready Flutter tech spec at `.claude/tasks/<feature>/techspec.md`, grounded in the Riverpod / Freezed / AutoRoute / Dio / Firebase stack
+- `spec-feature` — run the full specification pipeline (`prd` → `techspec` → `tasks`) in one shot, from feature idea to implementation-ready tasks
 
 ### How AI tools find these skills
 - **Spec-compliant agents** scan `.agents/skills/` directly — it is the

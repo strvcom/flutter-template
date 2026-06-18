@@ -91,6 +91,36 @@ Save the PRD to `.claude/tasks/[feature-name]/prd.md`.
 
 Choose a stable kebab-case feature folder name, for example `profile-detail`, `event-check-in`, or `push-notification-settings`. If a matching task folder already exists, ask before overwriting an existing PRD.
 
+### Step 4b: Write context.md
+
+After saving `prd.md`, write `.claude/tasks/[feature-name]/context.md` with the following
+structure (use the actual values from the PRD — do not leave placeholder text):
+
+```markdown
+# [Feature Name] — Spec Context
+
+## Feature Name
+[kebab-case folder name]
+
+## Problem Statement
+[1-2 sentences capturing the core problem and who it affects]
+
+## Target Platforms
+[Android, iOS, web, macOS, Windows, Linux — list only those in scope]
+
+## Key Product Decisions
+- [bullet list of the significant product choices captured in the PRD]
+
+## Out of Scope
+- [bullet list of items explicitly excluded]
+
+## Open Questions
+- [any questions that remain unresolved after the PRD; empty list if none]
+```
+
+This file accumulates context across the spec pipeline. Later skills (`techspec`, `tasks`) will
+read it and append their own sections — do not remove or reformat existing sections.
+
 ### Step 5: Report Results
 
 - Confirm the file path

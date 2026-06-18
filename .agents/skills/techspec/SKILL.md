@@ -29,6 +29,13 @@ services for backend, and FVM-pinned Flutter SDK.
 
 ## Workflow
 
+### Step 0: Load Shared Context
+
+Before reading the PRD, check whether `.claude/tasks/[feature-name]/context.md` exists. If it
+does, read it. Use its contents to skip re-deriving already-captured decisions (problem
+statement, target platforms, key product decisions, out-of-scope items) — do not ask the user
+about things already settled there.
+
 ### Step 1: Analyze PRD
 
 Read the PRD at `.claude/tasks/[feature-name]/prd.md` and extract:
@@ -96,6 +103,27 @@ Save to `.claude/tasks/[feature-name]/techspec.md`.
 - Confirm the file path
 - Summarize key architectural decisions (state model, data sources, navigation shape,
   any new packages needed in `pubspec.yaml`)
+
+### Step 5b: Append to context.md
+
+Append the following section to `.claude/tasks/[feature-name]/context.md` (create the file if
+it does not exist). Use actual values from the tech spec — do not leave placeholder text:
+
+```markdown
+
+## Technical Decisions (from techspec)
+
+### Key Architectural Decisions
+- State model: [e.g., AsyncNotifier with UserProfileState freezed union]
+- Data sources: [e.g., dio HTTP via UserProfileUseCase, no local cache]
+- Navigation: [e.g., new @RoutePage full-screen route, no deep-link]
+
+### Files to Create
+- [brief list of new files, one per line, relative to lib/]
+
+### New Packages Needed
+- [package name and reason, or "none"]
+```
 
 ### Step 6: Final next-step prompt
 
