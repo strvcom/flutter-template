@@ -27,8 +27,9 @@ void main() {
     ($) async {
       await $.pumpWidgetAndSettle(buildSubject());
 
-      expect(find.text('We are better than ever!'), findsOneWidget);
-      expect(find.textContaining('important update'), findsOneWidget);
+      final l10n = AppLocalizations.of($.tester.element(find.byType(ForceUpdatePageContent)))!;
+      expect(find.text(l10n.forceUpdateTitle), findsOneWidget);
+      expect(find.text(l10n.forceUpdateDescription), findsOneWidget);
     },
   );
 }

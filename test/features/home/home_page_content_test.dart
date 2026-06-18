@@ -35,7 +35,8 @@ void main() {
       await $.pumpWidgetAndSettle(buildSubject());
 
       // Tap not tested here — it requires a router context
-      expect(find.text('Open debug tools'), findsOneWidget);
+      final l10n = AppLocalizations.of($.tester.element(find.byType(HomePageContent)))!;
+      expect(find.text(l10n.featureHomepageOpenDebugTools), findsOneWidget);
     },
   );
 }
