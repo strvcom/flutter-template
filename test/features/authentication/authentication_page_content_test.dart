@@ -58,6 +58,8 @@ void main() {
   patrolWidgetTest(
     'AuthenticationPageContent - Apple button visible while Google is loading',
     ($) async {
+      // pumpWidgetAndSettle would time out because isGoogleSigningIn=true keeps
+      // the loading spinner animating indefinitely — use a single pump instead.
       await $.tester.pumpWidget(
         ProviderScope(
           overrides: [

@@ -130,9 +130,9 @@ asking how they want to proceed:
 
 Wait for the user's choice. Do NOT auto-run anything.
 
-When invoked by `/start-job`: skip the prompt above and return control to the `/start-job`
-orchestrator. The orchestrator must then invoke `implement-tasks-sequence` as Phase 2 without
-pausing for user input.
+When invoked by `/start-job` or `/spec-feature`: skip the prompt above and return control to the
+calling orchestrator. `/start-job` will then invoke `implement-tasks-sequence` as Phase 2;
+`/spec-feature` will produce its Final Report.
 
 ## Project context
 

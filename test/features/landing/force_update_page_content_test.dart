@@ -27,7 +27,8 @@ void main() {
     ($) async {
       await $.pumpWidgetAndSettle(buildSubject());
 
-      expect(find.textContaining('update', findRichText: true, skipOffstage: false), findsWidgets);
+      expect(find.text('We are better than ever!'), findsOneWidget);
+      expect(find.textContaining('important update'), findsOneWidget);
     },
   );
 }
