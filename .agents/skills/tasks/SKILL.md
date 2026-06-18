@@ -32,6 +32,13 @@ The user does not want to review the task list before implementation. Generate t
 total count reasonable (aim for cohesive tasks, not micro-tasks), and stop after reporting.
 The caller (`/start-job` or the user directly) decides what runs next.
 
+### Step 0: Load Shared Context
+
+Before reading the PRD and tech spec, check whether `.claude/tasks/[feature-name]/context.md`
+exists. If it does, read it. Use its contents to skip re-deriving already-captured decisions —
+the problem statement, target platforms, architectural choices, and files to create are already
+settled. Do not re-ask the user about items already recorded there.
+
 ### Step 1: Analyze PRD and Tech Spec
 
 Read both documents and identify:
@@ -86,6 +93,23 @@ Each task file should include:
 - Constraints — no IO in widgets, no hand-edits to generated files (`*.g.dart`,
   `*.freezed.dart`, `*.gr.dart`), reuse from `lib/common/` before adding new primitives
 - Quality gates — `make gen` clean, `fvm flutter analyze` passes, `fvm flutter test` passes
+
+### Step 4b: Append to context.md
+
+Append the following section to `.claude/tasks/[feature-name]/context.md` (create the file if
+it does not exist). Use actual values — do not leave placeholder text:
+
+```markdown
+
+## Tasks (from tasks breakdown)
+
+### Task Count and Phases
+[e.g., "8 tasks across 3 phases: Foundation (3), Core (3), Integration (2)"]
+
+### Dependency Shape
+[one sentence describing the dependency structure, e.g., "All Foundation tasks must complete
+before Core tasks begin; Integration tasks depend on all Core tasks."]
+```
 
 ### Step 5: Brief Summary
 
